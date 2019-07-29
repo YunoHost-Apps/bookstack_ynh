@@ -110,22 +110,22 @@ ynh_setup_source "$final_path"
 # INSTALL COMPOSER
 #=================================================
 
-ynh_print_info "Install composer"
+#ynh_print_info "Install composer"
 
-EXPECTED_SIGNATURE=$(wget https://composer.github.io/installer.sig -O - -q)
-curl -s https://getcomposer.org/installer > composer-setup.php
-ACTUAL_SIGNATURE=$(php -r "echo hash_file('SHA384', 'composer-setup.php');")
-
-if [ "$EXPECTED_SIGNATURE" = "$ACTUAL_SIGNATURE" ]
-then
-    php composer-setup.php --quiet
-    RESULT=$?
-    rm composer-setup.php
-else
-    >&2 echo 'ERROR: Invalid composer installer signature'
-    rm composer-setup.php
-    exit 1
-fi
+#EXPECTED_SIGNATURE=$(wget https://composer.github.io/installer.sig -O - -q)
+#curl -s https://getcomposer.org/installer > composer-setup.php
+#ACTUAL_SIGNATURE=$(php -r "echo hash_file('SHA384', 'composer-setup.php');")
+#
+#if [ "$EXPECTED_SIGNATURE" = "$ACTUAL_SIGNATURE" ]
+#then
+#    php composer-setup.php --quiet
+#    RESULT=$?
+#    rm composer-setup.php
+#else
+#    >&2 echo 'ERROR: Invalid composer installer signature'
+#    rm composer-setup.php
+#    exit 1
+#fi
 
 #=================================================
 # INSTALL BOOKSTACK DEPS
@@ -134,6 +134,7 @@ fi
 ynh_print_info "Install BookStack composer dependancies"
 
 pushd $final_path || exit
+php -r "readfile('https://getcomposer.org/installer');" | php
 php composer.phar install
 popd || exit
 
