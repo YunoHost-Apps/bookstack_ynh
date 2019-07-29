@@ -3,6 +3,8 @@ BookStack Server
 
 **Shipped version:** 0.26.3
 
+# NOT WORK IS IN DEV
+
 - [Yunohost project](https://yunohost.org)
 - [BookStack website](https://github.com/BookStackApp/BookStack/)
 
