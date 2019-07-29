@@ -100,24 +100,11 @@ ynh_mysql_setup_db $db_name $db_name
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 
+ynh_print_info "Download BookStack"
+
 ynh_app_setting_set $app final_path $final_path
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source "$final_path"
-
-#=================================================
-# SPECIFIC SETUP
-#=================================================
-
-# setup application config
-cp -a ../conf/.env.example $final_path/.env
-
-#=================================================
-# MODIFY A CONFIG FILE
-#=================================================
-
-ynh_replace_string "yunouser"   "$db_name"    "$final_path/.env"
-ynh_replace_string "yunopass"   "$db_pwd"     "$final_path/.env"
-ynh_replace_string "yunobase"   "$db_name"    "$final_path/.env"
 
 #=================================================
 # INSTALL COMPOSER
@@ -139,6 +126,43 @@ else
     rm composer-setup.php
     exit 1
 fi
+
+#=================================================
+# INSTALL BOOKSTACK DEPS
+#=================================================
+
+ynh_print_info "Install BookStack composer dependancies"
+
+pushd $final_path || exit
+php composer.phar install
+popd || exit
+
+#=================================================
+# SPECIFIC SETUP
+#=================================================
+
+# setup application config
+cp -a ../conf/.env.example $final_path/.env
+
+#=================================================
+# MODIFY A CONFIG FILE
+#=================================================
+
+ynh_replace_string "yunouser"   "$db_name"    "$final_path/.env"
+ynh_replace_string "yunopass"   "$db_pwd"     "$final_path/.env"
+ynh_replace_string "yunobase"   "$db_name"    "$final_path/.env"
+
+#=================================================
+# FINAL BOOKSTACK INSTALL
+#=================================================
+
+ynh_print_info "Install BookStack"
+
+pushd $final_path || exit
+php artisan key:generate --no-interaction --force
+php artisan migrate --no-interaction --force
+chown www-data:www-data -R bootstrap/cache public/uploads storage && chmod -R 755 bootstrap/cache public/uploads storage
+popd || exit
 
 #=================================================
 # NGINX CONFIGURATION
