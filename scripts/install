@@ -142,7 +142,7 @@ ynh_system_user_create $app
 ### you can make a backup of this file before modifying it again if the admin had modified it.
 
 # Calculate and store the config file checksum into the app settings
-ynh_store_file_checksum "$final_path/config.json"
+#ynh_store_file_checksum "$final_path/config.json"
 
 #=================================================
 # GENERIC FINALIZATION
@@ -155,14 +155,8 @@ ynh_store_file_checksum "$final_path/config.json"
 ### that really need such authorization.
 
 # Set permissions to app files
-#useradd --system --home /var/lib/pufferd --user-group pufferd
-chown -R www-data:www-data /srv/pufferpanel/logs
-chown -R 1007:1007 $final_path
-chown -R pufferd:pufferd /var/lib/pufferd /etc/pufferd /var/log/pufferd
 
-echo "Preparing for docker containers if enabled"
-groupadd --force --system docker
-usermod -a -G docker pufferd
+chown -R www-data:www-data $final_path
 
 #=================================================
 # SETUP SSOWAT
@@ -176,5 +170,3 @@ fi
 
 # Reload services
 systemctl reload nginx
-systemctl start pufferd
-systemctl enable pufferd
