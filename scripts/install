@@ -119,14 +119,6 @@ ynh_replace_string "yunouser"   "$db_name"    "$final_path/.env"
 ynh_replace_string "yunopass"   "$db_pwd"     "$final_path/.env"
 ynh_replace_string "yunobase"   "$db_name"    "$final_path/.env"
 
-#==============================================
-# INSTALL DAEMON Pufferd
-#==============================================
-
-wget https://github.com/YunoHost-Apps/pufferpanel_ynh/releases/download/1.2.5/pufferd_1.2.5_amd64.deb
-dpkg --install pufferd_1.2.5_amd64.deb
-pufferd --install --auth https://$domain$path_url --token ${nodeSecret} --config /etc/pufferd/config.json
-
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
