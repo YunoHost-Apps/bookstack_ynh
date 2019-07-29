@@ -6,7 +6,7 @@ BookStack Server
 - [Yunohost project](https://yunohost.org)
 - [BookStack website](https://github.com/BookStackApp/BookStack/)
 
-![]()
+![](https://avatars1.githubusercontent.com/u/20912696?s=400&v=4)
 
 
 [![Install BookStack with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=bookstack)
