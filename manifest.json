@@ -52,24 +52,6 @@
                     "fr": "Est-ce un site public ?"
                 },
                 "default": "true"
-            },
-            {
-                "name": "email",
-                "type": "email",
-                "ask": {
-                    "en": "Set the administrator email",
-                    "fr": "Définissez l'email administrateur"
-                },
-                "example": "Choose a email"
-            },
-            {
-                "name": "password",
-                "type": "password",
-                "ask": {
-                    "en": "Set the administrator password",
-                    "fr": "Définissez le mot de passe administrateur"
-                },
-                "example": "Choose a password"
             }
         ]
     }
