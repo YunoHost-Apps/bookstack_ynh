@@ -70,7 +70,7 @@ ynh_app_setting_set $app is_public $is_public
 # INSTALL DEPS
 #==============================================
 
-ynh_package_updateynh_print_info "Installing dependencies..."
+ynh_print_info "Installing dependencies..."
 
 ynh_install_app_dependencies openssl curl mysql-client mysql-server php7.0-fpm php7.0-cli php7.0-curl php7.0-mysql
 
