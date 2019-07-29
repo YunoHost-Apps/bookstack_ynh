@@ -88,42 +88,20 @@ systemctl start php7.0-fpm
 #=================================================
 # CREATE A MYSQL DATABASE
 #=================================================
-# If your app uses a MySQL database, you can use these lines to bootstrap
-# a database, an associated user and save the password in app settings
+ynh_print_info "Creating a MySQL database..."
+
+### Use these lines if you need a database for the application.
+### `ynh_mysql_setup_db` will create a database, an associated user and a ramdom password.
+### The password will be stored as 'mysqlpwd' into the app settings,
+### and will be available as $db_pwd
+### If you're not using these lines:
+###		- Remove the section "BACKUP THE MYSQL DATABASE" in the backup script
+###		- Remove also the section "REMOVE THE MYSQL DATABASE" in the remove script
+###		- As well as the section "RESTORE THE MYSQL DATABASE" in the restore script
 
 db_name=$(ynh_sanitize_dbid $app)
 ynh_app_setting_set $app db_name $db_name
-ynh_mysql_setup_db $db_name $db_name <<< "flush privileges;"
-
-db_user=$db_name
-
-echo "Creating pufferpanel account and installing database..."
-#mysql -D $db_name -h localhost -P 3306 -u $db_name --password="$db_pwd" < ../conf/install.sql
-#ynh_mysql_execute_as_root -D $db_name <<< "flush privileges;"
-ynh_mysql_execute_file_as_root ../conf/install.sql $db_name
-
-#mysql -D $db_name -h localhost -P 3306 -u $db_name --password="$db_pwd" -e "SET GLOBAL event_scheduler = ON;"
-#ynh_mysql_connect_as $db_user $db_pwd  <<< "SET GLOBAL event_scheduler = ON;"
-ynh_mysql_execute_as_root "SET GLOBAL event_scheduler = ON;" $db_name
-
-echo "Installing user..."
-#mysql -D $db_name -h localhost -P 3306 -D $db_name -u $db_name --password="$db_pwd" -e "
-#INSERT INTO users VALUES (NULL, '${uuid}', '${username}', '${email}', '${password}', 'en_US', ${time}, NULL, NULL, 1, 0, 1, 0, NULL) ON DUPLICATE KEY UPDATE password='${password}'"
-#ynh_mysql_connect_as $db_user $db_pwd <<< "INSERT INTO users VALUES (NULL, '${uuid}', '$db_user', '${email}', '${password}', 'en_US', ${time}, NULL, NULL, 1, 0, 1, 0, NULL) ON DUPLICATE KEY UPDATE password='${password}'"
-ynh_mysql_execute_as_root "INSERT INTO users VALUES (NULL, '${uuid}', '$db_user', '${email}', '${password_user}', 'en_US', ${time}, NULL, NULL, 1, 0, 1, 0, NULL) ON DUPLICATE KEY UPDATE password='${password}'" $db_name
-
-ynh_mysql_execute_as_root "
-INSERT INTO nodes (name, location, fqdn, ip, daemon_secret,daemon_listen,daemon_sftp, allocate_memory, allocate_disk, ips, ports, public, docker)
-VALUES('LocalNode', (SELECT id FROM locations WHERE short = 'Localhost'), '$domain$path_url', '127.0.0.1', '${nodeSecret}', 5656, 5657, 0, 0, '{}', '{}', 1, 0)" $db_name
-#mysql -h ${mysqlHost} -P ${mysqlPort} -D ${mysqlDb} -u ${mysqlUser} --password="${mysqlPass}" -e "
-#INSERT INTO nodes (name, location, fqdn, ip, daemon_secret,daemon_listen,daemon_sftp, allocate_memory, allocate_disk, ips, ports, public, docker)
-#VALUES('LocalNode', (SELECT id FROM locations WHERE short = 'Localhost'), '${siteUrl}', '127.0.0.1', '${nodeSecret}', 5656, 5657, 0, 0, '{}', '{}', 1, 0)" 
-
-ynh_mysql_execute_as_root "INSERT INTO acp_settings (setting_ref, setting_val) VALUES ('master_url', 'https://$domain$path_url') ON DUPLICATE KEY UPDATE setting_val = VALUES(setting_val)" $db_name
-
-#mysql -h ${mysqlHost} -P ${mysqlPort} -D ${mysqlDb} -u ${mysqlUser} --password="${mysqlPass}" -e "
-#            SELECT setting_val FROM acp_settings WHERE setting_ref='master_url'"
-ynh_mysql_execute_as_root "SELECT setting_val FROM acp_settings WHERE setting_ref='master_url'" $db_name
+ynh_mysql_setup_db $db_name $db_name
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
