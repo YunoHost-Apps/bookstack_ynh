@@ -15,7 +15,7 @@ BookStack Server
 
  App can be installed by YunoHost **admin web-interface** or by **running following command**:
 
-         $ sudo yunohost app install --debug https://github.com/YunoHost-Apps/bookstack_ynh
+         $ sudo yunohost app install https://github.com/YunoHost-Apps/bookstack_ynh
          
          After install :
  
