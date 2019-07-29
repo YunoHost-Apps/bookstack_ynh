@@ -28,14 +28,6 @@ ynh_abort_if_errors
 domain=$YNH_APP_ARG_DOMAIN
 path_url=$YNH_APP_ARG_PATH
 is_public=$YNH_APP_ARG_IS_PUBLIC
-email=$YNH_APP_ARG_EMAIL
-password=$YNH_APP_ARG_PASSWORD
-uuid=$(cat /proc/sys/kernel/random/uuid)
-time=$(php -r 'echo time();')
-nodeSecret=$(cat /proc/sys/kernel/random/uuid)
-nodeSecret=${nodeSecret^^}
-#pufferdVersion=$(cat src/versions/pufferd)
-password_user=$(php -r "echo password_hash('${password}', PASSWORD_BCRYPT);");
 
 ### If it's a multi-instance app, meaning it can be installed several times independently
 ### The id of the app as stated in the manifest is available as $YNH_APP_ID
@@ -55,7 +47,7 @@ app=$YNH_APP_INSTANCE_NAME
 
 ### If the app uses nginx as web server (written in HTML/PHP in most cases), the final path should be "/var/www/$app".
 ### If the app provides an internal web server (or uses another application server such as uwsgi), the final path should be "/opt/yunohost/$app"
-final_path=/srv/$app
+final_path=/var/www/$app
 test ! -e "$final_path" || ynh_die "This path already contains a folder"
 
 # Normalize the url path syntax
