@@ -37,8 +37,8 @@
                 "name": "path",
                 "type": "path",
                 "ask": {
-                    "en": "Choose a path for BookStack / is accepted",
-                    "fr": "Choisissez un chemin pour BookStack / est accepté"
+                    "en": "Choose a path for BookStack, only / is accepted for now",
+                    "fr": "Choisissez un chemin pour BookStack, seul / est accepté pour l'instant"
                 },
                 "example": "/",
                 "default": "/"
