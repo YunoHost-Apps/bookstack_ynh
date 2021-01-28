@@ -48,7 +48,7 @@ ynh_app_setting_set --app=$app --key=path --value=$path_url
 #=================================================
 # CREATE A MYSQL DATABASE
 #=================================================
-ynh_script_progression --message="Creating a MySQL database..." --time --weight=1
+ynh_script_progression --message="Creating a MySQL database..." --weight=1
 
 db_name=$(ynh_sanitize_dbid --db_name=$app)
 db_user=$db_name
@@ -92,7 +92,7 @@ phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 #=================================================
 # INSTALL LYCHEE WITH COMPOSER
 #=================================================
-ynh_script_progression --message="Installing BookStack with Composer..." --weight=15
+ynh_script_progression --message="Installing BookStack with Composer..." --weight=5
 
 # Install composer
 ynh_install_composer --phpversion=$phpversion --workdir=$final_path --install_args="--prefer-source --no-dev"
@@ -111,7 +111,7 @@ ynh_store_file_checksum $final_path/.env
 #=================================================
 # FINAL BOOKSTACK INSTALL
 #=================================================
-ynh_script_progression --message="Install BookStack" --time --weight=1
+ynh_script_progression --message="Install BookStack" --weight=5
 
 pushd $final_path
 	php$phpversion artisan key:generate --no-interaction --force
@@ -131,7 +131,7 @@ chmod -R 755 $final_path/bootstrap/cache $final_path/public/uploads $final_path/
 #=================================================
 # SETUP SSOWAT
 #=================================================
-ynh_script_progression --message="Configuring permissions..." --time --weight=1
+ynh_script_progression --message="Configuring permissions..." --weight=50
 
 # Make app public if necessary
 if [ $is_public -eq 1 ]
@@ -142,7 +142,7 @@ fi
 #=================================================
 # RELOAD NGINX
 #=================================================
-ynh_script_progression --message="Reloading NGINX web server..." --time --weight=1
+ynh_script_progression --message="Reloading NGINX web server..." --weight=2
 
 ynh_systemd_action --service_name=nginx --action=reload
 
@@ -150,4 +150,4 @@ ynh_systemd_action --service_name=nginx --action=reload
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Installation of $app completed" --time --last
+ynh_script_progression --message="Installation of $app completed" --last
