@@ -1,112 +1,85 @@
 #!/bin/bash
 
-# =============================================================================
-#                     YUNOHOST 2.7 FORTHCOMING HELPERS
-# =============================================================================
+#=================================================
+# COMMON VARIABLES
+#=================================================
 
-# Create a dedicated nginx config
+YNH_PHP_VERSION="7.3"
+
+extra_php_dependencies="php${YNH_PHP_VERSION}-cli php${YNH_PHP_VERSION}-curl php${YNH_PHP_VERSION}-mysql php${YNH_PHP_VERSION}-ldap php${YNH_PHP_VERSION}-mbstring php${YNH_PHP_VERSION}-tidy php${YNH_PHP_VERSION}-xml php${YNH_PHP_VERSION}-zip php${YNH_PHP_VERSION}-gd php${YNH_PHP_VERSION}-mysql
+"
+# dependencies used by the app
+#pkg_dependencies="deb1 deb2 php$YNH_DEFAULT_PHP_VERSION-deb1 php$YNH_DEFAULT_PHP_VERSION-deb2"
+
+#=================================================
+# PERSONAL HELPERS
+#=================================================
+
+#=================================================
+# EXPERIMENTAL HELPERS
+#=================================================
+
+#=================================================
+# FUTURE OFFICIAL HELPERS
+#=================================================
+
+
+readonly YNH_DEFAULT_COMPOSER_VERSION=2.0.8
+# Declare the actual composer version to use.
+# A packager willing to use another version of composer can override the variable into its _common.sh.
+YNH_COMPOSER_VERSION=${YNH_COMPOSER_VERSION:-$YNH_DEFAULT_COMPOSER_VERSION}
+
+# Execute a command with Composer
 #
-# usage: ynh_add_nginx_config
-ynh_add_nginx_config () {
-	finalnginxconf="/etc/nginx/conf.d/$domain.d/$app.conf"
-	ynh_backup_if_checksum_is_different "$finalnginxconf"
-	sudo cp ../conf/nginx.conf "$finalnginxconf"
+# usage: ynh_composer_exec [--phpversion=phpversion] [--workdir=$final_path] --commands="commands"
+# | arg: -v, --phpversion - PHP version to use with composer
+# | arg: -w, --workdir - The directory from where the command will be executed. Default $final_path.
+# | arg: -c, --commands - Commands to execute.
+ynh_composer_exec () {
+    # Declare an array to define the options of this helper.
+    local legacy_args=vwc
+    declare -Ar args_array=( [v]=phpversion= [w]=workdir= [c]=commands= )
+    local phpversion
+    local workdir
+    local commands
+    # Manage arguments with getopts
+    ynh_handle_getopts_args "$@"
+    workdir="${workdir:-$final_path}"
+    phpversion="${phpversion:-$YNH_PHP_VERSION}"
 
-	# To avoid a break by set -u, use a void substitution ${var:-}. If the variable is not set, it's simply set with an empty variable.
-	# Substitute in a nginx config file only if the variable is not empty
-	if test -n "${path_url:-}"; then
-		ynh_replace_string "__PATH__" "$path_url" "$finalnginxconf"
-	fi
-	if test -n "${domain:-}"; then
-		ynh_replace_string "__DOMAIN__" "$domain" "$finalnginxconf"
-	fi
-	if test -n "${port:-}"; then
-		ynh_replace_string "__PORT__" "$port" "$finalnginxconf"
-	fi
-	if test -n "${app:-}"; then
-		ynh_replace_string "__NAME__" "$app" "$finalnginxconf"
-	fi
-	if test -n "${final_path:-}"; then
-		ynh_replace_string "__FINALPATH__" "$final_path" "$finalnginxconf"
-	fi
-	ynh_store_file_checksum "$finalnginxconf"
-
-	sudo systemctl reload nginx
+    COMPOSER_HOME="$workdir/.composer" \
+        php${phpversion} "$workdir/composer.phar" $commands \
+        -d "$workdir" --quiet --no-interaction
 }
 
-# Remove the dedicated nginx config
+# Install and initialize Composer in the given directory
 #
-# usage: ynh_remove_nginx_config
-ynh_remove_nginx_config () {
-	ynh_secure_remove "/etc/nginx/conf.d/$domain.d/$app.conf"
-	sudo systemctl reload nginx
-}
+# usage: ynh_install_composer [--phpversion=phpversion] [--workdir=$final_path] [--install_args="--optimize-autoloader"] [--composerversion=composerversion]
+# | arg: -v, --phpversion - PHP version to use with composer
+# | arg: -w, --workdir - The directory from where the command will be executed. Default $final_path.
+# | arg: -a, --install_args - Additional arguments provided to the composer install. Argument --no-dev already include
+# | arg: -c, --composerversion - Composer version to install
+ynh_install_composer () {
+    # Declare an array to define the options of this helper.
+    local legacy_args=vwa
+    declare -Ar args_array=( [v]=phpversion= [w]=workdir= [a]=install_args= [c]=composerversion=)
+    local phpversion
+    local workdir
+    local install_args
+    local composerversion
+    # Manage arguments with getopts
+    ynh_handle_getopts_args "$@"
+    workdir="${workdir:-$final_path}"
+    phpversion="${phpversion:-$YNH_PHP_VERSION}"
+    install_args="${install_args:-}"
+    composerversion="${composerversion:-$YNH_COMPOSER_VERSION}"
 
-# Create a dedicated php-fpm config
-#
-# usage: ynh_add_fpm_config
-ynh_add_fpm_config () {
-	finalphpconf="/etc/php5/fpm/pool.d/$app.conf"
-	ynh_backup_if_checksum_is_different "$finalphpconf"
-	sudo cp ../conf/php-fpm.conf "$finalphpconf"
-	ynh_replace_string "__NAMETOCHANGE__" "$app" "$finalphpconf"
-	ynh_replace_string "__FINALPATH__" "$final_path" "$finalphpconf"
-	ynh_replace_string "__USER__" "$app" "$finalphpconf"
-	sudo chown root: "$finalphpconf"
-	ynh_store_file_checksum "$finalphpconf"
+    curl -sS https://getcomposer.org/installer 2>&1 \
+        | COMPOSER_HOME="$workdir/.composer" \
+        php${phpversion} -- --quiet --install-dir="$workdir" --version=$composerversion \
+        || ynh_die "Unable to install Composer." 2>&1
 
-	if [ -e "../conf/php-fpm.ini" ]
-	then
-		finalphpini="/etc/php5/fpm/conf.d/20-$app.ini"
-		ynh_backup_if_checksum_is_different "$finalphpini"
-		sudo cp ../conf/php-fpm.ini "$finalphpini"
-		sudo chown root: "$finalphpini"
-		ynh_store_file_checksum "$finalphpini"
-	fi
-
-	sudo systemctl reload php5-fpm
-}
-
-# Remove the dedicated php-fpm config
-#
-# usage: ynh_remove_fpm_config
-ynh_remove_fpm_config () {
-	ynh_secure_remove "/etc/php5/fpm/pool.d/$app.conf"
-	ynh_secure_remove "/etc/php5/fpm/conf.d/20-$app.ini" 2>&1
-	sudo systemctl reload php5-fpm
-}
-
-# Create a dedicated systemd config
-#
-# usage: ynh_add_systemd_config
-ynh_add_systemd_config () {
-	finalsystemdconf="/etc/systemd/system/$app.service"
-	ynh_backup_if_checksum_is_different "$finalsystemdconf"
-	sudo cp ../conf/systemd.service "$finalsystemdconf"
-
-	# To avoid a break by set -u, use a void substitution ${var:-}. If the variable is not set, it's simply set with an empty variable.
-	# Substitute in a nginx config file only if the variable is not empty
-	if test -n "${final_path:-}"; then
-		ynh_replace_string "__FINALPATH__" "$final_path" "$finalsystemdconf"
-	fi
-	if test -n "${app:-}"; then
-		ynh_replace_string "__APP__" "$app" "$finalsystemdconf"
-	fi
-	ynh_store_file_checksum "$finalsystemdconf"
-
-	sudo chown root: "$finalsystemdconf"
-	sudo systemctl enable $app
-	sudo systemctl daemon-reload
-}
-
-# Remove the dedicated systemd config
-#
-# usage: ynh_remove_systemd_config
-ynh_remove_systemd_config () {
-	finalsystemdconf="/etc/systemd/system/$app.service"
-	if [ -e "$finalsystemdconf" ]; then
-		sudo systemctl stop $app
-		sudo systemctl disable $app
-		ynh_secure_remove "$finalsystemdconf"
-	fi
+    # update dependencies to create composer.lock
+    ynh_composer_exec --phpversion="${phpversion}" --workdir="$workdir" --commands="install --no-dev $install_args" \
+        || ynh_die "Unable to update core dependencies with Composer."
 }

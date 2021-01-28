@@ -3,23 +3,23 @@
     "id": "bookstack",
     "packaging_format": 1,
     "description": {
-        "en": "BookStack package for YunoHost.",
-        "fr": "BookStack pour YunoHost."
+        "en": "A platform to create documentation/wiki content",
+        "fr": ""
     },
-    "version": "0.26.3",
+    "version": "0.31.4~ynh1",
     "url": "https://github.com/BookStackApp/BookStack",
-    "license": "free",
+    "license": "MIT",
     "maintainer": {
         "name": "liberodark",
         "email": "liberodark@gmail.com"
     },
     "requirements": {
-        "yunohost": ">= 2.7.2"
+        "yunohost": ">= 4.0.0"
     },
     "multi_instance": true,
     "services": [
         "nginx",
-        "php5-fpm",
+        "php7.3-fpm",
         "mysql"
     ],
     "arguments": {
@@ -32,7 +32,6 @@
                 },
                 "example": "example.com"
             },
-
             {
                 "name": "path",
                 "type": "path",
@@ -43,15 +42,14 @@
                 "example": "/",
                 "default": "/"
             },
-            
             {
                 "name": "is_public",
                 "type": "boolean",
                 "ask": {
-                    "en": "Is it a public site ?",
+                    "en": "Is it a public site?",
                     "fr": "Est-ce un site public ?"
                 },
-                "default": "true"
+                "default": true
             }
         ]
     }
