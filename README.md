@@ -19,7 +19,7 @@ BookStack is a simple, self-hosted, easy-to-use platform for organising and stor
 
 ## Demo
 
-* [Official demo](https://www.bookstackapp.com/#demo)
+* [Official demo](https://demo.bookstackapp.com/)
 
 ## Configuration
 Login using the default admin details `admin@admin.com` with a password of `password`. You should change these details immediately after logging in for the first time.
