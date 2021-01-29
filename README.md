@@ -30,14 +30,14 @@ For the first time Login, use the default credentials `admin@admin.com` and `pas
 ## Documentation
 
  * Official documentation: https://www.bookstackapp.com/docs/
- * YunoHost documentation: If specific documentation is needed, feel free to contribute.
+ * YunoHost documentation: https://yunohost.org/#/app_bookstack
 
 ## YunoHost specific features
 
 #### Multi-user support
 
- * Are LDAP and HTTP auth supported?
- * Can the app be used by multiple users?
+ * Are LDAP and HTTP auth supported? **Yes**
+ * Can the app be used by multiple users? **Yes**
 
 #### Supported architectures
 
