@@ -21,7 +21,7 @@ ynh_abort_if_errors
 
 # Retrieve arguments
 domain=$YNH_APP_ARG_DOMAIN
-path_url=$YNH_APP_ARG_PATH
+path_url="/"
 is_public=$YNH_APP_ARG_IS_PUBLIC
 language=$YNH_APP_ARG_LANGUAGE
 
@@ -129,7 +129,7 @@ popd
 #=================================================
 
 # Set permissions to app files
-chown -R www-data:www-data $final_path
+chown -R $app: $final_path
 chmod -R 755 $final_path
 
 #=================================================

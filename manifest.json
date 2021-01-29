@@ -39,8 +39,8 @@
                     "en": "Choose a path for BookStack",
                     "fr": "Choisissez un chemin pour BookStack"
                 },
-                "example": "/bookstack",
-                "default": "/bookstack"
+                "example": "/",
+                "default": "/"
             },
             {
                 "name": "language",
