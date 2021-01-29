@@ -9,7 +9,9 @@
 If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/install) to learn how to install it.*
 
 ## Overview
-BookStack is a simple, self-hosted, easy-to-use platform for organising and storing information.
+BookStack is a simple, self-hosted, easy-to-use platform for organising and storing information. It is an opinionated wiki system that provides a pleasant and simple out of the box experience.
+
+BookStack is built using PHP, on top of the Laravel framework and it uses MySQL to store data.
 
 **Shipped version:** 0.31.4
 
