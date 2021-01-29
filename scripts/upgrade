@@ -85,7 +85,21 @@ ynh_add_fpm_config --package="$extra_php_dependencies"
 ynh_script_progression --message="Upgrading Composer..." --weight=1
 
 # Upgrade composer itself
-ynh_install_composer
+ynh_install_composer --phpversion=$phpversion --workdir=$final_path --install_args="--prefer-source --no-dev"
+
+#=================================================
+# MODIFY A CONFIG FILE
+#=================================================
+cp -a ../conf/.env.example $final_path/.env
+
+ynh_replace_string --match_string="__DB_NAME__" --replace_string="$db_name" --target_file="$final_path/.env"
+ynh_replace_string --match_string="__DB_PWD__" --replace_string="$db_pwd" --target_file="$final_path/.env"
+ynh_replace_string --match_string="__DOMAIN__" --replace_string="$domain" --target_file="$final_path/.env"
+ynh_replace_string --match_string="__PATH__" --replace_string="$path_url" --target_file="$final_path/.env"
+ynh_replace_string --match_string="__LANGUAGE__" --replace_string="$language" --target_file="$final_path/.env"
+ynh_replace_string --match_string="__APP__" --replace_string="$app" --target_file="$final_path/.env"
+
+ynh_store_file_checksum $final_path/.env
 
 #=================================================
 # INSTALL AND INITIALIZE COMPOSER
@@ -95,7 +109,9 @@ ynh_script_progression --message="Upgrading source files..." --weight=10
 pushd $final_path
 	# install the PHP dependencies using Composer
 	ynh_composer_exec phpversion="$phpversion" workdir="$final_path" --commands="install --no-dev"
-	php$phpversion artisan migrate && php$phpversion artisan cache:clear && php$phpversion artisan view:clear
+	php$phpversion artisan migrate --no-interaction --force
+	php$phpversion artisan cache:clear --no-interaction --force
+	php$phpversion artisan view:clear --no-interaction --force
 popd
 
 #=================================================

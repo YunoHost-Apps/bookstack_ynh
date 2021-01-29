@@ -22,6 +22,7 @@ BookStack est une plate-forme simple, auto-hébergée et facile à utiliser pour
 * [Démo officielle](https://demo.bookstackapp.com/)
 
 ## Configuration
+
 Login using the default admin details `admin@admin.com` with a password of `password`. You should change these details immediately after logging in for the first time.
 
  * How to configure this app: From an admin panel, a plain file with SSH, or any other way.
