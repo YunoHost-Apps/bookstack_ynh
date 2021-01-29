@@ -126,12 +126,7 @@ popd
 
 # Set permissions to app files
 chown -R www-data:www-data $final_path
-chown -R www-data:www-data $final_path/bootstrap/cache public/uploads storage
-chown -R www-data:www-data $final_path/public/uploads
-chown -R www-data:www-data $final_path/storage
-chmod -R 755 $final_path/bootstrap/cache
-chmod -R 755 $final_path/public/uploads
-chmod -R 755 $final_path/storage
+chmod -R 755 $final_path
 
 #=================================================
 # SETUP SSOWAT
