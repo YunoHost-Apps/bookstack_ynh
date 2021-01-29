@@ -21,7 +21,7 @@ ynh_abort_if_errors
 
 # Retrieve arguments
 domain=$YNH_APP_ARG_DOMAIN
-path_url="/"
+path_url=$YNH_APP_ARG_PATH
 is_public=$YNH_APP_ARG_IS_PUBLIC
 language=$YNH_APP_ARG_LANGUAGE
 
@@ -109,6 +109,7 @@ ynh_replace_string --match_string="__DB_PWD__" --replace_string="$db_pwd" --targ
 ynh_replace_string --match_string="__DOMAIN__" --replace_string="$domain" --target_file="$final_path/.env"
 ynh_replace_string --match_string="__PATH__" --replace_string="$path_url" --target_file="$final_path/.env"
 ynh_replace_string --match_string="__LANGUAGE__" --replace_string="$language" --target_file="$final_path/.env"
+ynh_replace_string --match_string="__APP__" --replace_string="$app" --target_file="$final_path/.env"
 
 ynh_store_file_checksum $final_path/.env
 
