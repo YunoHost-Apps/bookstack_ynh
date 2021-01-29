@@ -1,4 +1,8 @@
-# BookStack app for YunoHost
+# BookStack for YunoHost
+
+[![Integration level](https://dash.yunohost.org/integration/bookstack.svg)](https://dash.yunohost.org/appci/app/bookstack) ![](https://ci-apps.yunohost.org/ci/badges/bookstack.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/bookstack.maintain.svg)  
+[![Install bookstack with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=bookstack)
+
 BookStack Server
 
 **Shipped version:** 0.26.3
@@ -7,9 +11,6 @@ BookStack Server
 - [BookStack website](https://github.com/BookStackApp/BookStack/)
 
 ![](https://avatars1.githubusercontent.com/u/20912696?s=400&v=4)
-
-
-[![Install BookStack with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=bookstack)
 
 ### Installing guide
 
