@@ -111,9 +111,9 @@ ynh_script_progression --message="Upgrading source files..." --weight=10
 pushd $final_path
 	# install the PHP dependencies using Composer
 	#ynh_composer_exec phpversion="$phpversion" workdir="$final_path" --commands="install --no-dev"
-	php$phpversion artisan migrate --no-interaction --force
-	php$phpversion artisan cache:clear --no-interaction --force
-	php$phpversion artisan view:clear --no-interaction --force
+	php$phpversion artisan migrate
+	php$phpversion artisan cache:clear
+	php$phpversion artisan view:clear
 popd
 
 #=================================================
