@@ -7,8 +7,8 @@
 	; Manifest
 		domain="domain.tld"	(DOMAIN)
 		path="/"	(PATH)	
+		language="fr"
 		is_public=1	(PUBLIC|public=1|private=0)
-		port="9980"	(PORT)
 	; Checks
 		pkg_linter=1
 		setup_sub_dir=1
