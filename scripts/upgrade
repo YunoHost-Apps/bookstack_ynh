@@ -90,18 +90,13 @@ ynh_install_composer
 #=================================================
 # INSTALL AND INITIALIZE COMPOSER
 #=================================================
-ynh_script_progression --message="Installing Composer..." --weight=10
+ynh_script_progression --message="Upgrading source files..." --weight=10
 
-if [ "$upgrade_type" == "UPGRADE_APP" ]
-then
+pushd $final_path
 	# install the PHP dependencies using Composer
 	ynh_exec_warn_less ynh_composer_exec --commands="install --no-dev"
-
-	ynh_script_progression --message="Upgrading source files..." --weight=4
-	pushd $final_path
-		php$phpversion artisan migrate && php$phpversion artisan cache:clear && php$phpversion artisan view:clear
-	popd
-fi
+	php$phpversion artisan migrate && php$phpversion artisan cache:clear && php$phpversion artisan view:clear
+popd
 
 #=================================================
 # GENERIC FINALIZATION
@@ -111,6 +106,7 @@ fi
 
 # Set permissions on app files
 chown -R $app: $final_path
+chmod -R 755 $final_path
 
 #=================================================
 # RELOAD NGINX
