@@ -112,8 +112,8 @@ pushd $final_path
 	# install the PHP dependencies using Composer
 	#ynh_composer_exec phpversion="$phpversion" workdir="$final_path" --commands="install --no-dev"
 	php$phpversion artisan migrate --no-interaction
-	php$phpversion artisan cache:clear --no-interaction
-	php$phpversion artisan view:clear --no-interaction
+	#php$phpversion artisan cache:clear --no-interaction
+	#php$phpversion artisan view:clear --no-interaction
 popd
 
 #=================================================
