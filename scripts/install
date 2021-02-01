@@ -13,11 +13,6 @@ source /usr/share/yunohost/helpers
 # MANAGE SCRIPT FAILURE
 #=================================================
 
-ynh_clean_setup () {
-	### Remove this function if there's nothing to clean before calling the remove script.
-	true
-}
-# Exit if an error occurs during the execution of the script
 ynh_abort_if_errors
 
 #=================================================
@@ -28,146 +23,105 @@ ynh_abort_if_errors
 domain=$YNH_APP_ARG_DOMAIN
 path_url=$YNH_APP_ARG_PATH
 is_public=$YNH_APP_ARG_IS_PUBLIC
+language=$YNH_APP_ARG_LANGUAGE
 
-### If it's a multi-instance app, meaning it can be installed several times independently
-### The id of the app as stated in the manifest is available as $YNH_APP_ID
-### The instance number is available as $YNH_APP_INSTANCE_NUMBER (equals "1", "2", ...)
-### The app instance name is available as $YNH_APP_INSTANCE_NAME
-###    - the first time the app is installed, YNH_APP_INSTANCE_NAME = ynhexample
-###    - the second time the app is installed, YNH_APP_INSTANCE_NAME = ynhexample__2
-###    - ynhexample__{N} for the subsequent installations, with N=3,4, ...
-### The app instance name is probably what interests you most, since this is
-### guaranteed to be unique. This is a good unique identifier to define installation path,
-### db names, ...
 app=$YNH_APP_INSTANCE_NAME
 
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
 #=================================================
+ynh_script_progression --message="Validating installation parameters..." --weight=1
 
-### If the app uses nginx as web server (written in HTML/PHP in most cases), the final path should be "/var/www/$app".
-### If the app provides an internal web server (or uses another application server such as uwsgi), the final path should be "/opt/yunohost/$app"
 final_path=/var/www/$app
 test ! -e "$final_path" || ynh_die "This path already contains a folder"
 
-# Normalize the url path syntax
-path_url=$(ynh_normalize_url_path $path_url)
-
-# Check web path availability
-ynh_webpath_available $domain $path_url
 # Register (book) web path
-ynh_webpath_register $app $domain $path_url
+ynh_webpath_register --app=$app --domain=$domain --path_url=$path_url
 
 #=================================================
 # STORE SETTINGS FROM MANIFEST
 #=================================================
+ynh_script_progression --message="Storing installation settings..." --weight=1
 
-ynh_app_setting_set $app domain $domain
-ynh_app_setting_set $app path $path_url
-ynh_app_setting_set $app is_public $is_public
-
-#==============================================
-# INSTALL DEPS
-#==============================================
-
-ynh_print_info "Installing dependencies..."
-
-ynh_install_app_dependencies php7.0-fpm php7.0-cli php7.0-curl php7.0-mysql php7.0-ldap php7.0-mbstring php7.0-tidy php7.0-xml php7.0-zip php7.0-gd php7.0-mysql
-
-## Start php7
-systemctl enable php7.0-fpm
-systemctl start php7.0-fpm
+ynh_app_setting_set --app=$app --key=domain --value=$domain
+ynh_app_setting_set --app=$app --key=path --value=$path_url
+ynh_app_setting_set --app=$app --key=language --value=$language
 
 #=================================================
 # CREATE A MYSQL DATABASE
 #=================================================
-ynh_print_info "Creating a MySQL database..."
+ynh_script_progression --message="Creating a MySQL database..." --weight=1
 
-### Use these lines if you need a database for the application.
-### `ynh_mysql_setup_db` will create a database, an associated user and a ramdom password.
-### The password will be stored as 'mysqlpwd' into the app settings,
-### and will be available as $db_pwd
-### If you're not using these lines:
-###		- Remove the section "BACKUP THE MYSQL DATABASE" in the backup script
-###		- Remove also the section "REMOVE THE MYSQL DATABASE" in the remove script
-###		- As well as the section "RESTORE THE MYSQL DATABASE" in the restore script
-
-db_name=$(ynh_sanitize_dbid $app)
-ynh_app_setting_set $app db_name $db_name
-ynh_mysql_setup_db $db_name $db_name
+db_name=$(ynh_sanitize_dbid --db_name=$app)
+db_user=$db_name
+ynh_app_setting_set --app=$app --key=db_name --value=$db_name
+ynh_mysql_setup_db --db_user=$db_user --db_name=$db_name
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
+ynh_script_progression --message="Setting up source files..." --weight=7
 
-ynh_print_info "Download BookStack"
-
-ynh_app_setting_set $app final_path $final_path
+ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 # Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source "$final_path"
-
-#=================================================
-# INSTALL BOOKSTACK DEPS
-#=================================================
-
-ynh_print_info "Install BookStack composer dependancies"
-
-pushd $final_path || exit
-php -r "readfile('https://getcomposer.org/installer');" | php
-php composer.phar install
-popd || exit
-
-#=================================================
-# SPECIFIC SETUP
-#=================================================
-
-# setup application config
-cp -a ../conf/.env.example $final_path/.env
-
-#=================================================
-# MODIFY A CONFIG FILE
-#=================================================
-
-ynh_replace_string "yunouser"   "$db_name"    "$final_path/.env"
-ynh_replace_string "yunopass"   "$db_pwd"     "$final_path/.env"
-ynh_replace_string "yunobase"   "$db_name"    "$final_path/.env"
-
-#=================================================
-# FINAL BOOKSTACK INSTALL
-#=================================================
-
-ynh_print_info "Install BookStack"
-
-pushd $final_path || exit
-php artisan key:generate --no-interaction --force
-php artisan migrate --no-interaction --force
-chown www-data:www-data -R bootstrap/cache public/uploads storage && chmod -R 755 bootstrap/cache public/uploads storage
-popd || exit
+ynh_setup_source --dest_dir="$final_path"
 
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
+ynh_script_progression --message="Configuring NGINX web server..." --weight=2
 
-# Create a dedicated nginx config
+# Create a dedicated NGINX config
 ynh_add_nginx_config
 
 #=================================================
 # CREATE DEDICATED USER
 #=================================================
+ynh_script_progression --message="Configuring system user..." --weight=2
 
 # Create a system user
-ynh_system_user_create $app
+ynh_system_user_create --username=$app
 
 #=================================================
-# STORE THE CONFIG FILE CHECKSUM
+# PHP-FPM CONFIGURATION
 #=================================================
+ynh_script_progression --message="Configuring PHP-FPM..." --weight=2
 
-### `ynh_store_file_checksum` is used to store the checksum of a file.
-### That way, during the upgrade script, by using `ynh_backup_if_checksum_is_different`,
-### you can make a backup of this file before modifying it again if the admin had modified it.
+# Create a dedicated PHP-FPM config
+ynh_add_fpm_config --package="$extra_php_dependencies"
+phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 
-# Calculate and store the config file checksum into the app settings
-#ynh_store_file_checksum "$final_path/config.json"
+#=================================================
+# INSTALL LYCHEE WITH COMPOSER
+#=================================================
+ynh_script_progression --message="Installing BookStack with Composer..." --weight=5
+
+# Install composer
+ynh_install_composer --phpversion=$phpversion --workdir=$final_path --install_args="--prefer-source --no-dev"
+
+#=================================================
+# MODIFY A CONFIG FILE
+#=================================================
+cp -a ../conf/.env.example $final_path/.env
+
+ynh_replace_string --match_string="__DB_NAME__" --replace_string="$db_name" --target_file="$final_path/.env"
+ynh_replace_string --match_string="__DB_PWD__" --replace_string="$db_pwd" --target_file="$final_path/.env"
+ynh_replace_string --match_string="__DOMAIN__" --replace_string="$domain" --target_file="$final_path/.env"
+ynh_replace_string --match_string="__PATH__" --replace_string="$path_url" --target_file="$final_path/.env"
+ynh_replace_string --match_string="__LANGUAGE__" --replace_string="$language" --target_file="$final_path/.env"
+ynh_replace_string --match_string="__APP__" --replace_string="$app" --target_file="$final_path/.env"
+
+ynh_store_file_checksum $final_path/.env
+
+#=================================================
+# FINAL BOOKSTACK INSTALL
+#=================================================
+ynh_script_progression --message="Install BookStack" --weight=5
+
+pushd $final_path
+	php$phpversion artisan key:generate --no-interaction --force
+	php$phpversion artisan migrate --no-interaction --force
+popd
 
 #=================================================
 # GENERIC FINALIZATION
@@ -175,23 +129,30 @@ ynh_system_user_create $app
 # SECURE FILES AND DIRECTORIES
 #=================================================
 
-### For security reason, any app should set the permissions to root: before anything else.
-### Then, if write authorization is needed, any access should be given only to directories
-### that really need such authorization.
-
 # Set permissions to app files
-
-chown -R www-data:www-data $final_path
+chown -R $app: $final_path
+chmod -R 755 $final_path
 
 #=================================================
 # SETUP SSOWAT
 #=================================================
+ynh_script_progression --message="Configuring permissions..." --weight=50
 
-# If app is public, add url to SSOWat conf as skipped_uris
-if [ $is_public -eq 1 ]; then
-  # unprotected_uris allows SSO credentials to be passed anyway.
-  ynh_app_setting_set "$app" unprotected_uris "/"
+# Make app public if necessary
+if [ $is_public -eq 1 ]
+then
+	ynh_permission_update --permission="main" --add="visitors"
 fi
 
-# Reload services
-systemctl reload nginx
+#=================================================
+# RELOAD NGINX
+#=================================================
+ynh_script_progression --message="Reloading NGINX web server..." --weight=2
+
+ynh_systemd_action --service_name=nginx --action=reload
+
+#=================================================
+# END OF SCRIPT
+#=================================================
+
+ynh_script_progression --message="Installation of $app completed" --last

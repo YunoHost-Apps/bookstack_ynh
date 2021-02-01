@@ -1,6 +1,6 @@
-SOURCE_URL=https://github.com/BookStackApp/BookStack/archive/v0.26.3.tar.gz
-SOURCE_SUM=9b577a5d7a2347b2a386bce78ad3ba9e8ee99f61f759cdf91f88a9ba76757c34b09d46ec9e1fb51d62b99aefc153a652d976aa4bcb49c2e38e0c2620ab8dcd9e
-SOURCE_SUM_PRG=sha512sum
+SOURCE_URL=https://github.com/BookStackApp/BookStack/archive/v0.31.4.tar.gz
+SOURCE_SUM=967477375f5ba4661b69eec6d60d49a9b7eddd09d9869e21d4201d329a41f553
+SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
 SOURCE_EXTRACT=true
