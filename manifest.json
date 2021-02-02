@@ -6,7 +6,7 @@
         "en": "Platform to create documentation/wiki content",
         "fr": "Plateforme pour créer du contenu de documentation/wiki "
     },
-    "version": "0.31.4~ynh1",
+    "version": "0.31.4~ynh2",
     "url": "https://www.bookstackapp.com/",
     "license": "MIT",
     "maintainer": {
