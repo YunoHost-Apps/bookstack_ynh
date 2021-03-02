@@ -95,19 +95,27 @@ ynh_store_file_checksum $final_path/.env
 #=================================================
 ynh_script_progression --message="Upgrading Composer..." --weight=1
 
-ynh_install_composer --phpversion=$phpversion --workdir=$final_path --install_args="--prefer-source --no-dev"
+#ynh_install_composer --phpversion=$phpversion --workdir=$final_path --install_args="--prefer-source --no-dev"
+
+
+pushd "$final_path"
+	ynh_exec_warn_less curl -sS https://getcomposer.org/installer | php$phpversion -- --version="1.10.16" --install-dir="$final_path" \
+		&& php$phpversion artisan migrate \
+		&& php$phpversion artisan cache:clear \
+		&& php$phpversion artisan view:clear
+popd
 
 #=================================================
 # FINAL BOOKSTACK INSTALL
 #=================================================
-ynh_script_progression --message="Install BookStack" --weight=5
+# ynh_script_progression --message="Install BookStack" --weight=5
 
-pushd $final_path
-	#ynh_composer_exec --commands="install"
-	php$phpversion artisan migrate
-	php$phpversion artisan cache:clear
-	php$phpversion artisan view:clear
-popd
+# pushd $final_path
+# 	#ynh_composer_exec --commands="install"
+# 	php$phpversion artisan migrate
+# 	php$phpversion artisan cache:clear
+# 	php$phpversion artisan view:clear
+# popd
 
 #=================================================
 # GENERIC FINALIZATION
