@@ -11,7 +11,7 @@ Si vous n'avez pas YunoHost, consultez [le guide](https://yunohost.org/#/install
 ## Overview
 BookStack est une plate-forme simple, auto-hébergée et facile à utiliser pour organiser et stocker des informations.
 
-**Version incluse :** 0.31.7
+**Version incluse :** 0.31.8
 
 ## Screenshots
 
