@@ -30,7 +30,7 @@ Login using the default admin details `admin@admin.com` with a password of `pass
 ## Documentation
 
  * Documentation officielle : https://www.bookstackapp.com/docs/
- * Documentation YunoHost : https://yunohost.org/#/app_bookstack_fr
+ * Documentation YunoHost : https://yunohost.org/fr/app_bookstack
 
 ## Caractéristiques spécifiques YunoHost
 
@@ -41,8 +41,8 @@ Login using the default admin details `admin@admin.com` with a password of `pass
 
 #### Architectures supportées
 
-* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/bookstack%20%28Apps%29.svg)](https://ci-apps.yunohost.org/ci/apps/bookstack/)
-* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/bookstack%20%28Apps%29.svg)](https://ci-apps-arm.yunohost.org/ci/apps/bookstack/)
+* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/bookstack.svg)](https://ci-apps.yunohost.org/ci/apps/bookstack/)
+* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/bookstack.svg)](https://ci-apps-arm.yunohost.org/ci/apps/bookstack/)
 
 ## Limitations
 
