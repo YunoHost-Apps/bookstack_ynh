@@ -13,7 +13,7 @@ BookStack is a simple, self-hosted, easy-to-use platform for organising and stor
 
 BookStack is built using PHP, on top of the Laravel framework and it uses MySQL to store data.
 
-**Shipped version:** 21.04
+**Shipped version:** 0.31.7
 
 ## Screenshots
 
@@ -32,7 +32,7 @@ For the first time Login, use the default credentials `admin@admin.com` and `pas
 ## Documentation
 
  * Official documentation: https://www.bookstackapp.com/docs/
- * YunoHost documentation: https://yunohost.org/en/app_bookstack
+ * YunoHost documentation: https://yunohost.org/#/app_bookstack
 
 ## YunoHost specific features
 
@@ -43,8 +43,8 @@ For the first time Login, use the default credentials `admin@admin.com` and `pas
 
 #### Supported architectures
 
-* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/bookstack.svg)](https://ci-apps.yunohost.org/ci/apps/bookstack/)
-* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/bookstack.svg)](https://ci-apps-arm.yunohost.org/ci/apps/bookstack/)
+* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/bookstack%20%28Apps%29.svg)](https://ci-apps.yunohost.org/ci/apps/bookstack/)
+* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/bookstack%20%28Apps%29.svg)](https://ci-apps-arm.yunohost.org/ci/apps/bookstack/)
 
 ## Limitations
 

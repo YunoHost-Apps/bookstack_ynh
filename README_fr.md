@@ -11,7 +11,7 @@ Si vous n'avez pas YunoHost, consultez [le guide](https://yunohost.org/#/install
 ## Overview
 BookStack est une plate-forme simple, auto-hébergée et facile à utiliser pour organiser et stocker des informations.
 
-**Version incluse :** 21.04
+**Version incluse :** 0.31.7
 
 ## Screenshots
 
@@ -30,7 +30,7 @@ Login using the default admin details `admin@admin.com` with a password of `pass
 ## Documentation
 
  * Documentation officielle : https://www.bookstackapp.com/docs/
- * Documentation YunoHost : https://yunohost.org/fr/app_bookstack
+ * Documentation YunoHost : https://yunohost.org/#/app_bookstack_fr
 
 ## Caractéristiques spécifiques YunoHost
 
@@ -41,8 +41,8 @@ Login using the default admin details `admin@admin.com` with a password of `pass
 
 #### Architectures supportées
 
-* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/bookstack.svg)](https://ci-apps.yunohost.org/ci/apps/bookstack/)
-* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/bookstack.svg)](https://ci-apps-arm.yunohost.org/ci/apps/bookstack/)
+* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/bookstack%20%28Apps%29.svg)](https://ci-apps.yunohost.org/ci/apps/bookstack/)
+* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/bookstack%20%28Apps%29.svg)](https://ci-apps-arm.yunohost.org/ci/apps/bookstack/)
 
 ## Limitations
 

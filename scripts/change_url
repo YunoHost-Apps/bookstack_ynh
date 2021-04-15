@@ -100,13 +100,16 @@ fi
 # MODIFY A CONFIG FILE
 #=================================================
 
-path_url="$new_path"
-domain="$new_domain"
-mail_pwd=$(ynh_string_random --length=12)
+cp -a ../conf/.env.example $final_path/.env
 
-ynh_add_config --template=../conf/.env.example --destination=$final_path/.env
+ynh_replace_string --match_string="__DB_NAME__" --replace_string="$db_name" --target_file="$final_path/.env"
+ynh_replace_string --match_string="__DB_PWD__" --replace_string="$db_pwd" --target_file="$final_path/.env"
+ynh_replace_string --match_string="__DOMAIN__" --replace_string="$new_domain" --target_file="$final_path/.env"
+ynh_replace_string --match_string="__PATH__" --replace_string="$new_path" --target_file="$final_path/.env"
+ynh_replace_string --match_string="__LANGUAGE__" --replace_string="$language" --target_file="$final_path/.env"
+ynh_replace_string --match_string="__APP__" --replace_string="$app" --target_file="$final_path/.env"
 
-chmod 600 $final_path/.env
+ynh_store_file_checksum $final_path/.env
 
 #=================================================
 # RELOAD NGINX
