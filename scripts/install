@@ -125,7 +125,6 @@ popd
 # Set permissions to app files
 chown -R $app: $final_path
 chmod -R 755 $final_path
-
 chmod 600 $final_path/.env
 
 #=================================================
