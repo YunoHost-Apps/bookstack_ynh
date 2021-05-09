@@ -6,12 +6,12 @@
 *[Read this readme in english.](./README.md)* 
 
 > *Ce package vous permet d'installer BookStack rapidement et simplement sur un serveur YunoHost.  
-Si vous n'avez pas YunoHost, consultez [le guide](https://yunohost.org/#/install) pour apprendre comment l'installer.*
+Si vous n'avez pas YunoHost, consultez [le guide](https://yunohost.org/install) pour apprendre comment l'installer.*
 
 ## Overview
 BookStack est une plate-forme simple, auto-hébergée et facile à utiliser pour organiser et stocker des informations.
 
-**Version incluse :** 21.04.3
+**Version incluse :** 21.04.4
 
 ## Screenshots
 
