@@ -13,7 +13,7 @@ BookStack is a simple, self-hosted, easy-to-use platform for organising and stor
 
 BookStack is built using PHP, on top of the Laravel framework and it uses MySQL to store data.
 
-**Shipped version:** 21.04.5
+**Shipped version:** 21.04.6
 
 ## Screenshots
 
