@@ -65,6 +65,12 @@ then
 	ynh_setup_source --dest_dir="$final_path" --keep="$final_path/.env"
 fi
 
+# Set permissions on app files
+chmod 755 $final_path
+chown -R $app:www-data $final_path
+chmod -R o-rwx $final_path
+chmod 600 $final_path/.env
+
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
@@ -99,18 +105,6 @@ pushd $final_path
 	&& php artisan cache:clear --no-interaction \
  	&& php artisan view:clear --no-interaction
 popd
-
-#=================================================
-# GENERIC FINALIZATION
-#=================================================
-# SECURE FILES AND DIRECTORIES
-#=================================================
-
-# Set permissions on app files
-chmod 755 $final_path
-chown -R $app:www-data $final_path
-chmod -R o-rwx $final_path
-chmod 600 $final_path/.env
 
 #=================================================
 # RELOAD NGINX
