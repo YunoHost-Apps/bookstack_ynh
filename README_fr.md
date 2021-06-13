@@ -13,7 +13,7 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 Plateforme pour créer du contenu de documentation/wiki 
 
-**Version incluse :** 21.05.1~ynh1
+**Version incluse :** 21.05.2~ynh1
 
 **Démo :** https://demo.bookstackapp.com
 
