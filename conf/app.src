@@ -1,7 +1,9 @@
-SOURCE_URL=https://github.com/BookStackApp/BookStack/archive/refs/tags/v21.04.6.tar.gz
-SOURCE_SUM=2aa677448e5eb255e3045c1a4956873aea2216a50b4c8328ea6c107a5573486c
+SOURCE_URL=https://github.com/BookStackApp/BookStack/archive/refs/tags/v21.05.2.tar.gz
+SOURCE_SUM=3ed1ea74f2418eba889d3088dad08804fb37326bda69ca968ceb92bb45d11ba8
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
 SOURCE_EXTRACT=true
 SOURCE_FILENAME=bookstack.tar.gz
+
+

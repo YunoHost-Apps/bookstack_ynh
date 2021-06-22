@@ -1,6 +1,3 @@
-# See here for more informations
-# https://github.com/YunoHost/package_check#syntax-check_process-file
-
 ;; Test complet
 	; Manifest
 		domain="domain.tld"
@@ -15,6 +12,9 @@
 		setup_private=1
 		setup_public=1
 		upgrade=1
+		#Testing (#30)
+		upgrade=1	from_commit=b7abcc46a0c3c90c9b36d4c00e40d26a1aab429b
+		#Testing
 		upgrade=1	from_commit=ad39f14ce54d80d30c2e847d0b47a7b5af6b6920
 		backup_restore=1
 		multi_instance=0
@@ -23,6 +23,8 @@
 Email=
 Notification=none
 ;;; Upgrade options
+	; commit=b7abcc46a0c3c90c9b36d4c00e40d26a1aab429b
+		name=Testing (#30)
 	; commit=ad39f14ce54d80d30c2e847d0b47a7b5af6b6920
 		name=Testing
 		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&language=fr&is_public=1&password=pass&port=666&
