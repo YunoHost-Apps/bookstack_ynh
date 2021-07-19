@@ -80,6 +80,13 @@ then
   	ynh_secure_remove --file="$tmpdir"
 fi
 
+# Set permissions on app files
+chmod 755 $final_path
+chmod -R o-rwx $final_path
+chown -R $app:www-data $final_path
+chmod 775 $final_path/{storage bootstrap/cache public/uploads}
+chmod 600 $final_path/.env
+
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
@@ -114,12 +121,6 @@ pushd $final_path
 	&& php$phpversion artisan cache:clear --no-interaction \
  	&& php$phpversion artisan view:clear --no-interaction
 popd
-
-# Set permissions on app files
-chmod 755 $final_path
-chown -R $app:www-data $final_path
-chmod -R o-rwx $final_path
-chmod 600 $final_path/.env
 
 #=================================================
 # RELOAD NGINX
