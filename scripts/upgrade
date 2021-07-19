@@ -84,9 +84,6 @@ fi
 chmod 755 $final_path
 chmod -R o-rwx $final_path
 chown -R $app:www-data $final_path
-chmod 775 $final_path/storage
-chmod 775 $final_path/bootstrap/cache
-chmod 775 $final_path/public/uploads
 chmod 600 $final_path/.env
 
 #=================================================
@@ -111,7 +108,7 @@ ynh_add_fpm_config --package="$extra_php_dependencies"
 ynh_script_progression --message="Installing BookStack with Composer..." --weight=5
 
 # Install composer
-ynh_install_composer --phpversion=$phpversion --workdir=$final_path --install_args="--prefer-source --no-dev"
+ynh_install_composer
 
 #=================================================
 # FINAL BOOKSTACK INSTALL
