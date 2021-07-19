@@ -78,7 +78,9 @@ ynh_setup_source --dest_dir="$final_path"
 chmod 755 $final_path
 chmod -R o-rwx $final_path
 chown -R $app:www-data $final_path
-chmod 775 $final_path/{storage bootstrap/cache public/uploads}
+chmod 775 $final_path/storage
+chmod 775 $final_path/bootstrap/cache
+chmod 775 $final_path/public/uploads
 
 #=================================================
 # NGINX CONFIGURATION
