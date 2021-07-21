@@ -76,8 +76,8 @@ ynh_setup_source --dest_dir="$final_path"
 
 # Set permissions to app files
 chmod 755 $final_path
-chown -R $app:www-data $final_path
 chmod -R o-rwx $final_path
+chown -R $app:www-data $final_path
 
 #=================================================
 # NGINX CONFIGURATION
