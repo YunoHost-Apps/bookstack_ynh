@@ -11,9 +11,10 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 ## Vue d'ensemble
 
-Plateforme pour créer du contenu de documentation/wiki 
+BookStack is an opinionated wiki system that provides a pleasant and simple out of the box experience. New users to an instance should find the experience intuitive and only basic word-processing skills should be required to get involved in creating content on BookStack. The platform should provide advanced power features to those that desire it but they should not interfere with the core simple user experience.
 
-**Version incluse :** 21.08~ynh1
+
+**Version incluse :** 21.08.1~ynh1
 
 **Démo :** https://demo.bookstackapp.com
 
