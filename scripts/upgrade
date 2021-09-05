@@ -80,12 +80,6 @@ then
   	ynh_secure_remove --file="$tmpdir"
 fi
 
-# Set permissions on app files
-chmod 755 $final_path
-chmod -R o-rwx $final_path
-chown -R $app:www-data $final_path
-chmod 600 $final_path/.env
-
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
@@ -108,7 +102,7 @@ ynh_add_fpm_config --package="$extra_php_dependencies"
 ynh_script_progression --message="Installing BookStack with Composer..." --weight=5
 
 # Install composer
-ynh_install_composer
+yes | ynh_install_composer --commands="install --no-dev"
 
 #=================================================
 # FINAL BOOKSTACK INSTALL
@@ -120,6 +114,12 @@ pushd $final_path
 	&& php$phpversion artisan cache:clear --no-interaction \
  	&& php$phpversion artisan view:clear --no-interaction
 popd
+
+# Set permissions on app files
+chmod 755 $final_path
+chmod -R o-rwx $final_path
+chown -R $app:www-data $final_path
+chmod 600 $final_path/.env
 
 #=================================================
 # RELOAD NGINX
