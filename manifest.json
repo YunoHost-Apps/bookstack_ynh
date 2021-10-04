@@ -13,7 +13,6 @@
         "website": "https://www.bookstackapp.com",
         "demo": "https://demo.bookstackapp.com",
         "admindoc": "https://www.bookstackapp.com/docs",
-        "userdoc": "https://yunohost.org/en/app_bookstack",
         "code": "https://github.com/BookStackApp/BookStack"
     },
     "license": "MIT",
