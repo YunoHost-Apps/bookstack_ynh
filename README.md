@@ -37,7 +37,6 @@ For the first time Login, use the default credentials `admin@admin.com` and `pas
 ## Documentation and resources
 
 * Official app website: https://www.bookstackapp.com
-* Official user documentation: https://yunohost.org/en/app_bookstack
 * Official admin documentation: https://www.bookstackapp.com/docs
 * Upstream app code repository: https://github.com/BookStackApp/BookStack
 * YunoHost documentation for this app: https://yunohost.org/app_bookstack

@@ -31,7 +31,6 @@ Login using the default admin details `admin@admin.com` with a password of `pass
 ## Documentations et ressources
 
 * Site officiel de l'app : https://www.bookstackapp.com
-* Documentation officielle utilisateur : https://yunohost.org/en/app_bookstack
 * Documentation officielle de l'admin : https://www.bookstackapp.com/docs
 * Dépôt de code officiel de l'app : https://github.com/BookStackApp/BookStack
 * Documentation YunoHost pour cette app : https://yunohost.org/app_bookstack
