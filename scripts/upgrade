@@ -61,28 +61,13 @@ if [ "$upgrade_type" == "UPGRADE_APP" ]
 then
 	ynh_script_progression --message="Upgrading source files..." --weight=1
 
-	# Create a temporary directory
-   	#tmpdir="$(mktemp -d)"
-
-	# Backup the config file in the temp dir
-	#cp -a "$final_path/.env" "$tmpdir/.env"
-	#cp -a "$final_path/public/uploads" "$tmpdir/public/uploads"
-	#cp -a "$final_path/storage/uploads" "$tmpdir/storage/uploads"
-
-	# Remove the app directory securely
-	#ynh_secure_remove --file="$final_path"
-
 	# Download, check integrity, uncompress and patch the source from app.src
 	ynh_setup_source --dest_dir="$final_path" --keep="$final_path/.env $final_path/public/uploads $final_path/storage/uploads"
-
-	# Copy the admin saved settings from tmp directory to final path  
-	#cp -a "$tmpdir/.env" "$final_path/.env"
-	#cp -a "$tmpdir/public/uploads" "$final_path/public/uploads" 
- 	#cp -a "$tmpdir/storage/uploads" "$final_path/storage/uploads" 
-
- 	# Remove the tmp directory securely
-	#ynh_secure_remove --file="$tmpdir"
 fi
+
+chmod 755 $final_path
+chmod -R o-rwx $final_path
+chown -R $app:www-data $final_path
 
 #=================================================
 # NGINX CONFIGURATION
@@ -113,7 +98,7 @@ ynh_add_fpm_config
 ynh_script_progression --message="Installing BookStack with Composer..." --weight=5
 
 # Install composer
-ynh_install_composer --phpversion=$phpversion --workdir=$final_path --install_args="--no-dev"
+ynh_install_composer --install_args="--no-dev"
 
 #=================================================
 # FINAL BOOKSTACK INSTALL
@@ -126,12 +111,6 @@ pushd $final_path
 	php$phpversion artisan config:clear --no-interaction
  	php$phpversion artisan view:clear --no-interaction
 popd
-
-# Set permissions on app files
-chmod 755 $final_path
-chmod -R o-rwx $final_path
-chown -R $app:www-data $final_path
-chmod 600 $final_path/.env
 
 #=================================================
 # RELOAD NGINX
