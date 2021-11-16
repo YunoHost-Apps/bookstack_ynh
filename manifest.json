@@ -4,9 +4,9 @@
     "packaging_format": 1,
     "description": {
         "en": "Platform to create documentation/wiki content",
-        "fr": "Plateforme pour créer du contenu de documentation/wiki "
+        "fr": "Plateforme pour créer du contenu de documentation/wiki"
     },
-    "version": "21.10.1~ynh1",
+    "version": "21.10.3~ynh1",
     "url": "https://www.bookstackapp.com/",
     "upstream": {
         "license": "MIT",
@@ -21,7 +21,7 @@
         "email": "liberodark@gmail.com"
     },
     "requirements": {
-        "yunohost": ">= 4.2.4"
+        "yunohost": ">= 4.3.0"
     },
     "multi_instance": false,
     "services": [
