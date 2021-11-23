@@ -61,6 +61,9 @@ if [ "$upgrade_type" == "UPGRADE_APP" ]
 then
 	ynh_script_progression --message="Upgrading source files..." --weight=1
 
+	# Create a temporary directory
+	tmpdir="$(mktemp -d)"
+
 	cp -a "$final_path/.env " "$tmpdir/.env "
 	cp -a "$final_path/public/uploads" "$tmpdir/public/uploads"
 	cp -a "$final_path/storage/uploads" "$tmpdir/storage/uploads"
