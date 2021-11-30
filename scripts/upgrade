@@ -62,29 +62,31 @@ then
 	ynh_script_progression --message="Upgrading source files..." --weight=1
 
 	# Create a temporary directory
-  	#tmpdir="$(mktemp -d)"
+	tmpdir="$(mktemp -d)"
 
-    # Backup the config file in the temp dir
-  	#cp -a "$final_path/.env" "$tmpdir/.env"
+	cp -a "$final_path/.env " "$tmpdir/.env "
+	cp -a "$final_path/public/uploads" "$tmpdir/public/uploads"
+	cp -a "$final_path/storage/uploads" "$tmpdir/storage/uploads"
+		# Remove the app directory securely
 
-	# Remove the app directory securely
-	#ynh_secure_remove --file="$final_path"
+	ynh_secure_remove --file=$final_path
+	# Download, check integrity, uncompress and patch the source from app.src
+	ynh_setup_source --dest_dir="$final_path"
+
+	cp -a "$tmpdir/.env " "$final_path/.env "
+	cp -a "$tmpdir/public/uploads" "$final_path/public/uploads"
+	cp -a "$tmpdir/storage/uploads" "$final_path/storage/uploads"
+
+	# Remove the tmp directory securely
+	ynh_secure_remove --file="$tmpdir"
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$final_path" --keep="$final_path/.env"
-
-	# Copy the admin saved settings from tmp directory to final path  
-  	#cp -a "$tmpdir/.env" "$final_path/.env" 
-
-  	# Remove the tmp directory securely
-  	#ynh_secure_remove --file="$tmpdir"
+	ynh_setup_source --dest_dir="$final_path" #--keep="$final_path/.env $final_path/public/uploads $final_path/storage/uploads"
 fi
 
-# Set permissions on app files
 chmod 755 $final_path
 chmod -R o-rwx $final_path
 chown -R $app:www-data $final_path
-chmod 600 $final_path/.env
 
 #=================================================
 # NGINX CONFIGURATION
@@ -95,12 +97,19 @@ ynh_script_progression --message="Upgrading NGINX web server configuration..." -
 ynh_add_nginx_config
 
 #=================================================
+# UPGRADE DEPENDENCIES
+#=================================================
+ynh_script_progression --message="Upgrading dependencies..." --weight=1
+
+ynh_install_app_dependencies $pkg_dependencies
+
+#=================================================
 # PHP-FPM CONFIGURATION
 #=================================================
 ynh_script_progression --message="Upgrading PHP-FPM configuration..." --weight=1
 
 # Create a dedicated PHP-FPM config
-ynh_add_fpm_config --package="$extra_php_dependencies"
+ynh_add_fpm_config
 
 #=================================================
 # INSTALL LYCHEE WITH COMPOSER
@@ -116,9 +125,10 @@ ynh_install_composer --phpversion=$phpversion --workdir=$final_path --install_ar
 ynh_script_progression --message="Install BookStack" --weight=5
 
 pushd $final_path
-	php$phpversion artisan migrate --no-interaction \
-	&& php$phpversion artisan cache:clear --no-interaction \
- 	&& php$phpversion artisan view:clear --no-interaction
+	php$phpversion artisan migrate --no-interaction
+	php$phpversion artisan cache:clear --no-interaction
+	php$phpversion artisan config:clear --no-interaction
+ 	php$phpversion artisan view:clear --no-interaction
 popd
 
 #=================================================

@@ -14,7 +14,7 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 BookStack is an opinionated wiki system that provides a pleasant and simple out of the box experience. New users to an instance should find the experience intuitive and only basic word-processing skills should be required to get involved in creating content on BookStack. The platform should provide advanced power features to those that desire it but they should not interfere with the core simple user experience.
 
 
-**Version incluse :** 21.08.2~ynh1
+**Version incluse :** 21.11.2~ynh1
 
 **Démo :** https://demo.bookstackapp.com
 
@@ -31,7 +31,6 @@ Login using the default admin details `admin@admin.com` with a password of `pass
 ## Documentations et ressources
 
 * Site officiel de l'app : https://www.bookstackapp.com
-* Documentation officielle utilisateur : https://yunohost.org/en/app_bookstack
 * Documentation officielle de l'admin : https://www.bookstackapp.com/docs
 * Dépôt de code officiel de l'app : https://github.com/BookStackApp/BookStack
 * Documentation YunoHost pour cette app : https://yunohost.org/app_bookstack
