@@ -60,28 +60,9 @@ ynh_system_user_create --username=$app --home_dir=$final_path
 if [ "$upgrade_type" == "UPGRADE_APP" ]
 then
 	ynh_script_progression --message="Upgrading source files..." --weight=1
-
-	# Create a temporary directory
-	tmpdir="$(mktemp -d)"
-
-	cp -a "$final_path/.env " "$tmpdir/.env "
-	cp -a "$final_path/public/uploads" "$tmpdir/public/uploads"
-	cp -a "$final_path/storage/uploads" "$tmpdir/storage/uploads"
-		# Remove the app directory securely
-
-	ynh_secure_remove --file=$final_path
-	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$final_path"
-
-	cp -a "$tmpdir/.env " "$final_path/.env "
-	cp -a "$tmpdir/public/uploads" "$final_path/public/uploads"
-	cp -a "$tmpdir/storage/uploads" "$final_path/storage/uploads"
-
-	# Remove the tmp directory securely
-	ynh_secure_remove --file="$tmpdir"
-
-	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$final_path" #--keep="$final_path/.env $final_path/public/uploads $final_path/storage/uploads"
+	pushd $final_path
+		git pull --quiet origin release && ynh_install_composer --install_args="--no-dev" && $phpversion artisan migrate
+	popd
 fi
 
 chmod 755 $final_path
@@ -111,25 +92,25 @@ ynh_script_progression --message="Upgrading PHP-FPM configuration..." --weight=1
 # Create a dedicated PHP-FPM config
 ynh_add_fpm_config
 
-#=================================================
-# INSTALL LYCHEE WITH COMPOSER
-#=================================================
-ynh_script_progression --message="Installing BookStack with Composer..." --weight=5
+# #=================================================
+# # INSTALL LYCHEE WITH COMPOSER
+# #=================================================
+# ynh_script_progression --message="Installing BookStack with Composer..." --weight=5
 
-# Install composer
-ynh_install_composer --phpversion=$phpversion --workdir=$final_path --install_args="--no-dev"
+# # Install composer
+# ynh_install_composer --phpversion=$phpversion --workdir=$final_path --install_args="--no-dev"
 
-#=================================================
-# FINAL BOOKSTACK INSTALL
-#=================================================
-ynh_script_progression --message="Install BookStack" --weight=5
+# #=================================================
+# # FINAL BOOKSTACK INSTALL
+# #=================================================
+# ynh_script_progression --message="Install BookStack" --weight=5
 
-pushd $final_path
-	php$phpversion artisan migrate --no-interaction
-	php$phpversion artisan cache:clear --no-interaction
-	php$phpversion artisan config:clear --no-interaction
- 	php$phpversion artisan view:clear --no-interaction
-popd
+# pushd $final_path
+# 	php$phpversion artisan migrate --no-interaction
+# 	php$phpversion artisan cache:clear --no-interaction
+# 	php$phpversion artisan config:clear --no-interaction
+#  	php$phpversion artisan view:clear --no-interaction
+# popd
 
 #=================================================
 # RELOAD NGINX
