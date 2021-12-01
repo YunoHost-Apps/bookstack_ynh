@@ -61,7 +61,7 @@ if [ "$upgrade_type" == "UPGRADE_APP" ]
 then
 	ynh_script_progression --message="Upgrading source files..." --weight=1
 	pushd $final_path
-		git pull --quiet origin release && ynh_install_composer --install_args="--no-dev" && php$version artisan migrate
+		git pull --quiet origin release && ynh_install_composer --install_args="--no-dev" && php$phpversion artisan migrate
 	popd
 fi
 
