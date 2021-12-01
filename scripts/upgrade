@@ -87,10 +87,6 @@ then
 
 	ynh_add_config --template=../conf/.env.example --destination=$final_path/.env
 	chmod 600 $final_path/.env
-
-	pushd $final_path
-		ynh_install_composer --install_args="--no-dev" && php$phpversion artisan migrate --no-interaction --force
-	popd
 fi
 
 chmod 755 $final_path
@@ -120,25 +116,25 @@ ynh_script_progression --message="Upgrading PHP-FPM configuration..." --weight=1
 # Create a dedicated PHP-FPM config
 ynh_add_fpm_config
 
-# #=================================================
-# # INSTALL LYCHEE WITH COMPOSER
-# #=================================================
-# ynh_script_progression --message="Installing BookStack with Composer..." --weight=5
+#=================================================
+# INSTALL LYCHEE WITH COMPOSER
+#=================================================
+ynh_script_progression --message="Installing BookStack with Composer..." --weight=5
 
-# # Install composer
-# ynh_install_composer --install_args="--no-dev" && php$phpversion artisan migrate --no-interaction
+# Install composer
+ynh_install_composer --install_args="--no-dev" && php$phpversion artisan migrate --no-interaction
 
-# #=================================================
-# # FINAL BOOKSTACK INSTALL
-# #=================================================
-# ynh_script_progression --message="Install BookStack" --weight=5
+#=================================================
+# FINAL BOOKSTACK INSTALL
+#=================================================
+ynh_script_progression --message="Install BookStack" --weight=5
 
-# pushd $final_path
-# 	php$phpversion artisan migrate --no-interaction
-# 	php$phpversion artisan cache:clear --no-interaction
-# 	php$phpversion artisan config:clear --no-interaction
-#  	php$phpversion artisan view:clear --no-interaction
-# popd
+pushd $final_path
+	php$phpversion artisan migrate --no-interaction
+	php$phpversion artisan cache:clear --no-interaction
+	php$phpversion artisan config:clear --no-interaction
+ 	php$phpversion artisan view:clear --no-interaction
+popd
 
 #=================================================
 # RELOAD NGINX
