@@ -120,7 +120,6 @@ ynh_install_composer --phpversion=$phpversion --workdir=$final_path --install_ar
 redis_db=$(ynh_redis_get_free_db)
 ynh_app_setting_set --app="$app" --key=redis_db --value="$redis_db"
 mail_pwd=$(ynh_string_random --length=12)
-key=$(ynh_string_random --length=12)
 
 ynh_add_config --template=../conf/.env.example --destination=$final_path/.env
 chmod 600 $final_path/.env

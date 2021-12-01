@@ -67,8 +67,8 @@ then
 	tmpdir="$(mktemp -d)"
 
 	#cp -a "$final_path/.env " "$tmpdir/.env "
-	cp -a "$final_path/public/uploads" "$tmpdir/public/uploads"
-	cp -a "$final_path/storage/uploads" "$tmpdir/storage/uploads"
+	[[ -f "$final_path/public/uploads" ]] && cp -a "$final_path/public/uploads" "$tmpdir/public/uploads"
+	[[ -f "$final_path/storage/uploads" ]] && cp -a "$final_path/storage/uploads" "$tmpdir/storage/uploads"
 		# Remove the app directory securely
 
 	ynh_secure_remove --file=$final_path
@@ -76,8 +76,8 @@ then
 	ynh_setup_source --dest_dir="$final_path"
 
 	#cp -a "$tmpdir/.env " "$final_path/.env "
-	cp -a "$tmpdir/public/uploads" "$final_path/public/uploads"
-	cp -a "$tmpdir/storage/uploads" "$final_path/storage/uploads"
+	[[ -f "$tmpdir/public/uploads" ]] && cp -a "$tmpdir/public/uploads" "$final_path/public/uploads"
+	[[ -f "$tmpdir/storage/uploads" ]] && cp -a "$tmpdir/storage/uploads" "$final_path/storage/uploads"
 
 	# Remove the tmp directory securely
 	ynh_secure_remove --file="$tmpdir"
