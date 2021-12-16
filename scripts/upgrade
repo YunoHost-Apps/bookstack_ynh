@@ -114,7 +114,7 @@ ynh_add_fpm_config
 ynh_script_progression --message="Installing BookStack with Composer..." --weight=5
 
 # Install composer
-ynh_install_composer --install_args="--no-dev" #&& php$phpversion artisan migrate --no-interaction
+ynh_install_composer --install_args="--no-dev"
 
 #=================================================
 # FINAL BOOKSTACK INSTALL
@@ -123,9 +123,9 @@ ynh_script_progression --message="Install BookStack" --weight=5
 
 pushd $final_path
 	php$phpversion artisan migrate --no-interaction
-	php$phpversion artisan cache:clear --no-interaction
+	#php$phpversion artisan cache:clear --no-interaction
 	php$phpversion artisan config:clear --no-interaction
- 	php$phpversion artisan view:clear --no-interaction
+ 	#php$phpversion artisan view:clear --no-interaction
 popd
 
 chmod 755 $final_path
