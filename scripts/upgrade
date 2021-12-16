@@ -82,16 +82,8 @@ then
 	# Remove the tmp directory securely
 	ynh_secure_remove --file="$tmpdir"
 
-	# Download, check integrity, uncompress and patch the source from app.src
-	#ynh_setup_source --dest_dir="$final_path"
-
 	ynh_add_config --template=../conf/.env.example --destination=$final_path/.env
-	chmod 600 $final_path/.env
 fi
-
-chmod 755 $final_path
-chmod -R o-rwx $final_path
-chown -R $app:www-data $final_path
 
 #=================================================
 # NGINX CONFIGURATION
@@ -135,6 +127,11 @@ pushd $final_path
 	php$phpversion artisan config:clear --no-interaction
  	php$phpversion artisan view:clear --no-interaction
 popd
+
+chmod 755 $final_path
+chmod -R o-rwx $final_path
+chown -R $app:www-data $final_path
+chmod 600 $final_path/.env
 
 #=================================================
 # RELOAD NGINX
