@@ -61,7 +61,8 @@ if [ "$upgrade_type" == "UPGRADE_APP" ]
 then
 	ynh_script_progression --message="Upgrading source files..." --weight=1
 	pushd $final_path
-		git pull --quiet origin release && ynh_install_composer --install_args="--no-dev" && php$phpversion artisan migrate --no-interaction --force
+		git pull --quiet origin release && ynh_install_composer --install_args="--no-dev"
+		php$phpversion artisan migrate --force
 	popd
 fi
 
@@ -91,26 +92,6 @@ ynh_script_progression --message="Upgrading PHP-FPM configuration..." --weight=1
 
 # Create a dedicated PHP-FPM config
 ynh_add_fpm_config
-
-# #=================================================
-# # INSTALL LYCHEE WITH COMPOSER
-# #=================================================
-# ynh_script_progression --message="Installing BookStack with Composer..." --weight=5
-
-# # Install composer
-# ynh_install_composer --phpversion=$phpversion --workdir=$final_path --install_args="--no-dev"
-
-# #=================================================
-# # FINAL BOOKSTACK INSTALL
-# #=================================================
-# ynh_script_progression --message="Install BookStack" --weight=5
-
-# pushd $final_path
-# 	php$phpversion artisan migrate --no-interaction
-# 	php$phpversion artisan cache:clear --no-interaction
-# 	php$phpversion artisan config:clear --no-interaction
-#  	php$phpversion artisan view:clear --no-interaction
-# popd
 
 #=================================================
 # RELOAD NGINX
