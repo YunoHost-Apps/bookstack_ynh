@@ -14,10 +14,7 @@
 		setup_private=1
 		setup_public=1
 		upgrade=1
-		#Testing (#30)
-		upgrade=1	from_commit=b7abcc46a0c3c90c9b36d4c00e40d26a1aab429b
-		#Testing
-		upgrade=1	from_commit=ad39f14ce54d80d30c2e847d0b47a7b5af6b6920
+		upgrade=1	from_commit=aaa9c9534b01a210989aceb4ad4d2b9c585be6df
 		backup_restore=1
 		multi_instance=0
 		change_url=0
@@ -25,8 +22,6 @@
 Email=
 Notification=none
 ;;; Upgrade options
-	; commit=b7abcc46a0c3c90c9b36d4c00e40d26a1aab429b
-		name=Testing (#30)
-	; commit=ad39f14ce54d80d30c2e847d0b47a7b5af6b6920
-		name=Testing
+	; commit=aaa9c9534b01a210989aceb4ad4d2b9c585be6df
+		name=Testing (#35)
 		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&language=fr&is_public=1&password=pass&port=666&
