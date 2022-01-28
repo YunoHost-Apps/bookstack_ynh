@@ -123,10 +123,10 @@ ynh_script_progression --message="Install BookStack" --weight=5
 
 pushd $final_path
 	php$phpversion artisan migrate --force
-	php$phpversion artisan key:generate --force
-	php$phpversion artisan cache:clear --force
-	php$phpversion artisan config:clear --force
- 	php$phpversion artisan view:clear --force
+	php$phpversion artisan key:generate
+	php$phpversion artisan cache:clear
+	php$phpversion artisan config:clear
+ 	php$phpversion artisan view:clear
 popd
 
 chmod 755 $final_path
