@@ -108,7 +108,6 @@ pushd $final_path
 popd
 
 sed -i "/APP_URL=/c\APP_URL=https://${new_domain}${new_path}" $final_path/.env
-chown -R $app:www-data $final_path
 
 #=================================================
 # RELOAD NGINX
