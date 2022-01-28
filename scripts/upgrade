@@ -63,26 +63,8 @@ if [ "$upgrade_type" == "UPGRADE_APP" ]
 then
 	ynh_script_progression --message="Upgrading source files..." --weight=1
 
-	# Create a temporary directory
-	tmpdir="$(mktemp -d)"
-
-	#cp -a "$final_path/.env " "$tmpdir/.env "
-	[[ -f "$final_path/public/uploads" ]] && cp -a "$final_path/public/uploads" "$tmpdir/public/uploads/"
-	[[ -f "$final_path/storage/uploads" ]] && cp -a "$final_path/storage/uploads" "$tmpdir/storage/uploads/"
-		# Remove the app directory securely
-
-	ynh_secure_remove --file=$final_path
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$final_path"
-
-	#cp -a "$tmpdir/.env " "$final_path/.env "
-	[[ -f "$tmpdir/public/uploads" ]] && cp -a "$tmpdir/public/uploads/" "$final_path/public/uploads"
-	[[ -f "$tmpdir/storage/uploads" ]] && cp -a "$tmpdir/storage/uploads/" "$final_path/storage/uploads"
-
-	# Remove the tmp directory securely
-	ynh_secure_remove --file="$tmpdir"
-
-	ynh_add_config --template=../conf/.env.example --destination=$final_path/.env
+	ynh_setup_source --dest_dir="$final_path" --keep="$final_path/.env $final_path/public/uploads $final_path/storage/uploads"
 fi
 
 #=================================================
@@ -123,10 +105,10 @@ ynh_script_progression --message="Install BookStack" --weight=5
 
 pushd $final_path
 	php$phpversion artisan migrate --force
-	php$phpversion artisan key:generate --force #--no-interaction
-	#php$phpversion artisan cache:clear --no-interaction
-	#php$phpversion artisan config:clear --no-interaction
- 	#php$phpversion artisan view:clear --no-interaction
+	php$phpversion artisan key:generate --force
+	php$phpversion artisan cache:clear
+	php$phpversion artisan config:clear
+ 	php$phpversion artisan view:clear
 popd
 
 chmod 755 $final_path
