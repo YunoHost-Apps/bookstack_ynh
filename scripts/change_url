@@ -34,6 +34,7 @@ db_user=$db_name
 db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
 redis_db=$(ynh_app_setting_get --app=$app --key=redis_db)
 mail_pwd=$(ynh_app_setting_get --app=$app --key=mail_pwd)
+string=$(ynh_string_random --length=64)
 
 #=================================================
 # BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
