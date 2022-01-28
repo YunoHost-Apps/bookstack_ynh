@@ -102,13 +102,21 @@ fi
 # MODIFY A CONFIG FILE
 #=================================================
 
-path_url="$new_path"
-domain="$new_domain"
-mail_pwd=$(ynh_string_random --length=12)
+# path_url="$new_path"
+# domain="$new_domain"
+# mail_pwd=$(ynh_string_random --length=12)
 
-ynh_add_config --template=../conf/.env.example --destination=$final_path/.env
+# ynh_add_config --template=../conf/.env.example --destination=$final_path/.env
 
-chmod 600 $final_path/.env
+# chmod 600 $final_path/.env
+
+ynh_script_progression --message="Reconfiguring congif file.." --weight=1
+
+sed "s/a APP_URL=.*/a https://${new_domain}${new_path}" $final_path/.env
+
+pushd $final_path
+	php$phpversion artisan bookstack:update-url https://${domain}${path_url} https://${new_domain}${new_path}
+popd
 
 #=================================================
 # RELOAD NGINX
