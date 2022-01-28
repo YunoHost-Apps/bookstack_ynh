@@ -107,7 +107,7 @@ pushd $final_path
 	yes | php$phpversion artisan bookstack:update-url https://${domain}${path_url} https://${new_domain}${new_path}
 popd
 
-sed -i '/APP_URL=/c\APP_URL=https://${new_domain}${new_path}' $final_path/.env
+sed -i "/APP_URL=/c\APP_URL=https://${new_domain}${new_path}" $final_path/.env
 
 #=================================================
 # RELOAD NGINX
