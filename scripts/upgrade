@@ -123,15 +123,15 @@ ynh_script_progression --message="Install BookStack" --weight=5
 
 pushd $final_path
 	php$phpversion artisan migrate --no-interaction
-	php$phpversion artisan cache:clear --no-interaction
-	php$phpversion artisan config:clear --no-interaction
- 	php$phpversion artisan view:clear --no-interaction
+	#php$phpversion artisan cache:clear --no-interaction
+	#php$phpversion artisan config:clear --no-interaction
+ 	#php$phpversion artisan view:clear --no-interaction
 popd
 
 chmod 755 $final_path
 chmod -R o-rwx $final_path
 chown -R $app:www-data $final_path
-chmod 600 $final_path/.env
+#chmod 600 $final_path/.env
 
 #=================================================
 # RELOAD NGINX
