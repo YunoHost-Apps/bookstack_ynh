@@ -122,7 +122,7 @@ ynh_install_composer --install_args="--no-dev"
 ynh_script_progression --message="Install BookStack" --weight=5
 
 pushd $final_path
-	php$phpversion artisan migrate #--no-interaction
+	php$phpversion artisan migrate --force #--no-interaction
 	#php$phpversion artisan cache:clear --no-interaction
 	#php$phpversion artisan config:clear --no-interaction
  	#php$phpversion artisan view:clear --no-interaction
