@@ -15,9 +15,10 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 ## Overview
 
-Platform to create documentation/wiki content
+BookStack is an opinionated wiki system that provides a pleasant and simple out of the box experience. New users to an instance should find the experience intuitive and only basic word-processing skills should be required to get involved in creating content on BookStack. The platform should provide advanced power features to those that desire it but they should not interfere with the core simple user experience.
 
-**Shipped version:** 21.05.3~ynh1
+
+**Shipped version:** 21.12.3~ynh1
 
 **Demo:** https://demo.bookstackapp.com
 
@@ -36,7 +37,6 @@ For the first time Login, use the default credentials `admin@admin.com` and `pas
 ## Documentation and resources
 
 * Official app website: https://www.bookstackapp.com
-* Official user documentation: https://yunohost.org/en/app_bookstack
 * Official admin documentation: https://www.bookstackapp.com/docs
 * Upstream app code repository: https://github.com/BookStackApp/BookStack
 * YunoHost documentation for this app: https://yunohost.org/app_bookstack

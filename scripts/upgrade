@@ -23,7 +23,9 @@ language=$(ynh_app_setting_get --app=$app --key=language)
 db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 db_user=$db_name
 db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
-phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
+phpversion=$YNH_PHP_VERSION
+redis_db=$(ynh_app_setting_get --app=$app --key=redis_db)
+mail_pwd=$(ynh_string_random --length=12)
 
 #=================================================
 # CHECK VERSION
@@ -46,6 +48,18 @@ ynh_clean_setup () {
 ynh_abort_if_errors
 
 #=================================================
+# ENSURE DOWNWARD COMPATIBILITY
+#=================================================
+ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
+
+# Cleaning legacy permissions
+if ynh_legacy_permissions_exists; then
+	ynh_legacy_permissions_delete_all
+
+	ynh_app_setting_delete --app=$app --key=is_public
+fi
+
+#=================================================
 # CREATE DEDICATED USER
 #=================================================
 ynh_script_progression --message="Making sure dedicated system user exists..." --weight=2
@@ -61,23 +75,8 @@ if [ "$upgrade_type" == "UPGRADE_APP" ]
 then
 	ynh_script_progression --message="Upgrading source files..." --weight=1
 
-	# Create a temporary directory
-  	tmpdir="$(mktemp -d)"
-
-    # Backup the config file in the temp dir
-  	cp -a "$final_path/.env" "$tmpdir/.env"
-
-	# Remove the app directory securely
-	ynh_secure_remove --file="$final_path"
-
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$final_path"
-
-	# Copy the admin saved settings from tmp directory to final path  
-  	cp -a "$tmpdir/.env" "$final_path/.env" 
-
-  	# Remove the tmp directory securely
-  	ynh_secure_remove --file="$tmpdir"
+	ynh_setup_source --dest_dir="$final_path" --keep="$final_path/.env $final_path/public/uploads $final_path/storage/uploads"
 fi
 
 #=================================================
@@ -89,12 +88,19 @@ ynh_script_progression --message="Upgrading NGINX web server configuration..." -
 ynh_add_nginx_config
 
 #=================================================
+# UPGRADE DEPENDENCIES
+#=================================================
+ynh_script_progression --message="Upgrading dependencies..." --weight=1
+
+ynh_install_app_dependencies $pkg_dependencies
+
+#=================================================
 # PHP-FPM CONFIGURATION
 #=================================================
 ynh_script_progression --message="Upgrading PHP-FPM configuration..." --weight=1
 
 # Create a dedicated PHP-FPM config
-ynh_add_fpm_config --package="$extra_php_dependencies"
+ynh_add_fpm_config
 
 #=================================================
 # INSTALL LYCHEE WITH COMPOSER
@@ -102,7 +108,7 @@ ynh_add_fpm_config --package="$extra_php_dependencies"
 ynh_script_progression --message="Installing BookStack with Composer..." --weight=5
 
 # Install composer
-ynh_install_composer --phpversion=$phpversion --workdir=$final_path --install_args="--prefer-source --no-dev"
+ynh_install_composer --install_args="--no-dev"
 
 #=================================================
 # FINAL BOOKSTACK INSTALL
@@ -110,16 +116,17 @@ ynh_install_composer --phpversion=$phpversion --workdir=$final_path --install_ar
 ynh_script_progression --message="Install BookStack" --weight=5
 
 pushd $final_path
-	php$phpversion artisan migrate --no-interaction \
-	&& php$phpversion artisan cache:clear --no-interaction \
- 	&& php$phpversion artisan view:clear --no-interaction
+	php$phpversion artisan migrate --force
+	php$phpversion artisan key:generate --force
+	php$phpversion artisan cache:clear
+	php$phpversion artisan config:clear
+ 	php$phpversion artisan view:clear
 popd
 
-# Set permissions on app files
 chmod 755 $final_path
-chown -R $app:www-data $final_path
 chmod -R o-rwx $final_path
-chmod 600 $final_path/.env
+chown -R $app:www-data $final_path
+#chmod 600 $final_path/.env
 
 #=================================================
 # RELOAD NGINX

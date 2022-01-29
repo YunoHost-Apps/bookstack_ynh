@@ -4,16 +4,15 @@
     "packaging_format": 1,
     "description": {
         "en": "Platform to create documentation/wiki content",
-        "fr": "Plateforme pour créer du contenu de documentation/wiki "
+        "fr": "Plateforme pour créer du contenu de documentation/wiki"
     },
-    "version": "21.05.3~ynh1",
+    "version": "21.12.3~ynh1",
     "url": "https://www.bookstackapp.com/",
     "upstream": {
         "license": "MIT",
         "website": "https://www.bookstackapp.com",
         "demo": "https://demo.bookstackapp.com",
         "admindoc": "https://www.bookstackapp.com/docs",
-        "userdoc": "https://yunohost.org/en/app_bookstack",
         "code": "https://github.com/BookStackApp/BookStack"
     },
     "license": "MIT",
@@ -22,7 +21,7 @@
         "email": "liberodark@gmail.com"
     },
     "requirements": {
-        "yunohost": ">= 4.2.4"
+        "yunohost": ">= 4.3.0"
     },
     "multi_instance": false,
     "services": [
@@ -33,8 +32,7 @@
     "arguments": {
         "install": [{
                 "name": "domain",
-                "type": "domain",
-                "example": "example.com"
+                "type": "domain"
             },
             {
                 "name": "path",
@@ -49,7 +47,7 @@
                     "en": "Choose the application language",
                     "fr": "Choisissez la langue de l'application"
                 },
-                "choices": ["de", "en", "es", "fr", "it", "nl"],
+                "choices": ["de", "en", "es", "fr", "it", "nl", "pt"],
                 "default": "en"
             },
             {
