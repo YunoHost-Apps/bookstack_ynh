@@ -28,12 +28,7 @@ ynh_script_progression --message="Loading installation settings..." --weight=1
 
 # Needed for helper "ynh_add_nginx_config"
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
-language=$(ynh_app_setting_get --app=$app --key=language)
-db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-db_user=$db_name
-db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
 phpversion=$YNH_PHP_VERSION
-app_url_domain=$(ynh_app_setting_get --app=$app --key=app_url_domain)
 
 #=================================================
 # BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
@@ -105,9 +100,10 @@ fi
 ynh_script_progression --message="Reconfiguring congif file.." --weight=1
 
 new_app_url_domain="https://${new_domain}${new_path%/}"
+old_app_url_domain="https://${old_domain}${old_path%/}"
 
 pushd $final_path
-	yes | php$phpversion artisan bookstack:update-url $app_url_domain $new_app_url_domain
+	yes | php$phpversion artisan bookstack:update-url $old_app_url_domain $new_app_url_domain
 popd
 
 sed -i "/APP_URL=/c\APP_URL=$new_app_url_domain" $final_path/.env
