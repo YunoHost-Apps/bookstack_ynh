@@ -26,7 +26,6 @@ db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
 phpversion=$YNH_PHP_VERSION
 redis_db=$(ynh_app_setting_get --app=$app --key=redis_db)
 mail_pwd=$(ynh_string_random --length=12)
-app_url_domain=$(ynh_app_setting_get --app=$app --key=app_url_domain)
 
 #=================================================
 # CHECK VERSION
@@ -52,12 +51,6 @@ ynh_abort_if_errors
 # ENSURE DOWNWARD COMPATIBILITY
 #=================================================
 ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
-
-# If app_url_domain doesn't exist, create it
-if [ -z "$app_url_domain" ]; then
-	app_url_domain="https://$domain${path_url%/}"
-	ynh_app_setting_set --app=$app --key=app_url_domain --value=$app_url_domain
-fi
 
 # Cleaning legacy permissions
 if ynh_legacy_permissions_exists; then
