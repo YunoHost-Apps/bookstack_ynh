@@ -104,11 +104,13 @@ fi
 #=================================================
 ynh_script_progression --message="Reconfiguring congif file.." --weight=1
 
+new_app_url_domain="https://${new_domain}${new_path%/}"
+
 pushd $final_path
-	yes | php$phpversion artisan bookstack:update-url $app_url_domain https://${new_domain}${new_path%/}
+	yes | php$phpversion artisan bookstack:update-url $app_url_domain $new_app_url_domain
 popd
 
-sed -i "/APP_URL=/c\APP_URL=https://${new_domain}${new_path}" $final_path/.env
+sed -i "/APP_URL=/c\APP_URL=$new_app_url_domain" $final_path/.env
 
 #=================================================
 # RELOAD NGINX
