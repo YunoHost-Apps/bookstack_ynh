@@ -33,6 +33,7 @@ db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 db_user=$db_name
 db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
 phpversion=$YNH_PHP_VERSION
+app_url_domain=$(ynh_app_setting_get --app=$app --key=app_url_domain)
 
 #=================================================
 # BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
@@ -104,7 +105,7 @@ fi
 ynh_script_progression --message="Reconfiguring congif file.." --weight=1
 
 pushd $final_path
-	yes | php$phpversion artisan bookstack:update-url https://${domain}${path_url} https://${new_domain}${new_path}
+	yes | php$phpversion artisan bookstack:update-url $app_url_domain https://${new_domain}${new_path%/}
 popd
 
 sed -i "/APP_URL=/c\APP_URL=https://${new_domain}${new_path}" $final_path/.env
