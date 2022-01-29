@@ -119,6 +119,9 @@ ynh_install_composer --phpversion=$phpversion --workdir=$final_path --install_ar
 #=================================================
 ynh_script_progression --message="Adding a configuration file..." --weight=1
 
+app_url_domain="https://$domain${path_url%/}"
+ynh_app_setting_set --app=$app --key=app_url_domain --value=$app_url_domain
+
 ynh_add_config --template=../conf/.env.example --destination=$final_path/.env
 chmod 600 $final_path/.env
 
