@@ -26,8 +26,6 @@ is_public=$YNH_APP_ARG_IS_PUBLIC
 language=$YNH_APP_ARG_LANGUAGE
 phpversion=$YNH_PHP_VERSION
 password=$YNH_APP_ARG_PASSWORD
-admin=$YNH_APP_ARG_ADMIN
-email=$(ynh_user_get_info --username=$admin --key=mail)
 timezone="$(cat /etc/timezone)"
 redis_db=$(ynh_redis_get_free_db)
 mail_pwd=$(ynh_string_random --length=12)
@@ -135,7 +133,7 @@ ynh_script_progression --message="Install BookStack" --weight=5
 pushd $final_path
 	php$phpversion artisan key:generate --no-interaction --force
 	php$phpversion artisan migrate --no-interaction --force
-	#php$phpversion artisan bookstack:create-admin --email="$email" --name="$admin" --password="$password"
+	php$phpversion artisan bookstack:create-admin --email="admin@${domain}" --name="Admin" --password="$password"
 popd
 
 # Set permissions to app files
