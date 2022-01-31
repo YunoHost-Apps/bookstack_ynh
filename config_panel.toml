@@ -10,7 +10,7 @@ name = "Bookstack configuration"
         ask = "General auth"
         choices = ["standard", "ldap"]
         default = "standard"
-        help = ""
+        help = "Select an authentication methode to connect to BookStack"
         bind = "AUTH_METHOD:__FINALPATH__/.env"
 
     [main.php_fpm_config]
