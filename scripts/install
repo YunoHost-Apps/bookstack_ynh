@@ -31,7 +31,7 @@ mail_pwd=$(ynh_string_random --length=12)
 
 app=$YNH_APP_INSTANCE_NAME
 
-auth_method="ldap"
+auth_method="standard"
 
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
