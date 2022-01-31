@@ -6,7 +6,7 @@ name = "Bookstack configuration"
     [main.auth_config]
     name = "Athentication configuration"
 
-        [main.php_fpm_config.auth_method]
+        [main.auth_config.auth_method]
         ask = "General auth"
         choices = ["standard", "ldap"]
         default = "standard"
