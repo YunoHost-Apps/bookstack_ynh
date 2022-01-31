@@ -27,8 +27,6 @@ phpversion=$YNH_PHP_VERSION
 timezone="$(cat /etc/timezone)"
 redis_db=$(ynh_app_setting_get --app=$app --key=redis_db)
 mail_pwd=$(ynh_string_random --length=12)
-admin=$(ynh_app_setting_get --app=$app --key=admin)
-email=$(ynh_user_get_info --username=$admin --key=mail)
 
 fpm_footprint=$(ynh_app_setting_get --app=$app --key=fpm_footprint)
 fpm_usage=$(ynh_app_setting_get --app=$app --key=fpm_usage)
@@ -156,8 +154,6 @@ pushd $final_path
 	php$phpversion artisan cache:clear
 	php$phpversion artisan config:clear
  	php$phpversion artisan view:clear
- 	php$phpversion artisan bookstack:create-admin --email="admin@${domain}" --name="Admin" --password="$password"
- 	#php$phpversion artisan bookstack:create-admin --email="$email" --name="$admin" --password="$password"
 popd
 
 chmod 755 $final_path

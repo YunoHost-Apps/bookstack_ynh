@@ -41,14 +41,6 @@
                 "default": "/bookstack"
             },
             {
-                "name": "admin",
-                "type": "user"
-            },
-            {
-                "name": "password",
-                "type": "password"
-            },
-            {
                 "name": "language",
                 "type": "string",
                 "ask": {
