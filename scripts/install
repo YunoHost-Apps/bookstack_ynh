@@ -34,6 +34,8 @@ mail_pwd=$(ynh_string_random --length=12)
 
 app=$YNH_APP_INSTANCE_NAME
 
+auth_method="standard"
+
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
 #=================================================
@@ -55,6 +57,7 @@ ynh_app_setting_set --app=$app --key=path --value=$path_url
 ynh_app_setting_set --app=$app --key=language --value=$language
 ynh_app_setting_set --app=$app --key=admin --value=$admin
 ynh_app_setting_set --app=$app --key=redis_db --value=$redis_db
+ynh_app_setting_set --app=$app --key=auth_method --value=$auth_method
 
 #=================================================
 # INSTALL DEPENDENCIES
@@ -132,7 +135,7 @@ ynh_script_progression --message="Install BookStack" --weight=5
 pushd $final_path
 	php$phpversion artisan key:generate --no-interaction --force
 	php$phpversion artisan migrate --no-interaction --force
-	php$phpversion artisan bookstack:create-admin --email="$email" --name="$admin" --password="$password"
+	#php$phpversion artisan bookstack:create-admin --email="$email" --name="$admin" --password="$password"
 popd
 
 # Set permissions to app files

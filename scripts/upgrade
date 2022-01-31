@@ -27,9 +27,12 @@ phpversion=$YNH_PHP_VERSION
 timezone="$(cat /etc/timezone)"
 redis_db=$(ynh_app_setting_get --app=$app --key=redis_db)
 mail_pwd=$(ynh_string_random --length=12)
+admin=$(ynh_app_setting_get --app=$app --key=admin)
+email=$(ynh_user_get_info --username=$admin --key=mail)
 
 fpm_footprint=$(ynh_app_setting_get --app=$app --key=fpm_footprint)
 fpm_usage=$(ynh_app_setting_get --app=$app --key=fpm_usage)
+auth_method=$(ynh_app_setting_get --app=$app --key=auth_method)
 
 #=================================================
 # CHECK VERSION
@@ -66,6 +69,12 @@ fi
 if [ -z "$fpm_usage" ]; then
 	fpm_usage=low
 	ynh_app_setting_set --app=$app --key=fpm_usage --value=$fpm_usage
+fi
+
+# If auth_method doesn't exist, create it
+if [ -z "$auth_method" ]; then
+	auth_method="standard"
+	ynh_app_setting_set --app=$app --key=auth_method --value=$auth_method
 fi
 
 # Cleaning legacy permissions
@@ -147,7 +156,7 @@ pushd $final_path
 	php$phpversion artisan cache:clear
 	php$phpversion artisan config:clear
  	php$phpversion artisan view:clear
- 	php$phpversion artisan bookstack:create-admin --email="$email" --name="$admin" --password="$password"
+ 	#php$phpversion artisan bookstack:create-admin --email="$email" --name="$admin" --password="$password"
 popd
 
 chmod 755 $final_path
