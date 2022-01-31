@@ -25,7 +25,6 @@ path_url=$YNH_APP_ARG_PATH
 is_public=$YNH_APP_ARG_IS_PUBLIC
 language=$YNH_APP_ARG_LANGUAGE
 phpversion=$YNH_PHP_VERSION
-password=$YNH_APP_ARG_PASSWORD
 timezone="$(cat /etc/timezone)"
 redis_db=$(ynh_redis_get_free_db)
 mail_pwd=$(ynh_string_random --length=12)
@@ -53,7 +52,6 @@ ynh_script_progression --message="Storing installation settings..." --weight=1
 ynh_app_setting_set --app=$app --key=domain --value=$domain
 ynh_app_setting_set --app=$app --key=path --value=$path_url
 ynh_app_setting_set --app=$app --key=language --value=$language
-ynh_app_setting_set --app=$app --key=admin --value=$admin
 ynh_app_setting_set --app=$app --key=redis_db --value=$redis_db
 ynh_app_setting_set --app=$app --key=auth_method --value=$auth_method
 
