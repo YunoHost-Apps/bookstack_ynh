@@ -24,6 +24,7 @@ db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 db_user=$db_name
 db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
 phpversion=$YNH_PHP_VERSION
+timezone="$(cat /etc/timezone)"
 redis_db=$(ynh_app_setting_get --app=$app --key=redis_db)
 mail_pwd=$(ynh_string_random --length=12)
 
@@ -91,7 +92,7 @@ then
 	ynh_script_progression --message="Upgrading source files..." --weight=1
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$final_path" --keep="$final_path/.env $final_path/public/uploads $final_path/storage/uploads"
+	ynh_setup_source --dest_dir="$final_path" --keep="$final_path/public/uploads $final_path/storage/uploads"
 fi
 
 #=================================================
@@ -123,7 +124,17 @@ ynh_add_fpm_config --usage=$fpm_usage --footprint=$fpm_footprint
 ynh_script_progression --message="Installing BookStack with Composer..." --weight=5
 
 # Install composer
-ynh_install_composer --install_args="--no-dev"
+ynh_install_composer --phpversion=$phpversion --workdir=$final_path --install_args="--no-dev"
+
+#=================================================
+# MODIFY A CONFIG FILE
+#=================================================
+ynh_script_progression --message="Adding a configuration file..." --weight=1
+
+app_url_domain="https://$domain${path_url%/}"
+
+ynh_add_config --template=../conf/.env.example --destination=$final_path/.env
+chmod 600 $final_path/.env
 
 #=================================================
 # FINAL BOOKSTACK INSTALL
@@ -136,6 +147,7 @@ pushd $final_path
 	php$phpversion artisan cache:clear
 	php$phpversion artisan config:clear
  	php$phpversion artisan view:clear
+ 	php$phpversion artisan bookstack:create-admin --email="$email" --name="$admin" --password="$password"
 popd
 
 chmod 755 $final_path
