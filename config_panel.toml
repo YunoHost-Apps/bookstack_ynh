@@ -1,13 +1,13 @@
 version = "1.0"
 
 [main]
-name = "Bookstack configuration"
+name = "BookStack configuration"
 
     [main.auth_config]
-    name = "Athentication configuration"
+    name = "Authentication configuration"
 
         [main.auth_config.auth_method]
-        ask = "General auth"
+        ask = "General authentication"
         choices = ["standard", "ldap"]
         default = "ldap"
         help = "Select an authentication method to connect to BookStack."
