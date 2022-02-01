@@ -135,7 +135,7 @@ ynh_script_progression --message="Install BookStack" --weight=5
 pushd $final_path
 	php$phpversion artisan key:generate --no-interaction --force
 	php$phpversion artisan migrate --no-interaction --force
-	php$phpversion artisan bookstack:create-admin --email="$email" --name="$admin" --external_auth_id="$admin"
+	php$phpversion artisan bookstack:create-admin --email="$email" --name="$admin" --external-auth-id="$admin"
 popd
 
 # Set permissions to app files
