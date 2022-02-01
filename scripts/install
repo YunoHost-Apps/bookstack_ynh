@@ -142,6 +142,7 @@ popd
 chmod 755 $final_path
 chmod -R o-rwx $final_path
 chown -R $app:www-data $final_path
+chown $app:$app $final_path/.env
 
 #=================================================
 # SETUP SSOWAT
