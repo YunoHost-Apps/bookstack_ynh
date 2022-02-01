@@ -9,7 +9,7 @@ name = "Bookstack configuration"
         [main.auth_config.auth_method]
         ask = "General auth"
         choices = ["standard", "ldap"]
-        default = "standard"
+        default = "ldap"
         help = "Select an authentication method to connect to BookStack."
         bind = "AUTH_METHOD:__FINALPATH__/.env"
 
