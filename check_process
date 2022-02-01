@@ -15,6 +15,7 @@
 		setup_public=1
 		upgrade=1
 		upgrade=1	from_commit=aaa9c9534b01a210989aceb4ad4d2b9c585be6df
+		upgrade=1	from_commit=12ee6097f4f48e6fb765afbe25dd10345e9c8adb
 		backup_restore=1
 		multi_instance=0
 		change_url=1
@@ -24,4 +25,6 @@ Notification=none
 ;;; Upgrade options
 	; commit=aaa9c9534b01a210989aceb4ad4d2b9c585be6df
 		name=Testing (#35)
+	; commit=12ee6097f4f48e6fb765afbe25dd10345e9c8adb
+		name=Testing (#38)
 		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&language=fr&is_public=1&password=pass&port=666&
