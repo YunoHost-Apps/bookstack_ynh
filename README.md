@@ -18,7 +18,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 BookStack is an opinionated wiki system that provides a pleasant and simple out of the box experience. New users to an instance should find the experience intuitive and only basic word-processing skills should be required to get involved in creating content on BookStack. The platform should provide advanced power features to those that desire it but they should not interfere with the core simple user experience.
 
 
-**Shipped version:** 21.12.3~ynh1
+**Shipped version:** 21.12.4~ynh1
 
 **Demo:** https://demo.bookstackapp.com
 
@@ -30,9 +30,12 @@ BookStack is an opinionated wiki system that provides a pleasant and simple out 
 
 ## Configuration
 
-For the first time Login, use the default credentials `admin@admin.com` and `password`. You should change these details immediately after logging in for the first time.
+BookStack uses LDAP authentication by default.
 
-* How to configure this app: From an admin panel, a plain file with SSH, or any other way.
+You can switch to standard authentication in the webadmin -> bookstack -> config panel setting
+For the first time Login with standard authentication, use the default credentials `admin@admin.com` and `password`. You should change these details immediately after logging in for the first time.
+
+* How to configure this app: From an admin panel, a plain file with SSH, or config panel.
 
 ## Documentation and resources
 

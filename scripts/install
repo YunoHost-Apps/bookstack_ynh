@@ -28,8 +28,13 @@ phpversion=$YNH_PHP_VERSION
 timezone="$(cat /etc/timezone)"
 redis_db=$(ynh_redis_get_free_db)
 mail_pwd=$(ynh_string_random --length=12)
+admin=$YNH_APP_ARG_ADMIN
+email=$(ynh_user_get_info --username=$admin --key=mail)
+password=$YNH_APP_ARG_PASSWORD
 
 app=$YNH_APP_INSTANCE_NAME
+
+auth_method="ldap"
 
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
@@ -50,7 +55,9 @@ ynh_script_progression --message="Storing installation settings..." --weight=1
 ynh_app_setting_set --app=$app --key=domain --value=$domain
 ynh_app_setting_set --app=$app --key=path --value=$path_url
 ynh_app_setting_set --app=$app --key=language --value=$language
+ynh_app_setting_set --app=$app --key=admin --value=$admin
 ynh_app_setting_set --app=$app --key=redis_db --value=$redis_db
+ynh_app_setting_set --app=$app --key=auth_method --value=$auth_method
 
 #=================================================
 # INSTALL DEPENDENCIES
@@ -86,11 +93,6 @@ ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$final_path"
 
-# Set permissions to app files
-chmod 755 $final_path
-chmod -R o-rwx $final_path
-chown -R $app:www-data $final_path
-
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
@@ -105,7 +107,7 @@ ynh_add_nginx_config
 ynh_script_progression --message="Configuring PHP-FPM..." --weight=2
 
 # Create a dedicated PHP-FPM config
-ynh_add_fpm_config
+ynh_add_fpm_config --usage=low --footprint=low
 
 #=================================================
 # INSTALL LYCHEE WITH COMPOSER
@@ -133,7 +135,14 @@ ynh_script_progression --message="Install BookStack" --weight=5
 pushd $final_path
 	php$phpversion artisan key:generate --no-interaction --force
 	php$phpversion artisan migrate --no-interaction --force
+	php$phpversion artisan bookstack:create-admin --email="$email" --name="$admin" --external-auth-id="$admin"
 popd
+
+# Set permissions to app files
+chmod 755 $final_path
+chmod -R o-rwx $final_path
+chown -R $app:www-data $final_path
+chown $app:$app $final_path/.env
 
 #=================================================
 # SETUP SSOWAT
