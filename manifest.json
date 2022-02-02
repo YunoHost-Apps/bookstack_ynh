@@ -12,7 +12,8 @@
         "license": "MIT",
         "website": "https://www.bookstackapp.com",
         "demo": "https://demo.bookstackapp.com",
-        "admindoc": "https://www.bookstackapp.com/docs",
+        "admindoc": "https://www.bookstackapp.com/docs/admin/",
+        "userdoc": "https://www.bookstackapp.com/docs/user/",
         "code": "https://github.com/BookStackApp/BookStack"
     },
     "license": "MIT",
