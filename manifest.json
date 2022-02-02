@@ -52,7 +52,7 @@
                     "en": "Choose the application language",
                     "fr": "Choisissez la langue de l'application"
                 },
-                "choices": ["de", "en", "es", "fr", "it", "nl", "pt"],
+                "choices": ["de", "en", "es_ES", "fa", "fr", "it", "lt", "nl", "pl", "pt_PT", "uk", "zh_CN"],
                 "default": "en"
             },
             {
