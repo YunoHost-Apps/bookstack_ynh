@@ -30,7 +30,6 @@ redis_db=$(ynh_redis_get_free_db)
 mail_pwd=$(ynh_string_random --length=12)
 admin=$YNH_APP_ARG_ADMIN
 email=$(ynh_user_get_info --username=$admin --key=mail)
-password=$YNH_APP_ARG_PASSWORD
 
 app=$YNH_APP_INSTANCE_NAME
 

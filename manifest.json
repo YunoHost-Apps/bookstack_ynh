@@ -6,7 +6,7 @@
         "en": "Platform to create documentation/wiki content",
         "fr": "Plateforme pour créer du contenu de documentation/wiki"
     },
-    "version": "21.12.4~ynh1",
+    "version": "21.12.4~ynh2",
     "url": "https://www.bookstackapp.com/",
     "upstream": {
         "license": "MIT",
@@ -43,10 +43,6 @@
             {
                 "name": "admin",
                 "type": "user"
-            },
-            {
-                "name": "password",
-                "type": "password"
             },
             {
                 "name": "language",
