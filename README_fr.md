@@ -13,6 +13,13 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 BookStack is an opinionated wiki system that provides a pleasant and simple out of the box experience. New users to an instance should find the experience intuitive and only basic word-processing skills should be required to get involved in creating content on BookStack. The platform should provide advanced power features to those that desire it but they should not interfere with the core simple user experience.
 
+### Features
+- Multi-Factor Authentication
+- Dark & Light Modes
+- LDAP Authentication
+- Optional Markdown Editor
+- Multi-Lingual
+
 
 **Version incluse :** 21.12.4~ynh2
 
@@ -29,7 +36,8 @@ BookStack is an opinionated wiki system that provides a pleasant and simple out 
 ## Documentations et ressources
 
 * Site officiel de l'app : https://www.bookstackapp.com
-* Documentation officielle de l'admin : https://www.bookstackapp.com/docs
+* Documentation officielle utilisateur : https://www.bookstackapp.com/docs/user/
+* Documentation officielle de l'admin : https://www.bookstackapp.com/docs/admin/
 * Dépôt de code officiel de l'app : https://github.com/BookStackApp/BookStack
 * Documentation YunoHost pour cette app : https://yunohost.org/app_bookstack
 * Signaler un bug : https://github.com/YunoHost-Apps/bookstack_ynh/issues
