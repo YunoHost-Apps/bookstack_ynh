@@ -12,7 +12,8 @@
         "license": "MIT",
         "website": "https://www.bookstackapp.com",
         "demo": "https://demo.bookstackapp.com",
-        "admindoc": "https://www.bookstackapp.com/docs",
+        "admindoc": "https://www.bookstackapp.com/docs/admin/",
+        "userdoc": "https://www.bookstackapp.com/docs/user/",
         "code": "https://github.com/BookStackApp/BookStack"
     },
     "license": "MIT",
@@ -51,7 +52,7 @@
                     "en": "Choose the application language",
                     "fr": "Choisissez la langue de l'application"
                 },
-                "choices": ["de", "en", "es", "fr", "it", "nl", "pt"],
+                "choices": ["de", "en", "es_ES", "fa", "fr", "it", "lt", "nl", "pl", "pt_PT", "uk", "zh_CN"],
                 "default": "en"
             },
             {
