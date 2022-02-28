@@ -17,8 +17,14 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 BookStack is an opinionated wiki system that provides a pleasant and simple out of the box experience. New users to an instance should find the experience intuitive and only basic word-processing skills should be required to get involved in creating content on BookStack. The platform should provide advanced power features to those that desire it but they should not interfere with the core simple user experience.
 
+### Features
+- Multi-Factor Authentication
+- Dark & Light Modes
+- LDAP Authentication
+- Optional Markdown Editor
+- Multi-Lingual
 
-**Shipped version:** 21.12.3~ynh2
+**Shipped version:** 22.02.1~ynh1
 
 **Demo:** https://demo.bookstackapp.com
 
@@ -30,14 +36,16 @@ BookStack is an opinionated wiki system that provides a pleasant and simple out 
 
 ## Configuration
 
-For the first time Login, use the default credentials `admin@admin.com` and `password`. You should change these details immediately after logging in for the first time.
+BookStack uses LDAP authentication by default.
 
-* How to configure this app: From an admin panel, a plain file with SSH, or any other way.
+You can switch to standard authentication in the webadmin -> bookstack -> config panel setting
+For the first time Login with standard authentication, use the default credentials `admin@admin.com` and `password`. You should change these details immediately after logging in for the first time.
 
 ## Documentation and resources
 
 * Official app website: https://www.bookstackapp.com
-* Official admin documentation: https://www.bookstackapp.com/docs
+* Official user documentation: https://www.bookstackapp.com/docs/user/
+* Official admin documentation: https://www.bookstackapp.com/docs/admin/
 * Upstream app code repository: https://github.com/BookStackApp/BookStack
 * YunoHost documentation for this app: https://yunohost.org/app_bookstack
 * Report a bug: https://github.com/YunoHost-Apps/bookstack_ynh/issues

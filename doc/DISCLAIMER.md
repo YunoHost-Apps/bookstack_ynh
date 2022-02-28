@@ -1,5 +1,6 @@
 ## Configuration
 
-For the first time Login, use the default credentials `admin@admin.com` and `password`. You should change these details immediately after logging in for the first time.
+BookStack uses LDAP authentication by default.
 
-* How to configure this app: From an admin panel, a plain file with SSH, or any other way.
+You can switch to standard authentication in the webadmin -> bookstack -> config panel setting
+For the first time Login with standard authentication, use the default credentials `admin@admin.com` and `password`. You should change these details immediately after logging in for the first time.

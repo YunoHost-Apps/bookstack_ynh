@@ -24,9 +24,14 @@ db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 db_user=$db_name
 db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
 phpversion=$YNH_PHP_VERSION
+timezone="$(cat /etc/timezone)"
 redis_db=$(ynh_app_setting_get --app=$app --key=redis_db)
 mail_pwd=$(ynh_string_random --length=12)
 timezone="$(cat /etc/timezone)"
+
+fpm_footprint=$(ynh_app_setting_get --app=$app --key=fpm_footprint)
+fpm_usage=$(ynh_app_setting_get --app=$app --key=fpm_usage)
+auth_method=$(ynh_app_setting_get --app=$app --key=auth_method)
 
 #=================================================
 # CHECK VERSION
@@ -52,6 +57,24 @@ ynh_abort_if_errors
 # ENSURE DOWNWARD COMPATIBILITY
 #=================================================
 ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
+
+# If fpm_footprint doesn't exist, create it
+if [ -z "$fpm_footprint" ]; then
+	fpm_footprint=low
+	ynh_app_setting_set --app=$app --key=fpm_footprint --value=$fpm_footprint
+fi
+
+# If fpm_usage doesn't exist, create it
+if [ -z "$fpm_usage" ]; then
+	fpm_usage=low
+	ynh_app_setting_set --app=$app --key=fpm_usage --value=$fpm_usage
+fi
+
+# If auth_method doesn't exist, create it
+if [ -z "$auth_method" ]; then
+	auth_method="standard"
+	ynh_app_setting_set --app=$app --key=auth_method --value=$auth_method
+fi
 
 # Cleaning legacy permissions
 if ynh_legacy_permissions_exists; then
@@ -101,7 +124,7 @@ ynh_install_app_dependencies $pkg_dependencies
 ynh_script_progression --message="Upgrading PHP-FPM configuration..." --weight=1
 
 # Create a dedicated PHP-FPM config
-ynh_add_fpm_config
+ynh_add_fpm_config --usage=$fpm_usage --footprint=$fpm_footprint
 
 #=================================================
 # MODIFY A CONFIG FILE
@@ -119,7 +142,17 @@ chmod 600 $final_path/.env
 ynh_script_progression --message="Installing BookStack with Composer..." --weight=5
 
 # Install composer
-ynh_install_composer --install_args="--no-dev"
+ynh_install_composer --phpversion=$phpversion --workdir=$final_path --install_args="--no-dev"
+
+#=================================================
+# MODIFY A CONFIG FILE
+#=================================================
+ynh_script_progression --message="Adding a configuration file..." --weight=1
+
+app_url_domain="https://$domain${path_url%/}"
+
+ynh_add_config --template=../conf/.env.example --destination=$final_path/.env
+chmod 600 $final_path/.env
 
 #=================================================
 # FINAL BOOKSTACK INSTALL
@@ -137,7 +170,7 @@ popd
 chmod 755 $final_path
 chmod -R o-rwx $final_path
 chown -R $app:www-data $final_path
-#chmod 600 $final_path/.env
+chown $app:$app $final_path/.env
 
 #=================================================
 # RELOAD NGINX
