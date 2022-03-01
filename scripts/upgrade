@@ -27,6 +27,7 @@ phpversion=$YNH_PHP_VERSION
 timezone="$(cat /etc/timezone)"
 redis_db=$(ynh_app_setting_get --app=$app --key=redis_db)
 mail_pwd=$(ynh_string_random --length=12)
+timezone="$(cat /etc/timezone)"
 
 fpm_footprint=$(ynh_app_setting_get --app=$app --key=fpm_footprint)
 fpm_usage=$(ynh_app_setting_get --app=$app --key=fpm_usage)
@@ -124,6 +125,16 @@ ynh_script_progression --message="Upgrading PHP-FPM configuration..." --weight=1
 
 # Create a dedicated PHP-FPM config
 ynh_add_fpm_config --usage=$fpm_usage --footprint=$fpm_footprint
+
+#=================================================
+# MODIFY A CONFIG FILE
+#=================================================
+ynh_script_progression --message="Adding a configuration file..." --weight=1
+
+app_url_domain="https://$domain${path_url%/}"
+
+ynh_add_config --template=../conf/.env.example --destination=$final_path/.env
+chmod 600 $final_path/.env
 
 #=================================================
 # INSTALL LYCHEE WITH COMPOSER
