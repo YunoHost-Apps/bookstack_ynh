@@ -14,6 +14,7 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 BookStack is an opinionated wiki system that provides a pleasant and simple out of the box experience. New users to an instance should find the experience intuitive and only basic word-processing skills should be required to get involved in creating content on BookStack. The platform should provide advanced power features to those that desire it but they should not interfere with the core simple user experience.
 
 ### Features
+
 - Multi-Factor Authentication
 - Dark & Light Modes
 - LDAP Authentication
@@ -31,7 +32,12 @@ BookStack is an opinionated wiki system that provides a pleasant and simple out 
 
 ## Avertissements / informations importantes
 
+## Configuration
 
+BookStack utilise l'authentification LDAP par défaut.
+
+Vous pouvez passer à l'authentification standard dans le webadmin -> Bookstack -> paramètre du panneau de configuration
+Pour la première connexion avec une authentification standard, utilisez les informations d'identification par défaut `admin@admin.com` et `password`. Vous devez modifier ces informations immédiatement après vous être connecté pour la première fois.
 
 ## Documentations et ressources
 
