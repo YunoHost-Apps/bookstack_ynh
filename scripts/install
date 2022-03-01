@@ -114,7 +114,7 @@ ynh_add_fpm_config --usage=low --footprint=low
 ynh_script_progression --message="Installing BookStack with Composer..." --weight=5
 
 # Install composer
-ynh_install_composer --phpversion=$phpversion --workdir=$final_path
+ynh_install_composer
 
 #=================================================
 # MODIFY A CONFIG FILE
