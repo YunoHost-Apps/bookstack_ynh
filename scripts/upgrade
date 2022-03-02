@@ -27,6 +27,7 @@ phpversion=$YNH_PHP_VERSION
 timezone="$(cat /etc/timezone)"
 redis_db=$(ynh_app_setting_get --app=$app --key=redis_db)
 mail_pwd=$(ynh_string_random --length=12)
+timezone="$(cat /etc/timezone)"
 
 fpm_footprint=$(ynh_app_setting_get --app=$app --key=fpm_footprint)
 fpm_usage=$(ynh_app_setting_get --app=$app --key=fpm_usage)
@@ -123,7 +124,7 @@ ynh_install_app_dependencies $pkg_dependencies
 ynh_script_progression --message="Upgrading PHP-FPM configuration..." --weight=1
 
 # Create a dedicated PHP-FPM config
-ynh_add_fpm_config --usage=$fpm_usage --footprint=$fpm_footprint
+ynh_add_fpm_config --phpversion=$phpversion --usage=$fpm_usage --footprint=$fpm_footprint
 
 #=================================================
 # INSTALL LYCHEE WITH COMPOSER
@@ -131,7 +132,7 @@ ynh_add_fpm_config --usage=$fpm_usage --footprint=$fpm_footprint
 ynh_script_progression --message="Installing BookStack with Composer..." --weight=5
 
 # Install composer
-ynh_install_composer --phpversion=$phpversion --workdir=$final_path --install_args="--no-dev"
+ynh_install_composer
 
 #=================================================
 # MODIFY A CONFIG FILE
