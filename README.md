@@ -25,6 +25,7 @@ BookStack is an opinionated wiki system that provides a pleasant and simple out 
 - Optional Markdown Editor
 - Multi-Lingual
 
+
 **Shipped version:** 22.02.3~ynh1
 
 **Demo:** https://demo.bookstackapp.com
