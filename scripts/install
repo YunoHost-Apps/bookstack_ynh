@@ -107,6 +107,7 @@ ynh_script_progression --message="Configuring PHP-FPM..." --weight=2
 
 # Create a dedicated PHP-FPM config
 ynh_add_fpm_config --usage=low --footprint=low
+phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 
 #=================================================
 # INSTALL LYCHEE WITH COMPOSER
@@ -146,7 +147,7 @@ chown $app:$app $final_path/.env
 #=================================================
 # SETUP SSOWAT
 #=================================================
-ynh_script_progression --message="Configuring permissions..." --weight=50
+ynh_script_progression --message="Configuring permissions..." --weight=1
 
 # Make app public if necessary
 if [ $is_public -eq 1 ]
