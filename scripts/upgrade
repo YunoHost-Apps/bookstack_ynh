@@ -100,7 +100,7 @@ then
 	ynh_script_progression --message="Upgrading source files..." --weight=1
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$final_path" --keep="$final_path/public/uploads $final_path/storage/uploads"
+	ynh_setup_source --dest_dir="$final_path" --keep="$final_path/.env $final_path/public/uploads $final_path/storage/uploads"
 fi
 
 #=================================================
@@ -138,12 +138,12 @@ ynh_install_composer
 #=================================================
 # MODIFY A CONFIG FILE
 #=================================================
-ynh_script_progression --message="Adding a configuration file..." --weight=1
+# ynh_script_progression --message="Adding a configuration file..." --weight=1
 
-app_url_domain="https://$domain${path_url%/}"
+# app_url_domain="https://$domain${path_url%/}"
 
-ynh_add_config --template=../conf/.env.example --destination=$final_path/.env
-chmod 600 $final_path/.env
+# ynh_add_config --template=../conf/.env.example --destination=$final_path/.env
+# chmod 600 $final_path/.env
 
 #=================================================
 # FINAL BOOKSTACK INSTALL
