@@ -1,0 +1,11 @@
+[Unit]
+Description=BookStack Queue Worker
+
+[Service]
+User=www-data
+Group=www-data
+Restart=always
+ExecStart=/usr/bin/php__PHPVERSION__ __FINALPATH__/artisan queue:work --sleep=3 --tries=1 --max-time=3600
+
+[Install]
+WantedBy=multi-user.target
