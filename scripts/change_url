@@ -70,7 +70,7 @@ fi
 #=================================================
 ynh_script_progression --message="Stopping a systemd service..." --weight=1
 
-ynh_systemd_action --service_name=$app --action="stop" --log_path="/var/log/$app/$app.log"
+ynh_systemd_action --service_name=$app --action="stop" --log_path="systemd"
 
 #=================================================
 # STANDARD MODIFICATIONS
@@ -123,7 +123,7 @@ sed -i "/APP_URL=/c\APP_URL=https://${new_domain}${new_path}" $final_path/.env
 #=================================================
 ynh_script_progression --message="Starting a systemd service..." --weight=1
 
-ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
+ynh_systemd_action --service_name=$app --action="start" --log_path="systemd"
 
 #=================================================
 # RELOAD NGINX
