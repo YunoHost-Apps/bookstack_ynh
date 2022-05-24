@@ -100,7 +100,7 @@ then
 	ynh_script_progression --message="Upgrading source files..." --weight=1
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$final_path" --keep="$final_path/.env $final_path/public/uploads $final_path/storage/uploads"
+	ynh_setup_source --dest_dir="$final_path" --keep="$final_path/public/uploads $final_path/storage/uploads"
 fi
 
 #=================================================
@@ -138,12 +138,12 @@ ynh_install_composer
 #=================================================
 # MODIFY A CONFIG FILE
 #=================================================
-# ynh_script_progression --message="Adding a configuration file..." --weight=1
+ynh_script_progression --message="Adding a configuration file..." --weight=1
 
-# app_url_domain="https://$domain${path_url%/}"
+app_url_domain="https://$domain${path_url%/}"
 
-# ynh_add_config --template=../conf/.env.example --destination=$final_path/.env
-# chmod 600 $final_path/.env
+ynh_add_config --template=../conf/.env.example --destination=$final_path/.env
+chmod 600 $final_path/.env
 
 #=================================================
 # FINAL BOOKSTACK INSTALL
@@ -162,6 +162,28 @@ chmod 755 $final_path
 chmod -R o-rwx $final_path
 chown -R $app:www-data $final_path
 chown $app:$app $final_path/.env
+
+#=================================================
+# SETUP SYSTEMD
+#=================================================
+ynh_script_progression --message="Upgrading systemd configuration..." --weight=1
+
+# Create a dedicated systemd config
+ynh_add_systemd_config
+
+#=================================================
+# INTEGRATE SERVICE IN YUNOHOST
+#=================================================
+ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
+
+yunohost service add $app --description="BookStack Queue Worker" --log="/var/log/$app/$app.log"
+
+#=================================================
+# START SYSTEMD SERVICE
+#=================================================
+ynh_script_progression --message="Starting a systemd service..." --weight=1
+
+ynh_systemd_action --service_name=$app --action="start" --log_path="systemd"
 
 #=================================================
 # RELOAD NGINX
