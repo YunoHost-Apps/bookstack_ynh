@@ -33,6 +33,11 @@ fpm_footprint=$(ynh_app_setting_get --app=$app --key=fpm_footprint)
 fpm_usage=$(ynh_app_setting_get --app=$app --key=fpm_usage)
 auth_method=$(ynh_app_setting_get --app=$app --key=auth_method)
 
+minio_domain=$(ynh_app_setting_get --app=$app --key=minio_domain)
+minio_admin=$(ynh_app_setting_get --app=$app --key=minio_admin)
+minio_password=$(ynh_app_setting_get --app=$app --key=minio_password)
+mc_path=$(ynh_app_setting_get --app=$app --key=mc_path)
+
 #=================================================
 # CHECK VERSION
 #=================================================

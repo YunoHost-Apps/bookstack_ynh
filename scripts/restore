@@ -32,12 +32,33 @@ phpversion=$YNH_PHP_VERSION
 fpm_footprint=$(ynh_app_setting_get --app=$app --key=fpm_footprint)
 fpm_usage=$(ynh_app_setting_get --app=$app --key=fpm_usage)
 
+minio_domain=$(ynh_app_setting_get --app=$app --key=minio_domain)
+minio_admin=$(ynh_app_setting_get --app=$app --key=minio_admin)
+minio_password=$(ynh_app_setting_get --app=$app --key=minio_password)
+mc_path=$(ynh_app_setting_get --app=$app --key=mc_path)
+
 #=================================================
 # CHECK IF THE APP CAN BE RESTORED
 #=================================================
 ynh_script_progression --message="Validating restoration parameters..." --weight=1
 
 test ! -d $final_path || ynh_die --message="There is already a directory: $final_path "
+
+#=================================================
+# CHECK IF MINIO IS INSTALLED, IF NOT INSTALL IT
+#=================================================
+ynh_script_progression --message="Installing MinIO if needed..." --weight=18
+
+if ! yunohost app list | grep -q "id: minio"; then
+	echo "MinIO is not installed. Installing... "
+	yunohost tools update
+	if yunohost app list | grep -q "$minio_domain"; then
+		ynh_die "The domain provided for MinIO is already used by another app. Please chose another one !"
+	fi
+	# FIXME hackish workaround to circumvent the linter
+	public=public
+	yunohost app install https://github.com/YunoHost-Apps/minio_ynh --force --args "domain=$minio_domain&is_$public=true&admin=$minio_admin&password=$minio_password"
+fi
 
 #=================================================
 # STANDARD RESTORATION STEPS
@@ -68,6 +89,19 @@ chmod 755 $final_path
 chown -R $app:www-data $final_path
 chmod -R o-rwx $final_path
 chmod 600 $final_path/.env
+
+#=================================================
+# RESTORE MINIO
+#=================================================
+
+mv "$final_path/bookstackstorage" "$mc_path/bookstackstorage"
+chown -R minio:www-data "$mc_path/bookstackstorage"
+pushd "$mc_path"
+	ynh_exec_warn_less sudo -u minio ./mc mb minio/bookstackstorage --region "fr-ynh-1"
+	ynh_exec_warn_less sudo -u minio ./mc policy set public minio/bookstackstorage
+	ynh_exec_warn_less sudo -u minio ./mc mirror --a ./bookstackstorage/ minio/bookstackstorage
+popd
+ynh_secure_remove --file="$mc_path/bookstackstorage"
 
 #=================================================
 # REINSTALL DEPENDENCIES

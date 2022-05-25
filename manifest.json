@@ -77,6 +77,21 @@
                     "fr": "Si cette case est cochée, BookStack sera accessible aux personnes n’ayant pas de compte. Vous pourrez changer ceci plus tard via la webadmin."
                 },
                 "default": true
+            },
+            {
+                "name": "minio_domain",
+                "type": "domain",
+                "ask": "Domain for MinIO app, used for images and attachements storage. If not yet installed, it will automatically be. Minio has to be installed at the root"
+            },
+            {
+                "name": "minio_admin",
+                "type": "user",
+                "ask": "Admin for MinIO app, used for images and attachements storage. Please note that if MinIO is already installed, that setting won't be used"
+            },
+            {
+                "name": "minio_password",
+                "type": "password",
+                "ask": "Password for MinIO admin"
             }
         ]
     }

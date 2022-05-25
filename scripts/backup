@@ -27,6 +27,11 @@ domain=$(ynh_app_setting_get --app=$app --key=domain)
 db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 
+minio_domain=$(ynh_app_setting_get --app=$app --key=minio_domain)
+minio_admin=$(ynh_app_setting_get --app=$app --key=minio_admin)
+minio_password=$(ynh_app_setting_get --app=$app --key=minio_password)
+mc_path=$(ynh_app_setting_get --app=$app --key=mc_path)
+
 #=================================================
 # DECLARE DATA AND CONF FILES TO BACKUP
 #=================================================
@@ -37,6 +42,18 @@ ynh_print_info --message="Declaring files to be backed up..."
 #=================================================
 
 ynh_backup --src_path="$final_path"
+
+#=================================================
+# BACKUP MINIO
+#=================================================
+
+pushd "$mc_path"
+        ynh_exec_warn_less sudo -u minio mkdir bookstackstorage
+        ynh_exec_warn_less sudo -u minio ./mc mirror --a minio/bookstackstorage ./bookstackstorage/
+popd
+
+mv "$mc_path/bookstackstorage" "$final_path/bookstackstorage"
+chown -R bookstack:www-data "$final_path/bookstackstorage"
 
 #=================================================
 # BACKUP THE NGINX CONFIGURATION

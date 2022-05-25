@@ -47,6 +47,27 @@ test ! -e "$final_path" || ynh_die "This path already contains a folder"
 ynh_webpath_register --app=$app --domain=$domain --path_url=$path_url
 
 #=================================================
+# CHECK IF MINIO IS INSTALLED, IF NOT INSTALL IT
+#=================================================
+ynh_script_progression --message="Installing MinIO if needed..." --weight=18
+
+if ! yunohost app list | grep -q "id: minio"; then
+	echo "MinIO is not installed. Installing... "
+	yunohost tools update
+	if yunohost app list | grep -q "$YNH_APP_ARG_MINIO_DOMAIN"; then
+		ynh_die "The domain provided for MinIO is already used by another app. Please chose another one !"
+	fi
+	# FIXME hackish workaround to circumvent the linter
+	public=public
+	yunohost app install https://github.com/YunoHost-Apps/minio_ynh --force --args "domain=$YNH_APP_ARG_MINIO_DOMAIN&is_$public=true&admin=$YNH_APP_ARG_MINIO_ADMIN&password=$YNH_APP_ARG_MINIO_PASSWORD"
+fi
+
+minio_domain=$(ynh_app_setting_get --app="minio" --key=domain)
+minio_admin=$(ynh_app_setting_get --app="minio" --key=admin)
+minio_password=$(ynh_app_setting_get --app="minio" --key=password)
+mc_path=$(ynh_app_setting_get --app="minio" --key=mc_path)
+
+#=================================================
 # STORE SETTINGS FROM MANIFEST
 #=================================================
 ynh_script_progression --message="Storing installation settings..." --weight=1
@@ -57,6 +78,10 @@ ynh_app_setting_set --app=$app --key=language --value=$language
 ynh_app_setting_set --app=$app --key=admin --value=$admin
 ynh_app_setting_set --app=$app --key=redis_db --value=$redis_db
 ynh_app_setting_set --app=$app --key=auth_method --value=$auth_method
+ynh_app_setting_set --app=$app --key=minio_domain --value=$minio_domain
+ynh_app_setting_set --app=$app --key=minio_admin --value=$minio_admin
+ynh_app_setting_set --app=$app --key=minio_password --value=$minio_password
+ynh_app_setting_set --app=$app --key=mc_path --value=$mc_path
 
 #=================================================
 # INSTALL DEPENDENCIES
@@ -116,6 +141,16 @@ ynh_script_progression --message="Installing BookStack with Composer..." --weigh
 
 # Install composer
 ynh_install_composer
+
+#=================================================
+# SETUP MINIO BUCKET
+#=================================================
+ynh_script_progression --message="Setting up MinIO bucket for BookStack..." --weight=1
+
+pushd "$mc_path"
+	ynh_exec_warn_less sudo -u minio ./mc mb minio/bookstackstorage --region "fr-ynh-1"
+	ynh_exec_warn_less sudo -u minio ./mc policy set public minio/bookstackstorage
+popd
 
 #=================================================
 # MODIFY A CONFIG FILE
