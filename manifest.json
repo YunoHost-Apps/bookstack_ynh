@@ -18,8 +18,8 @@
     },
     "license": "MIT",
     "maintainer": {
-        "name": "liberodark",
-        "email": "liberodark@gmail.com"
+        "name": "eric_G",
+        "email": ""
     },
     "requirements": {
         "yunohost": ">= 4.3.0"
