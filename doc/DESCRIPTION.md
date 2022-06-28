@@ -5,5 +5,7 @@ BookStack is an opinionated wiki system that provides a pleasant and simple out 
 - Multi-Factor Authentication
 - Dark & Light Modes
 - LDAP Authentication
-- Optional Markdown Editor
+- Markdown Editor
+- WYSIWYG Editing
 - Multi-Lingual
+- Diagrams.net Integration
