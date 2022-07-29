@@ -1,5 +1,5 @@
-SOURCE_URL=https://github.com/BookStackApp/BookStack/archive/refs/tags/v22.06.2.tar.gz
-SOURCE_SUM=b64c41e4ebb9cb46a54915b9dbc090620466372ab5919ddcb58ae5595730f09e
+SOURCE_URL=https://github.com/BookStackApp/BookStack/archive/refs/tags/v22.07.tar.gz
+SOURCE_SUM=0fec0aaddbd1949a9d3c5eaa6abeb3348cdcdd3a0b80f98b1344edb694af1f1d
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
