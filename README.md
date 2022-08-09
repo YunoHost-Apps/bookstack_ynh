@@ -30,6 +30,7 @@ BookStack is an opinionated wiki system that provides a pleasant and simple out 
 
 **Shipped version:** 22.07.1~ynh1
 
+
 **Demo:** https://demo.bookstackapp.com
 
 ## Screenshots
