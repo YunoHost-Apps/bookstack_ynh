@@ -27,7 +27,6 @@ phpversion=$YNH_PHP_VERSION
 timezone="$(cat /etc/timezone)"
 redis_db=$(ynh_app_setting_get --app=$app --key=redis_db)
 mail_pwd=$(ynh_string_random --length=12)
-timezone="$(cat /etc/timezone)"
 
 fpm_footprint=$(ynh_app_setting_get --app=$app --key=fpm_footprint)
 fpm_free_footprint=$(ynh_app_setting_get --app=$app --key=fpm_free_footprint)
