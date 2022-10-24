@@ -13,25 +13,25 @@ source /usr/share/yunohost/helpers
 # MANAGE SCRIPT FAILURE
 #=================================================
 
-ynh_abort_if_errors
+#REMOVEME? ynh_abort_if_errors
 
 #=================================================
 # RETRIEVE ARGUMENTS FROM THE MANIFEST
 #=================================================
 
 # Retrieve arguments
-domain=$YNH_APP_ARG_DOMAIN
-path_url=$YNH_APP_ARG_PATH
-is_public=$YNH_APP_ARG_IS_PUBLIC
-language=$YNH_APP_ARG_LANGUAGE
+#REMOVEME? domain=$YNH_APP_ARG_DOMAIN
+#REMOVEME? path=$YNH_APP_ARG_PATH
+#REMOVEME? is_public=$YNH_APP_ARG_IS_PUBLIC
+#REMOVEME? language=$YNH_APP_ARG_LANGUAGE
 phpversion=$YNH_PHP_VERSION
 timezone="$(cat /etc/timezone)"
 redis_db=$(ynh_redis_get_free_db)
 mail_pwd=$(ynh_string_random --length=12)
-admin=$YNH_APP_ARG_ADMIN
+#REMOVEME? admin=$YNH_APP_ARG_ADMIN
 email=$(ynh_user_get_info --username=$admin --key=mail)
 
-app=$YNH_APP_INSTANCE_NAME
+#REMOVEME? app=$YNH_APP_INSTANCE_NAME
 
 auth_method="ldap"
 fpm_footprint="low"
@@ -41,23 +41,23 @@ fpm_usage="low"
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
 #=================================================
-ynh_script_progression --message="Validating installation parameters..." --weight=1
+#REMOVEME? ynh_script_progression --message="Validating installation parameters..." --weight=1
 
-final_path=/var/www/$app
-test ! -e "$final_path" || ynh_die "This path already contains a folder"
+#REMOVEME? install_dir=/var/www/$app
+#REMOVEME? test ! -e "$install_dir" || ynh_die "This path already contains a folder"
 
 # Register (book) web path
-ynh_webpath_register --app=$app --domain=$domain --path_url=$path_url
+#REMOVEME? ynh_webpath_register --app=$app --domain=$domain --path=$path
 
 #=================================================
 # STORE SETTINGS FROM MANIFEST
 #=================================================
-ynh_script_progression --message="Storing installation settings..." --weight=1
+#REMOVEME? ynh_script_progression --message="Storing installation settings..." --weight=1
 
-ynh_app_setting_set --app=$app --key=domain --value=$domain
-ynh_app_setting_set --app=$app --key=path --value=$path_url
+#REMOVEME? ynh_app_setting_set --app=$app --key=domain --value=$domain
+#REMOVEME? ynh_app_setting_set --app=$app --key=path --value=$path
 ynh_app_setting_set --app=$app --key=language --value=$language
-ynh_app_setting_set --app=$app --key=admin --value=$admin
+#REMOVEME? ynh_app_setting_set --app=$app --key=admin --value=$admin
 ynh_app_setting_set --app=$app --key=redis_db --value=$redis_db
 ynh_app_setting_set --app=$app --key=auth_method --value=$auth_method
 ynh_app_setting_set --app=$app --key=fpm_footprint --value=$fpm_footprint
@@ -67,36 +67,36 @@ ynh_app_setting_set --app=$app --key=fpm_usage --value=$fpm_usage
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Installing dependencies..." --weight=1
+#REMOVEME? ynh_script_progression --message="Installing dependencies..." --weight=1
 
-ynh_install_app_dependencies $pkg_dependencies
+#REMOVEME? ynh_install_app_dependencies $pkg_dependencies
 
 #=================================================
 # CREATE A MYSQL DATABASE
 #=================================================
-ynh_script_progression --message="Creating a MySQL database..." --weight=1
+#REMOVEME? ynh_script_progression --message="Creating a MySQL database..." --weight=1
 
-db_name=$(ynh_sanitize_dbid --db_name=$app)
-db_user=$db_name
-ynh_app_setting_set --app=$app --key=db_name --value=$db_name
-ynh_mysql_setup_db --db_user=$db_user --db_name=$db_name
+#REMOVEME? db_name=$(ynh_sanitize_dbid --db_name=$app)
+#REMOVEME? db_user=$db_name
+#REMOVEME? ynh_app_setting_set --app=$app --key=db_name --value=$db_name
+#REMOVEME? ynh_mysql_setup_db --db_user=$db_user --db_name=$db_name
 
 #=================================================
 # CREATE DEDICATED USER
 #=================================================
-ynh_script_progression --message="Configuring system user..." --weight=2
+#REMOVEME? ynh_script_progression --message="Configuring system user..." --weight=2
 
 # Create a system user
-ynh_system_user_create --username=$app --home_dir=$final_path
+#REMOVEME? ynh_system_user_create --username=$app --home_dir=$install_dir
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression --message="Setting up source files..." --weight=7
 
-ynh_app_setting_set --app=$app --key=final_path --value=$final_path
+#REMOVEME? ynh_app_setting_set --app=$app --key=install_dir --value=$install_dir
 # Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source --dest_dir="$final_path"
+ynh_setup_source --dest_dir="$install_dir"
 
 #=================================================
 # NGINX CONFIGURATION
@@ -113,7 +113,7 @@ ynh_script_progression --message="Configuring PHP-FPM..." --weight=2
 
 # Create a dedicated PHP-FPM config
 ynh_add_fpm_config --usage=$fpm_usage --footprint=$fpm_footprint
-phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
+#REMOVEME? phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 
 #=================================================
 # INSTALL LYCHEE WITH COMPOSER
@@ -128,28 +128,28 @@ ynh_install_composer
 #=================================================
 ynh_script_progression --message="Adding a configuration file..." --weight=1
 
-app_url_domain="https://$domain${path_url%/}"
+app_url_domain="https://$domain${path%/}"
 
-ynh_add_config --template=../conf/.env.example --destination=$final_path/.env
+ynh_add_config --template=../conf/.env.example --destination=$install_dir/.env
 
 #=================================================
 # FINAL BOOKSTACK INSTALL
 #=================================================
 ynh_script_progression --message="Install BookStack" --weight=5
 
-pushd $final_path
+pushd $install_dir
 	php$phpversion artisan key:generate --no-interaction --force
 	php$phpversion artisan migrate --no-interaction --force
 	php$phpversion artisan bookstack:create-admin --email="$email" --name="$admin" --external-auth-id="$admin"
 popd
 
 # Set permissions to app files
-chmod 755 $final_path
-chmod -R o-rwx $final_path
-chown -R $app:www-data $final_path
+chmod 755 $install_dir
+chmod -R o-rwx $install_dir
+chown -R $app:www-data $install_dir
 
-chmod 600 $final_path/.env
-chown $app:$app $final_path/.env
+chmod 600 $install_dir/.env
+chown $app:$app $install_dir/.env
 
 #=================================================
 # SETUP SYSTEMD
@@ -177,12 +177,12 @@ ynh_systemd_action --service_name=$app --action="start" --log_path="systemd"
 #=================================================
 # SETUP SSOWAT
 #=================================================
-ynh_script_progression --message="Configuring permissions..." --weight=1
+#REMOVEME? ynh_script_progression --message="Configuring permissions..." --weight=1
 
 # Make app public if necessary
-if [ $is_public -eq 1 ]
+#REMOVEME? if [ $is_public -eq 1 ]
 then
-	ynh_permission_update --permission="main" --add="visitors"
+#REMOVEME? 	ynh_permission_update --permission="main" --add="visitors"
 fi
 
 #=================================================
