@@ -70,6 +70,7 @@ ynh_add_nginx_config
 #=================================================
 ynh_script_progression --message="Configuring PHP-FPM..." --weight=2
 
+finalpath=$install_dir
 # Create a dedicated PHP-FPM config
 ynh_add_fpm_config --usage=$fpm_usage --footprint=$fpm_footprint
 
