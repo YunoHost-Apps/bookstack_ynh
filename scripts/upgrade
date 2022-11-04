@@ -13,7 +13,6 @@ source /usr/share/yunohost/helpers
 # LOAD SETTINGS
 #=================================================
 
-phpversion=$YNH_PHP_VERSION
 timezone="$(cat /etc/timezone)"
 redis_db=$(ynh_app_setting_get --app=$app --key=redis_db)
 mail_pwd=$(ynh_string_random --length=12)
@@ -56,13 +55,6 @@ fi
 if [ -z "$auth_method" ]; then
 	auth_method="standard"
 	ynh_app_setting_set --app=$app --key=auth_method --value=$auth_method
-fi
-
-# Cleaning legacy permissions
-#REMOVEME? if ynh_legacy_permissions_exists; then
-#REMOVEME? 	ynh_legacy_permissions_delete_all
-
-	ynh_app_setting_delete --app=$app --key=is_public
 fi
 
 #=================================================

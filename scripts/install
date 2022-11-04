@@ -14,7 +14,6 @@ source /usr/share/yunohost/helpers
 #=================================================
 
 # Retrieve arguments
-phpversion=$YNH_PHP_VERSION
 timezone="$(cat /etc/timezone)"
 redis_db=$(ynh_redis_get_free_db)
 mail_pwd=$(ynh_string_random --length=12)
