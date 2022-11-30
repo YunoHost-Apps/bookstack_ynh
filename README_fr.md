@@ -26,7 +26,7 @@ BookStack is an opinionated wiki system that provides a pleasant and simple out 
 - Multi-Lingual
 
 
-**Version incluse :** 22.10~ynh1
+**Version incluse :** 22.10.2~ynh1
 
 **Démo :** https://demo.bookstackapp.com
 
