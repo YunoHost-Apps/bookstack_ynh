@@ -34,7 +34,7 @@ BookStack is an opinionated wiki system that provides a pleasant and simple out 
 
 ## Screenshots
 
-![Screenshot of BookStack](./doc/screenshots/bookstack-hero-screenshot.jpg)
+![Screenshot of BookStack](./doc/screenshots/screenshot.png)
 
 ## Disclaimers / important information
 
