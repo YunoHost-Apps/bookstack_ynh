@@ -5,34 +5,34 @@ It shall NOT be edited by hand.
 
 # BookStack pour YunoHost
 
-[![Niveau d'intégration](https://dash.yunohost.org/integration/bookstack.svg)](https://dash.yunohost.org/appci/app/bookstack) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/bookstack.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/bookstack.maintain.svg)  
+[![Niveau d’intégration](https://dash.yunohost.org/integration/bookstack.svg)](https://dash.yunohost.org/appci/app/bookstack) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/bookstack.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/bookstack.maintain.svg)
 [![Installer BookStack avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=bookstack)
 
 *[Read this readme in english.](./README.md)*
 
-> *Ce package vous permet d'installer BookStack rapidement et simplement sur un serveur YunoHost.
-Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l'installer et en profiter.*
+> *Ce package vous permet d’installer BookStack rapidement et simplement sur un serveur YunoHost.
+Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l’installer et en profiter.*
 
-## Vue d'ensemble
+## Vue d’ensemble
 
-BookStack is an opinionated wiki system that provides a pleasant and simple out of the box experience. New users to an instance should find the experience intuitive and only basic word-processing skills should be required to get involved in creating content on BookStack. The platform should provide advanced power features to those that desire it but they should not interfere with the core simple user experience.
+BookStack est un système wiki simple prête à l'emploi. Les nouveaux utilisateurs d'une instance devraient trouver l'expérience intuitive et seules des compétences de base en traitement de texte devraient être requises pour s'impliquer dans la création de contenu sur BookStack. La plate-forme doit fournir des fonctionnalités avancées à ceux qui le souhaitent, mais elles ne doivent pas interférer avec l'expérience utilisateur simple de base.
 
-### Features
+### Caractéristiques
 
-- Multi-Factor Authentication
-- Dark & Light Modes
-- LDAP Authentication
-- Optional Markdown Editor
-- Multi-Lingual
+- Authentification multifacteur
+- Modes sombre et clair
+- Authentification LDAP
+- Éditeur Markdown facultatif
+- Multilingue
 
 
 **Version incluse :** 22.11.1~ynh2
 
 **Démo :** https://demo.bookstackapp.com
 
-## Captures d'écran
+## Captures d’écran
 
-![Capture d'écran de BookStack](./doc/screenshots/screenshot.png)
+![Capture d’écran de BookStack](./doc/screenshots/screenshot.png)
 
 ## Avertissements / informations importantes
 
@@ -46,10 +46,10 @@ Pour la première connexion avec une authentification standard, utilisez les inf
 
 ## Documentations et ressources
 
-* Site officiel de l'app : <https://www.bookstackapp.com>
+* Site officiel de l’app : <https://www.bookstackapp.com>
 * Documentation officielle utilisateur : <https://www.bookstackapp.com/docs/user/>
-* Documentation officielle de l'admin : <https://www.bookstackapp.com/docs/admin/>
-* Dépôt de code officiel de l'app : <https://github.com/BookStackApp/BookStack>
+* Documentation officielle de l’admin : <https://www.bookstackapp.com/docs/admin/>
+* Dépôt de code officiel de l’app : <https://github.com/BookStackApp/BookStack>
 * Documentation YunoHost pour cette app : <https://yunohost.org/app_bookstack>
 * Signaler un bug : <https://github.com/YunoHost-Apps/bookstack_ynh/issues>
 
@@ -65,4 +65,4 @@ ou
 sudo yunohost app upgrade bookstack -u https://github.com/YunoHost-Apps/bookstack_ynh/tree/testing --debug
 ```
 
-**Plus d'infos sur le packaging d'applications :** <https://yunohost.org/packaging_apps>
+**Plus d’infos sur le packaging d’applications :** <https://yunohost.org/packaging_apps>
