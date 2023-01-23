@@ -1,9 +1,9 @@
-BookStack is an opinionated wiki system that provides a pleasant and simple out of the box experience. New users to an instance should find the experience intuitive and only basic word-processing skills should be required to get involved in creating content on BookStack. The platform should provide advanced power features to those that desire it but they should not interfere with the core simple user experience.
+BookStack est un système wiki simple prête à l'emploi. Les nouveaux utilisateurs d'une instance devraient trouver l'expérience intuitive et seules des compétences de base en traitement de texte devraient être requises pour s'impliquer dans la création de contenu sur BookStack. La plate-forme doit fournir des fonctionnalités avancées à ceux qui le souhaitent, mais elles ne doivent pas interférer avec l'expérience utilisateur simple de base.
 
-### Features
+### Caractéristiques
 
-- Multi-Factor Authentication
-- Dark & Light Modes
-- LDAP Authentication
-- Optional Markdown Editor
-- Multi-Lingual
+- Authentification multifacteur
+- Modes sombre et clair
+- Authentification LDAP
+- Éditeur Markdown facultatif
+- Multilingue
