@@ -63,4 +63,4 @@ ram.runtime = "50M"
     type = "mysql"
 
     [resources.apt]
-    packages = "php${YNH_PHP_VERSION}-curl php${YNH_PHP_VERSION}-mysql php${YNH_PHP_VERSION}-ldap php${YNH_PHP_VERSION}-mbstring php${YNH_PHP_VERSION}-tidy php${YNH_PHP_VERSION}-xml php${YNH_PHP_VERSION}-zip php${YNH_PHP_VERSION}-gd"
+    packages = "php8.1-curl php8.1-mysql php8.1-ldap php8.1-mbstring php8.1-tidy php8.1-xml php8.1-zip php8.1-gd"
