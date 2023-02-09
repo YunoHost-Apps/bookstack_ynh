@@ -18,7 +18,7 @@ userdoc = "https://www.bookstackapp.com/docs/user/"
 code = "https://github.com/BookStackApp/BookStack"
 
 [integration]
-yunohost = ">= 11.1.0"
+yunohost = ">= 11.1.6"
 architectures = "all"
 multi_instance = true
 ldap = true
