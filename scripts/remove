@@ -14,7 +14,7 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression --message="Loading installation settings..." --weight=1
 
-#REMOVEME? redis_db=$(ynh_app_setting_get --app=$app --key=redis_db)
+redis_db=$(ynh_app_setting_get --app=$app --key=redis_db)
 
 #=================================================
 # STANDARD REMOVE
