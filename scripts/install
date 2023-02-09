@@ -25,7 +25,6 @@ fpm_usage="low"
 #=================================================
 ynh_script_progression --message="Storing installation settings..." --weight=1
 
-ynh_app_setting_set --app=$app --key=language --value=$language
 ynh_app_setting_set --app=$app --key=redis_db --value=$redis_db
 ynh_app_setting_set --app=$app --key=auth_method --value=$auth_method
 ynh_app_setting_set --app=$app --key=fpm_footprint --value=$fpm_footprint
