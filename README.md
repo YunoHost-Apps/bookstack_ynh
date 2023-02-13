@@ -6,6 +6,7 @@ It shall NOT be edited by hand.
 # BookStack for YunoHost
 
 [![Integration level](https://dash.yunohost.org/integration/bookstack.svg)](https://dash.yunohost.org/appci/app/bookstack) ![Working status](https://ci-apps.yunohost.org/ci/badges/bookstack.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/bookstack.maintain.svg)
+
 [![Install BookStack with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=bookstack)
 
 *[Lire ce readme en français.](./README_fr.md)*
