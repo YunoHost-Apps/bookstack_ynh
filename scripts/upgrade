@@ -17,7 +17,6 @@ ynh_script_progression --message="Loading installation settings..." --weight=1
 phpversion=$YNH_PHP_VERSION
 timezone="$(cat /etc/timezone)"
 redis_db=$(ynh_app_setting_get --app=$app --key=redis_db)
-mail_pwd=$(ynh_string_random --length=12)
 
 #=================================================
 # CHECK VERSION
