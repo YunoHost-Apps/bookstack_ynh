@@ -63,6 +63,10 @@ then
 	ynh_setup_source --dest_dir="$install_dir" --keep=".env public/uploads storage/uploads"
 fi
 
+chmod 755 $install_dir
+chmod -R o-rwx $install_dir
+chown -R $app:www-data $install_dir
+
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
 #=================================================
@@ -90,11 +94,11 @@ ynh_install_composer
 #=================================================
 # MODIFY A CONFIG FILE
 #=================================================
-ynh_script_progression --message="Adding a configuration file..." --weight=1
+#ynh_script_progression --message="Adding a configuration file..." --weight=1
 
-app_url_domain="https://$domain${path%/}"
+#app_url_domain="https://$domain${path%/}"
 
-ynh_add_config --template=../conf/.env.example --destination=$install_dir/.env
+#ynh_add_config --template=../conf/.env.example --destination=$install_dir/.env
 
 #=================================================
 # FINAL BOOKSTACK INSTALL
@@ -108,13 +112,6 @@ pushd $install_dir
 	php$phpversion artisan config:clear
  	php$phpversion artisan view:clear
 popd
-
-chmod 755 $install_dir
-chmod -R o-rwx $install_dir
-chown -R $app:www-data $install_dir
-
-chmod 600 $install_dir/.env
-chown $app:$app $install_dir/.env
 
 #=================================================
 # START SYSTEMD SERVICE
