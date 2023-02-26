@@ -6,6 +6,7 @@ It shall NOT be edited by hand.
 # BookStack for YunoHost
 
 [![Integration level](https://dash.yunohost.org/integration/bookstack.svg)](https://dash.yunohost.org/appci/app/bookstack) ![Working status](https://ci-apps.yunohost.org/ci/badges/bookstack.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/bookstack.maintain.svg)
+
 [![Install BookStack with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=bookstack)
 
 *[Lire ce readme en français.](./README_fr.md)*
@@ -28,23 +29,13 @@ BookStack is an opinionated wiki system that provides a pleasant and simple out 
 - Diagrams.net Integration
 
 
-**Shipped version:** 23.01.1~ynh1
+**Shipped version:** 23.02~ynh1
 
 **Demo:** https://demo.bookstackapp.com
 
 ## Screenshots
 
 ![Screenshot of BookStack](./doc/screenshots/screenshot.png)
-
-## Disclaimers / important information
-
-## Configuration
-
-BookStack uses LDAP authentication by default.
-
-You can switch to standard authentication in the webadmin -> bookstack -> config panel setting.
-
-For the first time Login with standard authentication, use the default credentials `admin@admin.com` and `password`. You should change these details immediately after logging in for the first time.
 
 ## Documentation and resources
 
