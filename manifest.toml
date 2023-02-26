@@ -18,7 +18,7 @@ userdoc = "https://www.bookstackapp.com/docs/user/"
 code = "https://github.com/BookStackApp/BookStack"
 
 [integration]
-yunohost = ">= 11.1.6"
+yunohost = ">= 11.1.11"
 architectures = "all"
 multi_instance = true
 ldap = true
@@ -59,8 +59,9 @@ ram.runtime = "50M"
     [resources.permissions]
     main.url = "/"
 
+    [resources.apt]
+    packages = "mariadb-server php8.1-curl php8.1-mysql php8.1-ldap php8.1-mbstring php8.1-tidy php8.1-xml php8.1-zip php8.1-gd"
+
     [resources.database]
     type = "mysql"
-
-    [resources.apt]
-    packages = "php8.1-curl php8.1-mysql php8.1-ldap php8.1-mbstring php8.1-tidy php8.1-xml php8.1-zip php8.1-gd"
+    
