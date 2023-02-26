@@ -10,13 +10,6 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# LOAD SETTINGS
-#=================================================
-ynh_script_progression --message="Loading installation settings..." --weight=1
-
-timezone="$(cat /etc/timezone)"
-
-#=================================================
 # CHECK VERSION
 #=================================================
 
@@ -96,6 +89,7 @@ ynh_install_composer
 #=================================================
 #ynh_script_progression --message="Adding a configuration file..." --weight=1
 
+#timezone="$(cat /etc/timezone)"
 #app_url_domain="https://$domain${path%/}"
 
 #ynh_add_config --template=../conf/.env.example --destination=$install_dir/.env
