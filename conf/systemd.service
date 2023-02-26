@@ -5,7 +5,7 @@ Description=BookStack Queue Worker
 User=__APP__
 Group=__APP__
 Restart=always
-ExecStart=/usr/bin/php__PHPVERSION__ __FINALPATH__/artisan queue:work --sleep=3 --tries=1 --max-time=3600
+ExecStart=/usr/bin/php__PHPVERSION__ __INSTALL_DIR__/artisan queue:work --sleep=3 --tries=1 --max-time=3600
 
 # Sandboxing options to harden security
 # Depending on specificities of your service/app, you may need to tweak these

@@ -1,0 +1,67 @@
+packaging_format = 2
+
+id = "bookstack"
+name = "BookStack"
+description.en = "Platform to create documentation/wiki content"
+description.fr = "Plateforme pour créer du contenu de documentation/wiki"
+
+version = "23.02~ynh1"
+
+maintainers = ["eric_G"]
+
+[upstream]
+license = "MIT"
+website = "https://www.bookstackapp.com"
+demo = "https://demo.bookstackapp.com"
+admindoc = "https://www.bookstackapp.com/docs/admin/"
+userdoc = "https://www.bookstackapp.com/docs/user/"
+code = "https://github.com/BookStackApp/BookStack"
+
+[integration]
+yunohost = ">= 11.1.11"
+architectures = "all"
+multi_instance = true
+ldap = true
+sso = false
+disk = "50M"
+ram.build = "500M"
+ram.runtime = "50M"
+
+[install]
+    [install.domain]
+    type = "domain"
+
+    [install.path]
+    type = "path"
+    default = "/bookstack"
+
+    [install.admin]
+    type = "user"
+
+    [install.language]
+    ask.en = "Choose the application language"
+    ask.fr = "Choisissez la langue de l'application"
+    type = "string"
+    choices = ["de", "en", "es_ES", "fa", "fr", "it", "lt", "nl", "pl", "pt_PT", "uk", "zh_CN"]
+    default = "en"
+
+    [install.init_main_permission]
+    help.en = "If enabled, BookStack will be accessible by people who do not have an account. This can be changed later via the webadmin."
+    help.fr = "Si cette case est cochée, BookStack sera accessible aux personnes n’ayant pas de compte. Vous pourrez changer ceci plus tard via la webadmin."
+    type = "group"
+    default = "visitors"
+
+[resources]
+    [resources.system_user]
+
+    [resources.install_dir]
+
+    [resources.permissions]
+    main.url = "/"
+
+    [resources.apt]
+    packages = "mariadb-server, php8.1-curl, php8.1-mysql, php8.1-ldap, php8.1-mbstring, php8.1-tidy, php8.1-xml, php8.1-zip, php8.1-gd"
+
+    [resources.database]
+    type = "mysql"
+    

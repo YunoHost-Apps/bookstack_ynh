@@ -1,5 +1,5 @@
-SOURCE_URL=https://api.github.com/repos/BookStackApp/BookStack/tarball/v23.01.1
-SOURCE_SUM=1a8ac2b5bbd983dcfd8a9218220dae8137de1790394d937d31d469e7e72dce1d
+SOURCE_URL=https://api.github.com/repos/BookStackApp/BookStack/tarball/v23.02
+SOURCE_SUM=416d770ff04608bea79c7d15e98e6388d59612283d82c8126132577aba7e086c
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=
 SOURCE_IN_SUBDIR=true

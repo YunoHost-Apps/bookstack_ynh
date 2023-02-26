@@ -27,23 +27,13 @@ BookStack est un système wiki simple prête à l'emploi. Les nouveaux utilisate
 - Multilingue
 
 
-**Version incluse :** 23.01.1~ynh1
+**Version incluse :** 23.02~ynh1
 
 **Démo :** https://demo.bookstackapp.com
 
 ## Captures d’écran
 
 ![Capture d’écran de BookStack](./doc/screenshots/screenshot.png)
-
-## Avertissements / informations importantes
-
-## Configuration
-
-BookStack utilise l'authentification LDAP par défaut.
-
-Vous pouvez passer à l'authentification standard dans le webadmin -> Bookstack -> paramètre du panneau de configuration.
-
-Pour la première connexion avec une authentification standard, utilisez les informations d'identification par défaut `admin@admin.com` et `password`. Vous devez modifier ces informations immédiatement après vous être connecté pour la première fois.
 
 ## Documentations et ressources
 

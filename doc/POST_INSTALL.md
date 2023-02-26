@@ -1,5 +1,3 @@
-## Configuration
-
 BookStack uses LDAP authentication by default.
 
 You can switch to standard authentication in the webadmin -> bookstack -> config panel setting.
