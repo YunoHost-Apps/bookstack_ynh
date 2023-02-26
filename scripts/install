@@ -36,21 +36,26 @@ ynh_script_progression --message="Setting up source files..." --weight=7
 
 ynh_setup_source --dest_dir="$install_dir"
 
+# Set permissions to app files
+chmod 750 $install_dir
+chmod -R o-rwx $install_dir
+chown -R $app:www-data $install_dir
+
 #=================================================
-# PHP-FPM CONFIGURATION
+# SYSTEM CONFIGURATION
 #=================================================
-ynh_script_progression --message="Configuring PHP-FPM..." --weight=2
+ynh_script_progression --message="Adding system configurations related to $app ..." --weight=1
 
 # Create a dedicated PHP-FPM config
 ynh_add_fpm_config --usage=$fpm_usage --footprint=$fpm_footprint
 
-#=================================================
-# NGINX CONFIGURATION
-#=================================================
-ynh_script_progression --message="Configuring NGINX web server..." --weight=2
-
 # Create a dedicated NGINX config
 ynh_add_nginx_config
+
+# Create a dedicated systemd config
+ynh_add_systemd_config
+
+yunohost service add $app --description="BookStack Queue Worker" --log="/var/log/$app/$app.log"
 
 #=================================================
 # INSTALL LYCHEE WITH COMPOSER
@@ -69,6 +74,9 @@ app_url_domain="https://$domain${path%/}"
 
 ynh_add_config --template=../conf/.env.example --destination=$install_dir/.env
 
+chmod 600 $install_dir/.env
+chown $app:$app $install_dir/.env
+
 #=================================================
 # FINAL BOOKSTACK INSTALL
 #=================================================
@@ -79,29 +87,6 @@ pushd $install_dir
 	php$phpversion artisan migrate --no-interaction --force
 	php$phpversion artisan bookstack:create-admin --email="$email" --name="$admin" --external-auth-id="$admin"
 popd
-
-# Set permissions to app files
-chmod 755 $install_dir
-chmod -R o-rwx $install_dir
-chown -R $app:www-data $install_dir
-
-chmod 600 $install_dir/.env
-chown $app:$app $install_dir/.env
-
-#=================================================
-# SETUP SYSTEMD
-#=================================================
-ynh_script_progression --message="Configuring a systemd service..." --weight=1
-
-# Create a dedicated systemd config
-ynh_add_systemd_config
-
-#=================================================
-# INTEGRATE SERVICE IN YUNOHOST
-#=================================================
-ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
-
-yunohost service add $app --description="BookStack Queue Worker" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE
