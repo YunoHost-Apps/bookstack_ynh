@@ -5,7 +5,7 @@ name = "BookStack"
 description.en = "Platform to create documentation/wiki content"
 description.fr = "Plateforme pour créer du contenu de documentation/wiki"
 
-version = "23.02~ynh1"
+version = "23.02.1~ynh1"
 
 maintainers = ["eric_G"]
 
