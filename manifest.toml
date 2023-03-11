@@ -52,6 +52,14 @@ ram.runtime = "50M"
     default = "visitors"
 
 [resources]
+
+    [resources.sources]
+
+        [resources.sources.main]
+        url = "https://api.github.com/repos/BookStackApp/BookStack/tarball/v23.02.1"
+        sha256 = "38387c63c6e613152f9467aee1e47ca0c698e5ae0088d13e18c5f25c22261fdc"
+        rename = "bookstack.tar.gz"
+
     [resources.system_user]
 
     [resources.install_dir]
