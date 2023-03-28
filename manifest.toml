@@ -60,6 +60,8 @@ ram.runtime = "50M"
         sha256 = "e06d582d897c1295e79a316754d4bd66f8308a79f97542ee39a018efb104c389"
         rename = "bookstack.tar.gz"
 
+        autoupdate.strategy = "latest_github_tag"
+
     [resources.system_user]
 
     [resources.install_dir]
