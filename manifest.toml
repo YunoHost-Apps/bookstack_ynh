@@ -22,7 +22,7 @@ yunohost = ">= 11.1.16"
 architectures = "all"
 multi_instance = true
 ldap = true
-sso = false
+sso = true
 disk = "50M"
 ram.build = "500M"
 ram.runtime = "50M"
@@ -59,7 +59,6 @@ ram.runtime = "50M"
         url = "https://api.github.com/repos/BookStackApp/BookStack/tarball/v23.02.2"
         sha256 = "e06d582d897c1295e79a316754d4bd66f8308a79f97542ee39a018efb104c389"
         rename = "bookstack.tar.gz"
-
         autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
