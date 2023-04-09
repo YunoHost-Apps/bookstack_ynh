@@ -9,6 +9,10 @@
 source _common.sh
 source /usr/share/yunohost/helpers
 
+#=================================================
+# RETRIEVE ARGUMENTS FROM THE MANIFEST
+#=================================================
+
 timezone="$(cat /etc/timezone)"
 redis_db=$(ynh_redis_get_free_db)
 email=$(ynh_user_get_info --username=$admin --key=mail)
@@ -21,7 +25,6 @@ fpm_usage="low"
 #=================================================
 # STORE SETTINGS FROM MANIFEST
 #=================================================
-ynh_script_progression --message="Storing installation settings..." --weight=1
 
 ynh_app_setting_set --app=$app --key=redis_db --value=$redis_db
 ynh_app_setting_set --app=$app --key=auth_method --value=$auth_method
@@ -37,7 +40,6 @@ ynh_script_progression --message="Setting up source files..." --weight=7
 ynh_setup_source --dest_dir="$install_dir"
 
 # Set permissions to app files
-chmod 750 $install_dir
 chmod -R o-rwx $install_dir
 chown -R $app:www-data $install_dir
 
