@@ -11,7 +11,7 @@ name = "BookStack configuration"
         choices = ["standard", "ldap"]
         default = "ldap"
         help = "Select an authentication method to connect to BookStack."
-        bind = "AUTH_METHOD:__INSTALL_DIR__/.env"
+        bind = "AUTH_METHOD:/var/www/__APP__/.env"
 
     [main.php_fpm_config]
     name = "PHP-FPM configuration"
