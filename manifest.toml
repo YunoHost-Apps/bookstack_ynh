@@ -5,7 +5,7 @@ name = "BookStack"
 description.en = "Platform to create documentation/wiki content"
 description.fr = "Plateforme pour créer du contenu de documentation/wiki"
 
-version = "23.05.1~ynh1"
+version = "23.05.2~ynh1"
 
 maintainers = ["eric_G"]
 
@@ -18,7 +18,7 @@ userdoc = "https://www.bookstackapp.com/docs/user/"
 code = "https://github.com/BookStackApp/BookStack"
 
 [integration]
-yunohost = ">= 11.1.18"
+yunohost = ">= 11.1.19"
 architectures = "all"
 multi_instance = true
 ldap = true
@@ -56,8 +56,8 @@ ram.runtime = "50M"
     [resources.sources]
 
         [resources.sources.main]
-        url = "https://github.com/BookStackApp/BookStack/archive/refs/tags/v23.05.1.tar.gz"
-        sha256 = "f78cf3035ee65d840ad4c11e58c09abe66c6af61a649d06f3efdcce38f5c5c42"
+        url = "https://github.com/BookStackApp/BookStack/archive/refs/tags/v23.05.2.tar.gz"
+        sha256 = "8baa11ec1e6fa4c4c8b9c5e8334197bb31382e315985828e0e7a449898460b04"
         rename = "bookstack.tar.gz"
         autoupdate.strategy = "latest_github_tag"
 
@@ -69,7 +69,7 @@ ram.runtime = "50M"
     main.url = "/"
 
     [resources.apt]
-    packages = "mariadb-server, php8.1-curl, php8.1-mysql, php8.1-ldap, php8.1-mbstring, php8.1-tidy, php8.1-xml, php8.1-zip, php8.1-gd"
+    packages = "mariadb-server, php8.2-curl, php8.2-mysql, php8.2-ldap, php8.2-mbstring, php8.2-tidy, php8.2-xml, php8.2-zip, php8.2-gd"
 
     [resources.database]
     type = "mysql"
