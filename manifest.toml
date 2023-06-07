@@ -5,7 +5,7 @@ name = "BookStack"
 description.en = "Platform to create documentation/wiki content"
 description.fr = "Plateforme pour créer du contenu de documentation/wiki"
 
-version = "23.05.2~ynh1"
+version = "23.05.2~ynh2"
 
 maintainers = ["eric_G"]
 
@@ -38,6 +38,13 @@ ram.runtime = "50M"
     [install.admin]
     type = "user"
 
+    [install.auth_method]
+    ask.en = "Choose an authentication method"
+    ask.fr = "Choisissez une méthode d'authentification"
+    type = "string"
+    choices = ["standard", "ldap"]
+    default = "ldap"
+
     [install.language]
     ask.en = "Choose the application language"
     ask.fr = "Choisissez la langue de l'application"
@@ -67,6 +74,10 @@ ram.runtime = "50M"
 
     [resources.permissions]
     main.url = "/"
+    api.url = "/api"
+    api.show_tile = false
+    api.allowed = "visitors"
+    api.auth_header = false
 
     [resources.apt]
     packages = "mariadb-server, php8.2-curl, php8.2-mysql, php8.2-ldap, php8.2-mbstring, php8.2-tidy, php8.2-xml, php8.2-zip, php8.2-gd"
