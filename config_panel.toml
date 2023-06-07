@@ -2,6 +2,7 @@ version = "1.0"
 
 [main]
 name = "BookStack configuration"
+services = ["__APP__"]
 
     [main.auth_config]
     name = "Authentication configuration"
