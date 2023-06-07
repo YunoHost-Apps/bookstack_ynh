@@ -19,3 +19,9 @@ test_format = 1.0
     # -------------------------------
 
     test_upgrade_from.d653976.name = "Upgrade from 23.01"
+
+[standard_auth_method]
+
+    only = ["install.subdir", "backup_restore", "upgrade"]
+
+    args.auth_method = "standard"
