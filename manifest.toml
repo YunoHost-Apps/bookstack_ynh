@@ -43,6 +43,7 @@ ram.runtime = "50M"
     ask.fr = "Choisissez une méthode d'authentification"
     type = "string"
     choices = ["standard", "ldap"]
+    default = "ldap"
 
     [install.language]
     ask.en = "Choose the application language"
