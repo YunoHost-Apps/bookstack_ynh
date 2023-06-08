@@ -5,7 +5,7 @@ name = "BookStack"
 description.en = "Platform to create documentation/wiki content"
 description.fr = "Plateforme pour créer du contenu de documentation/wiki"
 
-version = "23.05.2~ynh2"
+version = "23.05.2~ynh3"
 
 maintainers = ["eric_G"]
 
@@ -37,13 +37,6 @@ ram.runtime = "50M"
 
     [install.admin]
     type = "user"
-
-    [install.auth_method]
-    ask.en = "Choose an authentication method"
-    ask.fr = "Choisissez une méthode d'authentification"
-    type = "string"
-    choices = ["standard", "ldap"]
-    default = "ldap"
 
     [install.language]
     ask.en = "Choose the application language"
