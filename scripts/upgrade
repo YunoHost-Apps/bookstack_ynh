@@ -38,12 +38,6 @@ if [ -z "${fpm_usage:-}" ]; then
     ynh_app_setting_set --app=$app --key=fpm_usage --value=$fpm_usage
 fi
 
-# If auth_method doesn't exist, create it
-if [ -z "${auth_method:-}" ]; then
-	auth_method="standard"
-	ynh_app_setting_set --app=$app --key=auth_method --value=$auth_method
-fi
-
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
