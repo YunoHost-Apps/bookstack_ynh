@@ -59,8 +59,7 @@ ram.runtime = "50M"
     default = "visitors"
 
     [install.password]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
-    # Note that user-provided passwords questions are not automatically saved as setting
+    visible = "auth_method == 'standard'"
     help.en = "The password is needed only if you select standard authentication."
     help.fr = "Le mot de passe n'est requis que si vous sélectionnez l'authentification standard."
     type = "password"
