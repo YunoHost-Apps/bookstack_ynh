@@ -18,7 +18,7 @@ userdoc = "https://www.bookstackapp.com/docs/user/"
 code = "https://github.com/BookStackApp/BookStack"
 
 [integration]
-yunohost = ">= 11.1.19"
+yunohost = ">= 11.1.20"
 architectures = "all"
 multi_instance = true
 ldap = true
@@ -57,6 +57,13 @@ ram.runtime = "50M"
     help.fr = "Si cette case est cochée, BookStack sera accessible aux personnes n’ayant pas de compte. Vous pourrez changer ceci plus tard via la webadmin."
     type = "group"
     default = "visitors"
+
+    [install.password]
+    # this is a generic question - ask strings are automatically handled by YunoHost's core
+    # Note that user-provided passwords questions are not automatically saved as setting
+    help.en = "The password is needed only if you select standard authentication."
+    help.fr = "Le mot de passe n'est requis que si vous sélectionnez l'authentification standard."
+    type = "password"
 
 [resources]
 
