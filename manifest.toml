@@ -45,6 +45,12 @@ ram.runtime = "50M"
     choices = ["standard", "ldap"]
     default = "ldap"
 
+    [install.password]
+    visible = "auth_method == 'standard'"
+    help.en = "The password is needed only if you select standard authentication."
+    help.fr = "Le mot de passe n'est requis que si vous sélectionnez l'authentification standard."
+    type = "password"
+
     [install.language]
     ask.en = "Choose the application language"
     ask.fr = "Choisissez la langue de l'application"
@@ -57,12 +63,6 @@ ram.runtime = "50M"
     help.fr = "Si cette case est cochée, BookStack sera accessible aux personnes n’ayant pas de compte. Vous pourrez changer ceci plus tard via la webadmin."
     type = "group"
     default = "visitors"
-
-    [install.password]
-    visible = "auth_method == 'standard'"
-    help.en = "The password is needed only if you select standard authentication."
-    help.fr = "Le mot de passe n'est requis que si vous sélectionnez l'authentification standard."
-    type = "password"
 
 [resources]
 
