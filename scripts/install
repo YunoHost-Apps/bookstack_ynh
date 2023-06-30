@@ -58,7 +58,7 @@ ynh_add_systemd_config
 yunohost service add $app --description="BookStack Queue Worker" --log="/var/log/$app/$app.log"
 
 #=================================================
-# INSTALL LYCHEE WITH COMPOSER
+# INSTALL BOOKSTACK WITH COMPOSER
 #=================================================
 ynh_script_progression --message="Installing BookStack with Composer..." --weight=5
 
