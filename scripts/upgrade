@@ -51,6 +51,7 @@ then
 fi
 
 chmod -R o-rwx $install_dir
+chmod -R 775 $install_dir/storage $install_dir/bootstrap/cache $install_dir/public/uploads
 chown -R $app:www-data $install_dir
 
 #=================================================
