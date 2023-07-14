@@ -56,8 +56,8 @@ ram.runtime = "50M"
     [resources.sources]
 
         [resources.sources.main]
-        url = "https://github.com/BookStackApp/BookStack/archive/refs/tags/v23.06.1.tar.gz"
-        sha256 = "4f22cb92f5ea74192c8b1e29d86e5ef08e23a33f4a0f70cd75fa64b3a834d5e9"
+        url = "https://github.com/BookStackApp/BookStack/archive/refs/tags/v23.06.2.tar.gz"
+        sha256 = "5035add6d4dce199beff8cfde5b7ea57664cd761eb5b9062ddb9a36525cb076b"
         rename = "bookstack.tar.gz"
         autoupdate.strategy = "latest_github_tag"
 
