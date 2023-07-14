@@ -29,7 +29,6 @@ BookStack est un système wiki simple prête à l'emploi. Les nouveaux utilisate
 
 **Version incluse :** 23.06.2~ynh1
 
-
 **Démo :** https://demo.bookstackapp.com
 
 ## Captures d’écran
