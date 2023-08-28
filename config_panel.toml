@@ -3,6 +3,14 @@ version = "1.0"
 [main]
 name = "BookStack configuration"
 
+    [main.maintenance_mode]
+    name = "Maintenance mode"
+
+        [main.maintenance_mode.maintenance_mode]
+        ask = "Enable maintenance mode"
+        type = "boolean"
+        default = "0"
+
     [main.php_fpm_config]
     name = "PHP-FPM configuration"
 
