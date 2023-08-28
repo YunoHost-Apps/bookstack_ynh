@@ -2,6 +2,7 @@ version = "1.0"
 
 [main]
 name = "BookStack configuration"
+services = ["nginx", "__APP__"]
 
     [main.maintenance_mode]
     name = "Maintenance mode"
