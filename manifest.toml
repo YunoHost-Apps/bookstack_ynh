@@ -46,8 +46,8 @@ ram.runtime = "50M"
     default = "en"
 
     [install.init_main_permission]
-    help.en = "If enabled, BookStack will be accessible by people who do not have an account. This can be changed later via the webadmin."
-    help.fr = "Si cette case est cochée, BookStack sera accessible aux personnes n’ayant pas de compte. Vous pourrez changer ceci plus tard via la webadmin."
+    help.en = "Si défini sur visiteurs, BookStack will be accessible by people who do not have an account. This can be changed later via the webadmin."
+    help.fr = "Si visiteurs selectionné, BookStack sera accessible aux personnes n’ayant pas de compte. Vous pourrez changer ceci plus tard via la webadmin."
     type = "group"
     default = "visitors"
 
