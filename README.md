@@ -43,7 +43,6 @@ BookStack is an opinionated wiki system that provides a pleasant and simple out 
 * Official user documentation: <https://www.bookstackapp.com/docs/user/>
 * Official admin documentation: <https://www.bookstackapp.com/docs/admin/>
 * Upstream app code repository: <https://github.com/BookStackApp/BookStack>
-* YunoHost documentation for this app: <https://yunohost.org/app_bookstack>
 * Report a bug: <https://github.com/YunoHost-Apps/bookstack_ynh/issues>
 
 ## Developer info
