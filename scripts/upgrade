@@ -50,17 +50,13 @@ then
 	ynh_setup_source --dest_dir="$install_dir" --keep=".env public/uploads storage/uploads"
 fi
 
-chmod -R o-rwx $install_dir
-chmod -R 775 $install_dir/storage $install_dir/bootstrap/cache $install_dir/public/uploads
-chown -R $app:www-data $install_dir
-
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
 #=================================================
 ynh_script_progression --message="Upgrading system configurations related to $app..." --weight=1
 
 # Create a dedicated PHP-FPM config
-ynh_add_fpm_config --phpversion=$phpversion --usage=$fpm_usage --footprint=$fpm_footprint
+ynh_add_fpm_config --usage=$fpm_usage --footprint=$fpm_footprint
 
 # Create a dedicated NGINX config
 ynh_add_nginx_config
@@ -100,6 +96,14 @@ pushd $install_dir
 	php$phpversion artisan config:clear
  	php$phpversion artisan view:clear
 popd
+
+#=================================================
+# SET PERMISSIONS
+#=================================================
+
+chmod -R o-rwx $install_dir
+chmod -R 775 $install_dir/storage $install_dir/bootstrap/cache $install_dir/public/uploads
+chown -R $app:www-data $install_dir
 
 #=================================================
 # START SYSTEMD SERVICE
