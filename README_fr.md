@@ -27,7 +27,7 @@ BookStack est un système wiki simple prête à l'emploi. Les nouveaux utilisate
 - Multilingue
 
 
-**Version incluse :** 23.08.3~ynh3
+**Version incluse :** 23.10~ynh1
 
 **Démo :** https://demo.bookstackapp.com
 
@@ -41,6 +41,7 @@ BookStack est un système wiki simple prête à l'emploi. Les nouveaux utilisate
 * Documentation officielle utilisateur : <https://www.bookstackapp.com/docs/user/>
 * Documentation officielle de l’admin : <https://www.bookstackapp.com/docs/admin/>
 * Dépôt de code officiel de l’app : <https://github.com/BookStackApp/BookStack>
+* YunoHost Store: <https://apps.yunohost.org/app/bookstack>
 * Signaler un bug : <https://github.com/YunoHost-Apps/bookstack_ynh/issues>
 
 ## Informations pour les développeurs

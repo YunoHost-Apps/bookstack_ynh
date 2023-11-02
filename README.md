@@ -29,7 +29,7 @@ BookStack is an opinionated wiki system that provides a pleasant and simple out 
 - Diagrams.net Integration
 
 
-**Shipped version:** 23.08.3~ynh3
+**Shipped version:** 23.10~ynh1
 
 **Demo:** https://demo.bookstackapp.com
 
@@ -43,6 +43,7 @@ BookStack is an opinionated wiki system that provides a pleasant and simple out 
 * Official user documentation: <https://www.bookstackapp.com/docs/user/>
 * Official admin documentation: <https://www.bookstackapp.com/docs/admin/>
 * Upstream app code repository: <https://github.com/BookStackApp/BookStack>
+* YunoHost Store: <https://apps.yunohost.org/app/bookstack>
 * Report a bug: <https://github.com/YunoHost-Apps/bookstack_ynh/issues>
 
 ## Developer info
