@@ -37,12 +37,6 @@ ynh_script_progression --message="Setting up source files..." --weight=7
 
 ynh_setup_source --dest_dir="$install_dir"
 
-# Set permissions to app files
-chmod -R o-rwx $install_dir
-chmod -R 775 $install_dir/storage $install_dir/bootstrap/cache $install_dir/public/uploads
-
-chown -R $app:www-data $install_dir
-
 #=================================================
 # SYSTEM CONFIGURATION
 #=================================================
@@ -89,6 +83,14 @@ pushd $install_dir
 	php$phpversion artisan migrate --no-interaction --force
 	php$phpversion artisan bookstack:create-admin --email="$email" --name="$admin" --external-auth-id="$admin"
 popd
+
+#=================================================
+# SET PERMISSIONS
+#=================================================
+
+chmod -R o-rwx $install_dir
+chmod -R 775 $install_dir/storage $install_dir/bootstrap/cache $install_dir/public/uploads
+chown -R $app:www-data $install_dir
 
 #=================================================
 # START SYSTEMD SERVICE

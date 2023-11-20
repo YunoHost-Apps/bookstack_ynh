@@ -1,5 +1,5 @@
 [Unit]
-Description=BookStack Queue Worker
+Description=BookStack: documentation/wiki content
 
 [Service]
 User=__APP__
