@@ -26,10 +26,9 @@ BookStack est un système wiki simple prête à l'emploi. Les nouveaux utilisate
 - Éditeur Markdown facultatif
 - Multilingue
 
+**Version incluse :** 24.02.2~ynh1
 
-**Version incluse :** 24.02~ynh1
-
-**Démo :** https://demo.bookstackapp.com
+**Démo :** <https://demo.bookstackapp.com>
 
 ## Captures d’écran
 
@@ -37,12 +36,12 @@ BookStack est un système wiki simple prête à l'emploi. Les nouveaux utilisate
 
 ## Documentations et ressources
 
-* Site officiel de l’app : <https://www.bookstackapp.com>
-* Documentation officielle utilisateur : <https://www.bookstackapp.com/docs/user/>
-* Documentation officielle de l’admin : <https://www.bookstackapp.com/docs/admin/>
-* Dépôt de code officiel de l’app : <https://github.com/BookStackApp/BookStack>
-* YunoHost Store: <https://apps.yunohost.org/app/bookstack>
-* Signaler un bug : <https://github.com/YunoHost-Apps/bookstack_ynh/issues>
+- Site officiel de l’app : <https://www.bookstackapp.com>
+- Documentation officielle utilisateur : <https://www.bookstackapp.com/docs/user/>
+- Documentation officielle de l’admin : <https://www.bookstackapp.com/docs/admin/>
+- Dépôt de code officiel de l’app : <https://github.com/BookStackApp/BookStack>
+- YunoHost Store : <https://apps.yunohost.org/app/bookstack>
+- Signaler un bug : <https://github.com/YunoHost-Apps/bookstack_ynh/issues>
 
 ## Informations pour les développeurs
 
@@ -50,7 +49,7 @@ Merci de faire vos pull request sur la [branche testing](https://github.com/Yuno
 
 Pour essayer la branche testing, procédez comme suit.
 
-``` bash
+```bash
 sudo yunohost app install https://github.com/YunoHost-Apps/bookstack_ynh/tree/testing --debug
 ou
 sudo yunohost app upgrade bookstack -u https://github.com/YunoHost-Apps/bookstack_ynh/tree/testing --debug
