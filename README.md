@@ -28,10 +28,9 @@ BookStack is an opinionated wiki system that provides a pleasant and simple out 
 - Multi-Lingual
 - Diagrams.net Integration
 
+**Shipped version:** 24.02.2~ynh1
 
-**Shipped version:** 24.02~ynh1
-
-**Demo:** https://demo.bookstackapp.com
+**Demo:** <https://demo.bookstackapp.com>
 
 ## Screenshots
 
@@ -39,12 +38,12 @@ BookStack is an opinionated wiki system that provides a pleasant and simple out 
 
 ## Documentation and resources
 
-* Official app website: <https://www.bookstackapp.com>
-* Official user documentation: <https://www.bookstackapp.com/docs/user/>
-* Official admin documentation: <https://www.bookstackapp.com/docs/admin/>
-* Upstream app code repository: <https://github.com/BookStackApp/BookStack>
-* YunoHost Store: <https://apps.yunohost.org/app/bookstack>
-* Report a bug: <https://github.com/YunoHost-Apps/bookstack_ynh/issues>
+- Official app website: <https://www.bookstackapp.com>
+- Official user documentation: <https://www.bookstackapp.com/docs/user/>
+- Official admin documentation: <https://www.bookstackapp.com/docs/admin/>
+- Upstream app code repository: <https://github.com/BookStackApp/BookStack>
+- YunoHost Store: <https://apps.yunohost.org/app/bookstack>
+- Report a bug: <https://github.com/YunoHost-Apps/bookstack_ynh/issues>
 
 ## Developer info
 
@@ -52,7 +51,7 @@ Please send your pull request to the [testing branch](https://github.com/YunoHos
 
 To try the testing branch, please proceed like that.
 
-``` bash
+```bash
 sudo yunohost app install https://github.com/YunoHost-Apps/bookstack_ynh/tree/testing --debug
 or
 sudo yunohost app upgrade bookstack -u https://github.com/YunoHost-Apps/bookstack_ynh/tree/testing --debug
