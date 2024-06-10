@@ -18,7 +18,7 @@ userdoc = "https://www.bookstackapp.com/docs/user/"
 code = "https://github.com/BookStackApp/BookStack"
 
 [integration]
-yunohost = ">= 11.2"
+yunohost = ">= 11.2.12"
 architectures = "all"
 multi_instance = true
 
@@ -80,4 +80,3 @@ ram.runtime = "50M"
 
     [resources.database]
     type = "mysql"
-    
