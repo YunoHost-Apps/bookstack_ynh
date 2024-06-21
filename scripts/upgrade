@@ -53,7 +53,7 @@ yunohost service add $app --description="BookStack Queue Worker" --log="/var/log
 #=================================================
 # INSTALL LYCHEE WITH COMPOSER
 #=================================================
-ynh_script_progression "Installing BookStack with Composer..."
+ynh_script_progression "Installing $app with Composer..."
 
 # Install composer
 ynh_composer_install
@@ -72,7 +72,7 @@ ynh_composer_exec install --no-dev
 #=================================================
 # FINAL BOOKSTACK INSTALL
 #=================================================
-ynh_script_progression "Install BookStack"
+ynh_script_progression "Install $app"
 
 pushd $install_dir
 	php$php_version artisan migrate --force
