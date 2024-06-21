@@ -1,11 +1,5 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
@@ -17,58 +11,59 @@ timezone="$(cat /etc/timezone)"
 redis_db=$(ynh_redis_get_free_db)
 email=$(ynh_user_get_info --username=$admin --key=mail)
 
-fpm_footprint="low"
-fpm_free_footprint=0
-fpm_usage="low"
+#REMOVEME? fpm_footprint="low"
+#REMOVEME? fpm_free_footprint=0
+#REMOVEME? fpm_usage="low"
 
 #=================================================
 # STORE SETTINGS FROM MANIFEST
 #=================================================
 
-ynh_app_setting_set --app=$app --key=redis_db --value=$redis_db
-ynh_app_setting_set --app=$app --key=fpm_footprint --value=$fpm_footprint
-ynh_app_setting_set --app=$app --key=fpm_free_footprint --value=$fpm_free_footprint
-ynh_app_setting_set --app=$app --key=fpm_usage --value=$fpm_usage
+ynh_app_setting_set --key=redis_db --value=$redis_db
+ynh_app_setting_set --key=fpm_footprint --value=$fpm_footprint
+ynh_app_setting_set --key=fpm_free_footprint --value=$fpm_free_footprint
+ynh_app_setting_set --key=fpm_usage --value=$fpm_usage
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Setting up source files..." --weight=7
+ynh_script_progression "Setting up source files..."
 
 ynh_setup_source --dest_dir="$install_dir"
 
 #=================================================
 # SYSTEM CONFIGURATION
 #=================================================
-ynh_script_progression --message="Adding system configurations related to $app ..." --weight=1
+ynh_script_progression "Adding system configurations related to $app ..."
 
 # Create a dedicated PHP-FPM config
-ynh_add_fpm_config --usage=$fpm_usage --footprint=$fpm_footprint
+ynh_config_add_phpfpm
 
 # Create a dedicated NGINX config
-ynh_add_nginx_config
+ynh_config_add_nginx
 
 # Create a dedicated systemd config
-ynh_add_systemd_config
+ynh_config_add_systemd
 
 yunohost service add $app --description="BookStack Queue Worker" --log="/var/log/$app/$app.log"
 
 #=================================================
 # INSTALL BOOKSTACK WITH COMPOSER
 #=================================================
-ynh_script_progression --message="Installing BookStack with Composer..." --weight=5
+ynh_script_progression "Installing BookStack with Composer..."
 
 # Install composer
-ynh_install_composer
+ynh_composer_install
+ynh_composer_exec install --no-dev
 
 #=================================================
 # MODIFY A CONFIG FILE
 #=================================================
-ynh_script_progression --message="Adding a configuration file..." --weight=1
+ynh_script_progression "Adding $app's configuration..."
 
 app_url_domain="https://$domain${path%/}"
 
-ynh_add_config --template=.env --destination=$install_dir/.env
+ynh_config_add --template=.env --destination=$install_dir/.env
 
 chmod 640 $install_dir/.env
 chown $app:$app $install_dir/.env
@@ -76,12 +71,12 @@ chown $app:$app $install_dir/.env
 #=================================================
 # FINAL BOOKSTACK INSTALL
 #=================================================
-ynh_script_progression --message="Install BookStack" --weight=5
+ynh_script_progression "Install BookStack"
 
 pushd $install_dir
-	php$phpversion artisan key:generate --no-interaction --force
-	php$phpversion artisan migrate --no-interaction --force
-	php$phpversion artisan bookstack:create-admin --email="$email" --name="$admin" --external-auth-id="$admin"
+	php$php_version artisan key:generate --no-interaction --force
+	php$php_version artisan migrate --no-interaction --force
+	php$php_version artisan bookstack:create-admin --email="$email" --name="$admin" --external-auth-id="$admin"
 popd
 
 #=================================================
@@ -95,13 +90,13 @@ chown -R $app:www-data $install_dir
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..." --weight=1
+ynh_script_progression "Starting $app's systemd service..."
 
 # Start a systemd service
-ynh_systemd_action --service_name=$app --action="start" --log_path="systemd"
+ynh_systemctl --service=$app --action="start" --log_path="systemd"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Installation of $app completed" --last
+ynh_script_progression "Installation of $app completed"
