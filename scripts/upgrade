@@ -10,19 +10,19 @@ ynh_script_progression "Ensuring downward compatibility..."
 
 # If fpm_footprint doesn't exist, create it
 if [ -z "${fpm_footprint:-}" ]; then
-    #REMOVEME? fpm_footprint=low
+    fpm_footprint=low
     ynh_app_setting_set --key=fpm_footprint --value=$fpm_footprint
 fi
 
 # If fpm_free_footprint doesn't exist, create it
 if [ -z "${fpm_free_footprint:-}" ]; then
-    #REMOVEME? fpm_free_footprint=0
+    fpm_free_footprint=0
     ynh_app_setting_set --key=fpm_free_footprint --value=$fpm_free_footprint
 fi
 
 # If fpm_usage doesn't exist, create it
 if [ -z "${fpm_usage:-}" ]; then
-    #REMOVEME? fpm_usage=low
+    fpm_usage=low
     ynh_app_setting_set --key=fpm_usage --value=$fpm_usage
 fi
 
@@ -31,7 +31,6 @@ fi
 #=================================================
 ynh_script_progression "Upgrading source files..."
 
-# Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env public/uploads storage/uploads"
 
 #=================================================
@@ -39,13 +38,10 @@ ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env public/up
 #=================================================
 ynh_script_progression "Upgrading system configurations related to $app..."
 
-# Create a dedicated PHP-FPM config
 ynh_config_add_phpfpm
 
-# Create a dedicated NGINX config
 ynh_config_add_nginx
 
-# Create a dedicated systemd config
 ynh_config_add_systemd
 
 yunohost service add $app --description="BookStack Queue Worker" --log="/var/log/$app/$app.log"
@@ -55,7 +51,6 @@ yunohost service add $app --description="BookStack Queue Worker" --log="/var/log
 #=================================================
 ynh_script_progression "Installing $app with Composer..."
 
-# Install composer
 ynh_composer_install
 ynh_composer_exec install --no-dev
 

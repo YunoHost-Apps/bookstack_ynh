@@ -7,7 +7,6 @@ source /usr/share/yunohost/helpers
 # REMOVE SYSTEM CONFIGURATIONS
 #=================================================
 # REMOVE SYSTEMD SERVICE
-
 #=================================================
 ynh_script_progression "Removing system configurations related to $app..."
 
@@ -18,15 +17,12 @@ then
 	yunohost service remove $app
 fi
 
-# Remove the dedicated systemd config
 ynh_config_remove_systemd
 
 ynh_redis_remove_db "$redis_db"
 
-# Remove the dedicated NGINX config
 ynh_config_remove_nginx
 
-# Remove the dedicated PHP-FPM config
 ynh_config_remove_phpfpm
 
 #=================================================
