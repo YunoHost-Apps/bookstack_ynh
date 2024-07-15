@@ -5,7 +5,7 @@
 
 # YunoHost 上的 BookStack
 
-[![集成程度](https://dash.yunohost.org/integration/bookstack.svg)](https://dash.yunohost.org/appci/app/bookstack) ![工作状态](https://ci-apps.yunohost.org/ci/badges/bookstack.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/bookstack.maintain.svg)
+[![集成程度](https://dash.yunohost.org/integration/bookstack.svg)](https://ci-apps.yunohost.org/ci/apps/bookstack/) ![工作状态](https://ci-apps.yunohost.org/ci/badges/bookstack.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/bookstack.maintain.svg)
 
 [![使用 YunoHost 安装 BookStack](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=bookstack)
 
@@ -29,7 +29,7 @@ BookStack is an opinionated wiki system that provides a pleasant and simple out 
 - Diagrams.net Integration
 
 
-**分发版本：** 24.05.2~ynh1
+**分发版本：** 24.05.3~ynh1
 
 **演示：** <https://demo.bookstackapp.com>
 
