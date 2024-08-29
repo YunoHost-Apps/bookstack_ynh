@@ -1,109 +1,107 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
+
+ynh_app_setting_set_default --key=php_upload_max_filesize --value=256M
+
+ynh_app_setting_set_default --key=php_memory_limit --value=256M
 
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
 #=================================================
-ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
+ynh_script_progression "Ensuring downward compatibility..."
 
 # If fpm_footprint doesn't exist, create it
 if [ -z "${fpm_footprint:-}" ]; then
     fpm_footprint=low
-    ynh_app_setting_set --app=$app --key=fpm_footprint --value=$fpm_footprint
+#REMOVEME? Everything about fpm_footprint is removed in helpers2.1... |     ynh_app_setting_set --key=fpm_footprint --value=$fpm_footprint
 fi
 
 # If fpm_free_footprint doesn't exist, create it
 if [ -z "${fpm_free_footprint:-}" ]; then
     fpm_free_footprint=0
-    ynh_app_setting_set --app=$app --key=fpm_free_footprint --value=$fpm_free_footprint
+#REMOVEME? Everything about fpm_free_footprint is removed in helpers2.1... |     ynh_app_setting_set --key=fpm_free_footprint --value=$fpm_free_footprint
 fi
 
 # If fpm_usage doesn't exist, create it
 if [ -z "${fpm_usage:-}" ]; then
     fpm_usage=low
-    ynh_app_setting_set --app=$app --key=fpm_usage --value=$fpm_usage
+#REMOVEME? Everything about fpm_usage is removed in helpers2.1... |     ynh_app_setting_set --key=fpm_usage --value=$fpm_usage
 fi
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Upgrading source files..." --weight=1
+ynh_script_progression "Upgrading source files..."
 
 # Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source --dest_dir="$install_dir" --full_replace=1 --keep=".env public/uploads storage/uploads"
+ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env public/uploads storage/uploads"
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
 #=================================================
-ynh_script_progression --message="Upgrading system configurations related to $app..." --weight=1
+ynh_script_progression "Upgrading system configurations related to $app..."
 
 # Create a dedicated PHP-FPM config
-ynh_add_fpm_config --usage=$fpm_usage --footprint=$fpm_footprint
+ynh_config_add_phpfpm
 
 # Create a dedicated NGINX config
-ynh_add_nginx_config
+ynh_config_add_nginx
 
 # Create a dedicated systemd config
-ynh_add_systemd_config
+ynh_config_add_systemd
 
 yunohost service add $app --description="BookStack Queue Worker" --log="/var/log/$app/$app.log"
 
 #=================================================
 # INSTALL LYCHEE WITH COMPOSER
 #=================================================
-ynh_script_progression --message="Installing BookStack with Composer..." --weight=5
+ynh_script_progression "Installing BookStack with Composer..."
 
 # Install composer
-ynh_install_composer
+ynh_composer_install
+ynh_composer_exec install --no-dev
 
 #=================================================
 # MODIFY A CONFIG FILE
 #=================================================
-#ynh_script_progression --message="Adding a configuration file..." --weight=1
+#ynh_script_progression "Adding $app's configuration..."
 
 #timezone="$(cat /etc/timezone)"
 #app_url_domain="https://$domain${path%/}"
 
-#ynh_add_config --template=.env --destination=$install_dir/.env
+#ynh_config_add --template=.env --destination=$install_dir/.env
 
 #=================================================
 # FINAL BOOKSTACK INSTALL
 #=================================================
-ynh_script_progression --message="Install BookStack" --weight=5
+ynh_script_progression "Install BookStack"
 
 pushd $install_dir
-	php$phpversion artisan migrate --force
-	php$phpversion artisan key:generate --force
-	php$phpversion artisan cache:clear
-	php$phpversion artisan config:clear
- 	php$phpversion artisan view:clear
+	php$php_version artisan migrate --force
+	php$php_version artisan key:generate --force
+	php$php_version artisan cache:clear
+	php$php_version artisan config:clear
+ 	php$php_version artisan view:clear
 popd
 
 #=================================================
 # SET PERMISSIONS
 #=================================================
 
-chmod -R o-rwx $install_dir
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx $install_dir
 chmod -R 775 $install_dir/storage $install_dir/bootstrap/cache $install_dir/public/uploads
-chown -R $app:www-data $install_dir
-
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:www-data $install_dir
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..." --weight=1
+ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemd_action --service_name=$app --action="start" --log_path="systemd"
+ynh_systemctl --service=$app --action="start" --log_path="systemd"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Upgrade of $app completed" --last
+ynh_script_progression "Upgrade of $app completed"
