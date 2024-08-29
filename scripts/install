@@ -17,18 +17,11 @@ timezone="$(cat /etc/timezone)"
 redis_db=$(ynh_redis_get_free_db)
 email=$(ynh_user_get_info --username=$admin --key=mail)
 
-fpm_footprint="low"
-fpm_free_footprint=0
-fpm_usage="low"
-
 #=================================================
 # STORE SETTINGS FROM MANIFEST
 #=================================================
 
 ynh_app_setting_set --app=$app --key=redis_db --value=$redis_db
-ynh_app_setting_set --app=$app --key=fpm_footprint --value=$fpm_footprint
-ynh_app_setting_set --app=$app --key=fpm_free_footprint --value=$fpm_free_footprint
-ynh_app_setting_set --app=$app --key=fpm_usage --value=$fpm_usage
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -40,10 +33,10 @@ ynh_setup_source --dest_dir="$install_dir"
 #=================================================
 # SYSTEM CONFIGURATION
 #=================================================
-ynh_script_progression --message="Adding system configurations related to $app ..." --weight=1
+ynh_script_progression --message="Adding system configurations related to $app..." --weight=1
 
 # Create a dedicated PHP-FPM config
-ynh_add_fpm_config --usage=$fpm_usage --footprint=$fpm_footprint
+ynh_add_fpm_config
 
 # Create a dedicated NGINX config
 ynh_add_nginx_config
@@ -51,12 +44,12 @@ ynh_add_nginx_config
 # Create a dedicated systemd config
 ynh_add_systemd_config
 
-yunohost service add $app --description="BookStack Queue Worker" --log="/var/log/$app/$app.log"
+yunohost service add $app --description="Platform to create documentation/wiki content" --log="/var/log/$app/$app.log"
 
 #=================================================
 # INSTALL BOOKSTACK WITH COMPOSER
 #=================================================
-ynh_script_progression --message="Installing BookStack with Composer..." --weight=5
+ynh_script_progression --message="Installing $app with Composer..." --weight=5
 
 # Install composer
 ynh_install_composer
@@ -76,7 +69,7 @@ chown $app:$app $install_dir/.env
 #=================================================
 # FINAL BOOKSTACK INSTALL
 #=================================================
-ynh_script_progression --message="Install BookStack" --weight=5
+ynh_script_progression --message="Install $app" --weight=5
 
 pushd $install_dir
 	php$phpversion artisan key:generate --no-interaction --force
