@@ -8,34 +8,10 @@ ynh_app_setting_set_default --key=php_upload_max_filesize --value=256M
 ynh_app_setting_set_default --key=php_memory_limit --value=256M
 
 #=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-ynh_script_progression "Ensuring downward compatibility..."
-
-# If fpm_footprint doesn't exist, create it
-if [ -z "${fpm_footprint:-}" ]; then
-    fpm_footprint=low
-#REMOVEME? Everything about fpm_footprint is removed in helpers2.1... |     ynh_app_setting_set --key=fpm_footprint --value=$fpm_footprint
-fi
-
-# If fpm_free_footprint doesn't exist, create it
-if [ -z "${fpm_free_footprint:-}" ]; then
-    fpm_free_footprint=0
-#REMOVEME? Everything about fpm_free_footprint is removed in helpers2.1... |     ynh_app_setting_set --key=fpm_free_footprint --value=$fpm_free_footprint
-fi
-
-# If fpm_usage doesn't exist, create it
-if [ -z "${fpm_usage:-}" ]; then
-    fpm_usage=low
-#REMOVEME? Everything about fpm_usage is removed in helpers2.1... |     ynh_app_setting_set --key=fpm_usage --value=$fpm_usage
-fi
-
-#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Upgrading source files..."
 
-# Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env public/uploads storage/uploads"
 
 #=================================================
@@ -43,13 +19,10 @@ ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env public/up
 #=================================================
 ynh_script_progression "Upgrading system configurations related to $app..."
 
-# Create a dedicated PHP-FPM config
 ynh_config_add_phpfpm
 
-# Create a dedicated NGINX config
 ynh_config_add_nginx
 
-# Create a dedicated systemd config
 ynh_config_add_systemd
 
 yunohost service add $app --description="BookStack Queue Worker" --log="/var/log/$app/$app.log"
@@ -90,9 +63,8 @@ popd
 # SET PERMISSIONS
 #=================================================
 
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx $install_dir
 chmod -R 775 $install_dir/storage $install_dir/bootstrap/cache $install_dir/public/uploads
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:www-data $install_dir
+
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
