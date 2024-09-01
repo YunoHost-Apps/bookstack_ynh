@@ -18,7 +18,6 @@ ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env public/up
 # REAPPLY SYSTEM CONFIGURATIONS
 #=================================================
 ynh_script_progression "Upgrading system configurations related to $app..."
-
 ynh_config_add_phpfpm
 
 ynh_config_add_nginx
