@@ -5,7 +5,7 @@ name = "BookStack"
 description.en = "Platform to create documentation/wiki content"
 description.fr = "Plateforme pour créer du contenu de documentation/wiki"
 
-version = "24.05.4~ynh1"
+version = "24.05.4~ynh2"
 
 maintainers = []
 
@@ -19,6 +19,7 @@ code = "https://github.com/BookStackApp/BookStack"
 
 [integration]
 yunohost = ">= 11.2.29"
+helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
 
@@ -67,6 +68,7 @@ ram.runtime = "50M"
     [resources.system_user]
 
     [resources.install_dir]
+    group = "www-data:r-x"
 
     [resources.permissions]
     main.url = "/"
