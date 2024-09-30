@@ -7,7 +7,7 @@ description.fr = "Plateforme pour créer du contenu de documentation/wiki"
 
 version = "24.05.4~ynh2"
 
-maintainers = []
+maintainers = ["eric_G"]
 
 [upstream]
 license = "MIT"
