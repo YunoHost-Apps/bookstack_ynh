@@ -48,7 +48,7 @@ BookStack is an opinionated wiki system that provides a pleasant and simple out 
 
 ## Información para desarrolladores
 
-Por favor enviar sus correcciones a la [`branch testing`](https://github.com/YunoHost-Apps/bookstack_ynh/tree/testing
+Por favor enviar sus correcciones a la [rama `testing`](https://github.com/YunoHost-Apps/bookstack_ynh/tree/testing).
 
 Para probar la rama `testing`, sigue asÍ:
 
