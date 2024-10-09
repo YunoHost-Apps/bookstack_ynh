@@ -29,7 +29,7 @@ BookStack is an opinionated wiki system that provides a pleasant and simple out 
 - Diagrams.net Integration
 
 
-**Versión actual:** 24.05.4~ynh2
+**Versión actual:** 24.10~ynh1
 
 **Demo:** <https://demo.bookstackapp.com>
 
