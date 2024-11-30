@@ -5,7 +5,9 @@ Hij mag NIET handmatig aangepast worden.
 
 # BookStack voor Yunohost
 
-[![Integratieniveau](https://dash.yunohost.org/integration/bookstack.svg)](https://ci-apps.yunohost.org/ci/apps/bookstack/) ![Mate van functioneren](https://ci-apps.yunohost.org/ci/badges/bookstack.status.svg) ![Onderhoudsstatus](https://ci-apps.yunohost.org/ci/badges/bookstack.maintain.svg)
+[![Integratieniveau](https://apps.yunohost.org/badge/integration/bookstack)](https://ci-apps.yunohost.org/ci/apps/bookstack/)
+![Mate van functioneren](https://apps.yunohost.org/badge/state/bookstack)
+![Onderhoudsstatus](https://apps.yunohost.org/badge/maintained/bookstack)
 
 [![BookStack met Yunohost installeren](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=bookstack)
 
@@ -29,7 +31,7 @@ BookStack is an opinionated wiki system that provides a pleasant and simple out 
 - Diagrams.net Integration
 
 
-**Geleverde versie:** 24.10.2~ynh1
+**Geleverde versie:** 24.10.3~ynh1
 
 **Demo:** <https://demo.bookstackapp.com>
 
