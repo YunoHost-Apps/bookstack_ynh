@@ -5,7 +5,7 @@ name = "BookStack"
 description.en = "Platform to create documentation/wiki content"
 description.fr = "Plateforme pour créer du contenu de documentation/wiki"
 
-version = "24.10.3~ynh1"
+version = "24.12~ynh1"
 
 maintainers = ["eric_G"]
 
@@ -18,7 +18,7 @@ userdoc = "https://www.bookstackapp.com/docs/user/"
 code = "https://github.com/BookStackApp/BookStack"
 
 [integration]
-yunohost = ">= 12.0.8"
+yunohost = ">= 12.0.9"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
@@ -59,8 +59,8 @@ ram.runtime = "50M"
     [resources.sources]
 
         [resources.sources.main]
-        url = "https://github.com/BookStackApp/BookStack/archive/refs/tags/v24.10.3.tar.gz"
-        sha256 = "cd66258ce8fd202de58ea2632cfc03fc96348c519ec8d46a0408331545159aa9"
+        url = "https://github.com/BookStackApp/BookStack/archive/refs/tags/v24.12.tar.gz"
+        sha256 = "322e13ee452bb62b3e96db70c7ef035392d08e52238b92e4a3ad91a8b75e1281"
         rename = "bookstack.tar.gz"
         autoupdate.strategy = "latest_github_release"
 
