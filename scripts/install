@@ -73,6 +73,7 @@ popd
 #=================================================
 
 chmod -R 775 $install_dir/storage $install_dir/bootstrap/cache $install_dir/public/uploads
+chown -R bookstack:www-data $install_dir/public/uploads && chmod -R 775 $install_dir/public/uploads
 
 #=================================================
 # START SYSTEMD SERVICE
