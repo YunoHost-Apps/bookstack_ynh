@@ -24,7 +24,7 @@ ynh_config_add_nginx
 
 ynh_config_add_systemd
 
-yunohost service add $app --description="Platform to create documentation/wiki content" --log="/var/log/$app/$app.log"
+yunohost service add $app --description="Create documentation/wiki content" --log="/var/log/$app/$app.log"
 
 #=================================================
 # INSTALL BOOKSTACK WITH COMPOSER
