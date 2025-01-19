@@ -3,6 +3,9 @@
 source _common.sh
 source /usr/share/yunohost/helpers
 
+#timezone="$(cat /etc/timezone)"
+#app_url_domain="https://$domain${path%/}"
+
 ynh_app_setting_set_default --key=php_upload_max_filesize --value=256M
 ynh_app_setting_set_default --key=php_memory_limit --value=256M
 
@@ -38,9 +41,6 @@ ynh_composer_exec install --no-dev
 # MODIFY A CONFIG FILE
 #=================================================
 #ynh_script_progression "Adding $app's configuration..."
-
-#timezone="$(cat /etc/timezone)"
-#app_url_domain="https://$domain${path%/}"
 
 #ynh_config_add --template=.env --destination=$install_dir/.env
 
