@@ -46,7 +46,7 @@ ram.runtime = "50M"
     ask.fr = "Choisissez la langue de l'application"
     type = "select"
     choices = ["de", "en", "es_ES", "fa", "fr", "it", "lt", "nl", "pl", "pt_PT", "uk", "zh_CN"]
-    default = "en"
+    default = "fr"
 
     [install.init_main_permission]
     help.en = "Si défini sur visiteurs, BookStack will be accessible by people who do not have an account. This can be changed later via the webadmin."
