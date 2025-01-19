@@ -16,6 +16,8 @@ demo = "https://demo.bookstackapp.com"
 admindoc = "https://www.bookstackapp.com/docs/admin/"
 userdoc = "https://www.bookstackapp.com/docs/user/"
 code = "https://github.com/BookStackApp/BookStack"
+cpe = "cpe:2.3:a:bookstack:bookstack"
+fund = "https://ko-fi.com/ssddanbrown"
 
 [integration]
 yunohost = ">= 12.0.9"
