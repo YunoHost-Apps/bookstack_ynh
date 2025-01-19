@@ -48,8 +48,6 @@ ynh_composer_exec install --no-dev
 #=================================================
 ynh_script_progression "Adding $app's configuration..."
 
-app_url_domain="https://$domain${path%/}"
-
 ynh_config_add --template=.env --destination=$install_dir/.env
 
 #=================================================
