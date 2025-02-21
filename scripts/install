@@ -1,23 +1,22 @@
 #!/bin/bash
 
+#=================================================
+# IMPORT GENERIC HELPERS
+#=================================================
+
 source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# RETRIEVE ARGUMENTS FROM THE MANIFEST
+# INITIALIZE AND STORE SETTINGS
 #=================================================
-
-ynh_app_setting_set --key=php_upload_max_filesize --value=256M
-ynh_app_setting_set --key=php_memory_limit --value=256M
 
 timezone="$(cat /etc/timezone)"
 redis_db=$(ynh_redis_get_free_db)
 email=$(ynh_user_get_info --username=$admin --key=mail)
 
-#=================================================
-# STORE SETTINGS FROM MANIFEST
-#=================================================
-
+ynh_app_setting_set --key=php_upload_max_filesize --value=256M
+ynh_app_setting_set --key=php_memory_limit --value=256M
 ynh_app_setting_set --key=redis_db --value=$redis_db
 
 #=================================================
@@ -25,20 +24,30 @@ ynh_app_setting_set --key=redis_db --value=$redis_db
 #=================================================
 ynh_script_progression "Setting up source files..."
 
+# Download, check integrity, uncompress and patch the source from manifest.toml
 ynh_setup_source --dest_dir="$install_dir"
+
+#=================================================
+# APP INITIAL CONFIGURATION
+#=================================================
+ynh_script_progression "Adding $app's configuration files..."
+
+ynh_config_add --template=".env" --destination="$install_dir/.env"
 
 #=================================================
 # SYSTEM CONFIGURATION
 #=================================================
 ynh_script_progression "Adding system configurations related to $app..."
 
+# Create a PHP-FPM config (with conf/extra_php-fpm.conf being appended to it)
 ynh_config_add_phpfpm
 
+# Create a dedicated NGINX config using the conf/nginx.conf template
 ynh_config_add_nginx
 
+# Create a dedicated systemd config
 ynh_config_add_systemd
-
-yunohost service add $app --description="Platform to create documentation/wiki content" --log="/var/log/$app/$app.log"
+yunohost service add $app --description="Create documentation/wiki content" --log="/var/log/$app/$app.log"
 
 #=================================================
 # INSTALL BOOKSTACK WITH COMPOSER
@@ -47,15 +56,6 @@ ynh_script_progression "Installing $app with Composer..."
 
 ynh_composer_install
 ynh_composer_exec install --no-dev
-
-#=================================================
-# MODIFY A CONFIG FILE
-#=================================================
-ynh_script_progression "Adding $app's configuration..."
-
-app_url_domain="https://$domain${path%/}"
-
-ynh_config_add --template=.env --destination=$install_dir/.env
 
 #=================================================
 # FINAL BOOKSTACK INSTALL
@@ -73,13 +73,15 @@ popd
 #=================================================
 
 chmod -R 775 $install_dir/storage $install_dir/bootstrap/cache $install_dir/public/uploads
+chown -R $app:www-data $install_dir/public/uploads && chmod -R 775 $install_dir/public/uploads
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemctl --service=$app --action="start" --log_path="systemd"
+# Start a systemd service
+ynh_systemctl --service="$app" --action="start" --log_path="systemd"
 
 #=================================================
 # END OF SCRIPT

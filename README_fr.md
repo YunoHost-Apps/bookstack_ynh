@@ -25,11 +25,12 @@ BookStack est un système wiki simple prête à l'emploi. Les nouveaux utilisate
 - Authentification multifacteur
 - Modes sombre et clair
 - Authentification LDAP
+- Editeur WYSIWYG
 - Éditeur Markdown facultatif
 - Multilingue
+- Integration avec Diagrams.net 
 
-
-**Version incluse :** 24.12.1~ynh1
+**Version incluse :** 24.12.1~ynh2
 
 **Démo :** <https://demo.bookstackapp.com>
 
