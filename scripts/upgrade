@@ -1,7 +1,23 @@
 #!/bin/bash
 
+#=================================================
+# IMPORT GENERIC HELPERS
+#=================================================
+
 source _common.sh
 source /usr/share/yunohost/helpers
+
+#=================================================
+# STOP SYSTEMD SERVICE
+#=================================================
+ynh_script_progression "Stopping $app's systemd service..."
+
+ynh_systemctl --service="$app" --action="stop" --log_path="systemd"
+
+#=================================================
+# ENSURE DOWNWARD COMPATIBILITY
+#=================================================
+ynh_script_progression "Ensuring downward compatibility..."
 
 timezone="$(cat /etc/timezone)"
 
@@ -12,8 +28,16 @@ ynh_app_setting_set_default --key=php_memory_limit --value=256M
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Upgrading source files..."
+# Download, check integrity, uncompress and patch the source from manifest.toml
 
 ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env public/uploads storage/uploads"
+
+#=================================================
+# UPDATE A CONFIG FILE
+#=================================================
+#ynh_script_progression "Updating $app's configuration files..."
+
+#ynh_config_add --template=".env" --destination="$install_dir/.env"
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
@@ -25,7 +49,6 @@ ynh_config_add_phpfpm
 ynh_config_add_nginx
 
 ynh_config_add_systemd
-
 yunohost service add $app --description="Create documentation/wiki content" --log="/var/log/$app/$app.log"
 
 #=================================================
@@ -35,13 +58,6 @@ ynh_script_progression "Installing $app with Composer..."
 
 ynh_composer_install
 ynh_composer_exec install --no-dev
-
-#=================================================
-# MODIFY A CONFIG FILE
-#=================================================
-#ynh_script_progression "Adding $app's configuration..."
-
-#ynh_config_add --template=.env --destination=$install_dir/.env
 
 #=================================================
 # FINAL BOOKSTACK INSTALL
@@ -68,7 +84,7 @@ chown -R $app:www-data $install_dir/public/uploads && chmod -R 775 $install_dir/
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemctl --service=$app --action="start" --log_path="systemd"
+ynh_systemctl --service="$app" --action="start" --log_path="systemd"
 
 #=================================================
 # END OF SCRIPT

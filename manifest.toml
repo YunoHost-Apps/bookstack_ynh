@@ -40,8 +40,11 @@ ram.runtime = "50M"
     type = "path"
     default = "/bookstack"
 
-    [install.admin]
-    type = "user"
+    [install.init_main_permission]
+    help.en = "Si défini sur visiteurs, BookStack will be accessible by people who do not have an account. This can be changed later via the webadmin."
+    help.fr = "Si visiteurs selectionné, BookStack sera accessible aux personnes n’ayant pas de compte. Vous pourrez changer ceci plus tard via la webadmin."
+    type = "group"
+    default = "visitors"
 
     [install.language]
     ask.en = "Choose the application language"
@@ -50,21 +53,18 @@ ram.runtime = "50M"
     choices = ["de", "en", "es_ES", "fa", "fr", "it", "lt", "nl", "pl", "pt_PT", "uk", "zh_CN"]
     default = "fr"
 
-    [install.init_main_permission]
-    help.en = "Si défini sur visiteurs, BookStack will be accessible by people who do not have an account. This can be changed later via the webadmin."
-    help.fr = "Si visiteurs selectionné, BookStack sera accessible aux personnes n’ayant pas de compte. Vous pourrez changer ceci plus tard via la webadmin."
-    type = "group"
-    default = "visitors"
+    [install.admin]
+    type = "user"
 
 [resources]
 
     [resources.sources]
 
-        [resources.sources.main]
-        url = "https://github.com/BookStackApp/BookStack/archive/refs/tags/v24.12.1.tar.gz"
-        sha256 = "94303fbe47e202225c22ec45d67617cf9de0a17a576f973426435cd73cc4e64d"
-        rename = "bookstack.tar.gz"
-        autoupdate.strategy = "latest_github_release"
+    [resources.sources.main]
+    url = "https://github.com/BookStackApp/BookStack/archive/refs/tags/v24.12.1.tar.gz"
+    sha256 = "94303fbe47e202225c22ec45d67617cf9de0a17a576f973426435cd73cc4e64d"
+    rename = "bookstack.tar.gz"
+    autoupdate.strategy = "latest_github_release"
 
     [resources.system_user]
 
