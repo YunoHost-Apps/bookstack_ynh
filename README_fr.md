@@ -30,7 +30,7 @@ BookStack est un système wiki simple prête à l'emploi. Les nouveaux utilisate
 - Multilingue
 - Integration avec Diagrams.net 
 
-**Version incluse :** 25.02~ynh1
+**Version incluse :** 25.02.1~ynh1
 
 **Démo :** <https://demo.bookstackapp.com>
 
