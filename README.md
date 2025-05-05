@@ -4,7 +4,7 @@ It shall NOT be edited by hand.
 -->
 
 <h1>
-  <img src="https://raw.githubusercontent.com/YunoHost/apps/master/logos/bookstack.png" width="32px" alt="Logo of BookStack">
+  <img src="https://raw.githubusercontent.com/YunoHost/apps/main/logos/bookstack.png" width="32px" alt="Logo of BookStack">
   BookStack, packaged for YunoHost
 </h1>
 
@@ -12,7 +12,7 @@ Platform to create documentation/wiki content
 
 [![🌐 Official app website](https://img.shields.io/badge/Official_app_website-darkgreen?style=for-the-badge)](https://www.bookstackapp.com)
 [![App Demo](https://img.shields.io/badge/App_Demo-blue?style=for-the-badge)](https://demo.bookstackapp.com)
-![Version: 25.02.2~ynh1](https://img.shields.io/badge/Version-25.02.2~ynh1-rgba(0,150,0,1)?style=for-the-badge)
+[![Version: 25.02.3~ynh1](https://img.shields.io/badge/Version-25.02.3~ynh1-rgba(0,150,0,1)?style=for-the-badge)](https://ci-apps.yunohost.org/ci/apps/bookstack/)
 
 <div align="center">
 <a href="https://apps.yunohost.org/app/bookstack"><img height="100px" src="https://github.com/YunoHost/yunohost-artwork/raw/refs/heads/main/badges/neopossum-badges/badge_more_info_on_the_appstore.svg"/></a>
@@ -20,6 +20,8 @@ Platform to create documentation/wiki content
 </div>
 
 ## 📦 Developer info
+
+[![Automatic tests level](https://apps.yunohost.org/badge/cilevel/bookstack)](https://ci-apps.yunohost.org/ci/apps/bookstack/)
 
 🛠️ Upstream BookStack repository: <https://github.com/BookStackApp/BookStack>
 
