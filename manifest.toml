@@ -5,7 +5,7 @@ name = "BookStack"
 description.en = "Platform to create documentation/wiki content"
 description.fr = "Plateforme pour créer du contenu de documentation/wiki"
 
-version = "25.02.2~ynh1"
+version = "25.02.3~ynh1"
 
 maintainers = ["eric_G"]
 
@@ -61,8 +61,8 @@ ram.runtime = "50M"
     [resources.sources]
 
     [resources.sources.main]
-    url = "https://github.com/BookStackApp/BookStack/archive/refs/tags/v25.02.2.tar.gz"
-    sha256 = "db8ef76fbb895645dc921e9e01c7476d84fcc1546a21d0f0ae86cb16521321dd"
+    url = "https://github.com/BookStackApp/BookStack/archive/refs/tags/v25.02.3.tar.gz"
+    sha256 = "a60f64848cb978d7055c34a61247fec068d7af5d98e2cb6780ecd17c5005eb9f"
     rename = "bookstack.tar.gz"
     autoupdate.strategy = "latest_github_release"
 
@@ -79,7 +79,7 @@ ram.runtime = "50M"
     api.auth_header = false
 
     [resources.apt]
-    packages = "mariadb-server, php8.3-curl, php8.3-mysql, php8.3-ldap, php8.3-mbstring, php8.3-tidy, php8.3-xml, php8.3-zip, php8.3-gd, redis-server"
+    packages = "mariadb-server, php8.4-curl, php8.4-mysql, php8.4-ldap, php8.4-mbstring, php8.4-tidy, php8.4-xml, php8.4-zip, php8.4-gd, redis-server"
 
     [resources.database]
     type = "mysql"
