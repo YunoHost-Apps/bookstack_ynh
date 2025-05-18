@@ -19,7 +19,7 @@ ynh_systemctl --service="$app" --action="stop" --log_path="systemd"
 #=================================================
 ynh_script_progression "Ensuring downward compatibility..."
 
-timezone="$(cat /etc/timezone)"
+timezone="$(timedatectl show --value --property=Timezone)"
 
 ynh_app_setting_set_default --key=php_upload_max_filesize --value=256M
 ynh_app_setting_set_default --key=php_memory_limit --value=256M
