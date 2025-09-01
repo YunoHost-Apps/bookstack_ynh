@@ -54,7 +54,7 @@ yunohost service add $app --description="Create documentation/wiki content" --lo
 #=================================================
 ynh_script_progression "Installing $app with Composer..."
 
-ynh_composer_install
+#ynh_composer_install
 ynh_composer_exec install --no-dev
 
 #=================================================
