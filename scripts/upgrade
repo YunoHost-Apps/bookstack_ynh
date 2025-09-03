@@ -4,7 +4,6 @@
 # IMPORT GENERIC HELPERS
 #=================================================
 
-
 source /usr/share/yunohost/helpers
 
 #=================================================
@@ -56,7 +55,6 @@ yunohost service add $app --description="Create documentation/wiki content" --lo
 #=================================================
 ynh_script_progression "Installing $app with Composer..."
 
-#REMOVEME? ynh_composer_install
 ynh_composer_exec install --no-dev
 
 #=================================================
