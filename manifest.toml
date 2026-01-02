@@ -20,7 +20,7 @@ cpe = "cpe:2.3:a:bookstack:bookstack"
 fund = "https://ko-fi.com/ssddanbrown"
 
 [integration]
-yunohost = ">= 12.1.17"
+yunohost = ">= 12.1.38"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
