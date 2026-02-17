@@ -5,7 +5,7 @@ name = "BookStack"
 description.en = "Platform to create documentation/wiki content"
 description.fr = "Plateforme pour créer du contenu de documentation/wiki"
 
-version = "25.12.3~ynh1"
+version = "25.12.5~ynh1"
 
 maintainers = ["eric_G"]
 
@@ -20,7 +20,7 @@ cpe = "cpe:2.3:a:bookstack:bookstack"
 fund = "https://ko-fi.com/ssddanbrown"
 
 [integration]
-yunohost = ">= 12.1.38"
+yunohost = ">= 12.1.39"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
@@ -61,8 +61,8 @@ ram.runtime = "50M"
     [resources.sources]
 
     [resources.sources.main]
-    url = "https://github.com/BookStackApp/BookStack/archive/refs/tags/v25.12.3.tar.gz"
-    sha256 = "5891cb023c4b852e3d492ad9d4442470d632b624667a43ee8d3a318f7fb11434"
+    url = "https://github.com/BookStackApp/BookStack/archive/refs/tags/v25.12.5.tar.gz"
+    sha256 = "5785fc031865de26a0fbbb2c1141404bf868e0f7df961dca94c24c9bf204ef8b"
     rename = "bookstack.tar.gz"
     autoupdate.strategy = "latest_github_release"
 
@@ -85,4 +85,4 @@ ram.runtime = "50M"
     type = "mysql"
 
     [resources.composer]
-    version = "2.8.12"
+    version = "2.9.5"
