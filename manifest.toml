@@ -5,7 +5,7 @@ name = "BookStack"
 description.en = "Platform to create documentation/wiki content"
 description.fr = "Plateforme pour créer du contenu de documentation/wiki"
 
-version = "26.05.3~ynh1"
+version = "26.05.4~ynh1"
 
 maintainers = ["eric_G"]
 
@@ -61,8 +61,8 @@ ram.runtime = "50M"
     [resources.sources]
 
     [resources.sources.main]
-    url = "https://github.com/BookStackApp/BookStack/archive/refs/tags/v26.05.3.tar.gz"
-    sha256 = "0cceef9fa56ea68b5717b1afee890472dd949ddedbe7c285305a65dc2fb06079"
+    url = "https://github.com/BookStackApp/BookStack/archive/refs/tags/v26.05.4.tar.gz"
+    sha256 = "7ebe212958919f83c80b9c916541d9090896b8a9e990c4a7cde6a9af767cac29"
     rename = "bookstack.tar.gz"
     autoupdate.strategy = "latest_github_release"
 
